@@ -1,0 +1,13 @@
+30/05/2016
+
+Falta en el Index:
+
+- resolver un tema del menu que se desplaza de izquierda a derecha.
+- terminar de maquetar la parte donde sugerimos una publicacion al azar
+(no la estoy haciendo aún porque no estoy segura si se puede hacer lo del clima).
+- maquetar el footer (tuve paja).
+- cuando van a logearse falta maquetar "crear nuevo usuario" y "contactar al administrador".
+- "olvide mi usuario y/o contraseña" no se si va a tener algo o solo va a tirar un mensaje
+abajo que diga: "se le envió a su mail su usuario y/o contraseña". Ya se que esto seguro no es así pero
+no piden eso como parte del tp y no creo que querramos armar una pantalla extra para la
+modificación de la contraseña. (no, no queremos jajaja).

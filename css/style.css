@@ -1,0 +1,310 @@
+@font-face {
+    font-family: 'modern_pictogramsnormal';
+    src: url('/font/modernpics-webfont.woff2') format('woff2'),
+         url('/font/modernpics-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	font-family: 'Oswald', sans-serif;
+	box-sizing: border-box;
+}
+
+::before, ::after{
+    font-family: 'modern_pictogramsnormal';
+}
+
+.none{
+	display: none;
+}
+
+.get{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+img{
+	max-width: 100%;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #656565;
+    height: 5em;
+    position: relative;
+    z-index: 1000;
+	/*overflow: hidden;*/
+}
+
+div.logo {
+    padding-left: 2em;
+    padding-top: 1em;
+    max-width: 9em;
+}
+
+.menuDesplegable {
+    text-align: right;
+}
+
+div.menu {
+    position: absolute;
+    right: -13em;
+    min-width: 13em;
+}
+
+.menu>ul{
+	display: flex;
+	flex-direction: column;
+}
+
+ul>li.login {
+    background-color: white;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+li.login>button {
+    padding: .7em .5em;
+    border-radius: .5em;
+    border: 0;
+    font-size: 1.1em;
+    margin: .25em 0em;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+li.login>span{
+	color: #656565;
+    font-weight: lighter;
+	font-size: 1.1em;
+}
+
+button#lector{
+	background-color: #00c853;
+}
+
+button#redactor{
+	background-color: #e08200;
+}
+
+li.buscar form input#search, li.buscar form input#btnSearch {
+    padding: .5em;
+    border-radius: .5em;
+    background-color: #cccccc;
+    border: 0;
+    color: white;
+    font-weight: lighter;
+}
+
+li.buscar form input#btnSearch{
+	background-color: #d50000;
+	cursor: pointer;
+}
+
+li.buscar form input#search::-webkit-input-placeholder { color: white; } /* WebKit */
+li.buscar form input#search:-moz-placeholder { color: white; } /* Firefox 18- */
+li.buscar form input#search::-moz-placeholder { color: white; } /* Firefox 19+ */
+li.buscar form input#search:-ms-input-placeholder { color: white; } /* IE 10+ */
+
+li.buscar>form {
+    padding: .7em;
+    background-color: #656565;
+    display: flex;
+    justify-content: space-around;
+}
+
+div.iconMenu {
+    margin: 1.8em;
+    cursor: pointer;
+}
+
+/*LOGIN*/
+div.login {
+	background: rgba(0,0,0,.7);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    z-index: 1500;
+}
+
+div.login form {
+    background-color: #323232;
+    padding: 2.5em;
+    height: 20em;
+    margin: .5em;
+    position: relative;
+}
+
+div.login img {
+    padding: 1.7em 1em;
+    border-radius: 100%;
+    position: relative;
+    box-sizing: content-box;
+    top: -5.8em;
+    width: calc(46px * 1.5);
+    height: calc(28px * 1.5);
+    left: calc(50% - 36px);
+}
+
+form.lector img{
+    background-color: #00c853;
+}
+
+form.redactor img{
+    background-color: #e08200;
+}
+
+div.login>form>a {
+    position: absolute;
+    right: 0;
+    top: -2em;
+    font-size: 1.5em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form.lector a{
+    color: #00c853;
+}
+
+form.redactor a{
+    color: #e08200;
+}
+
+div.in {
+    top: -5em;
+    position: relative;
+}
+
+div.in input {
+    width: 100%;
+    margin: .5em 0em;
+    padding: 1em;
+    border: 0;
+}
+
+input#ingresarLogin {
+    cursor: pointer;
+    color: white;
+}
+
+form.lector input#ingresarLogin{
+	background-color: #00c853;
+}
+
+form.redactor input#ingresarLogin{
+	background-color: #e08200;
+}
+
+ul.aclaracion {
+    top: -5em;
+    position: relative;
+}
+
+/*seccion*/
+section {
+    padding: 1em;
+}
+
+section.publicacion{
+	background-color: #656565;
+}
+
+section.publicacion>h2{
+	color: #00c853;
+}
+
+div.contenidoPublicacion {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+div.contenidoPublicacion figure {
+    width: 48%;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+	margin: .5em 0;
+}
+
+div.imgPublicacion {
+    max-width: 13em;
+    margin: 1em auto;
+}
+
+div.contenidoPublicacion figcaption {
+    background-color: #cccccc;
+    padding: .5em;
+    min-height: 10em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+figcaption h4 {
+    font-size: .8em;
+    font-weight: lighter;
+}
+
+figcaption h3 {
+    font-size: 1.1em;
+    line-height: 1;
+    padding: .5em 0em;
+}
+
+div.infoPublicacion {
+    display: flex;
+    justify-content: space-between;
+    padding: .5em 0em;
+}
+
+div.precioPublicaciones {
+	font-size: 1em;
+    color: #d50000;
+}
+
+button.comprar{
+	background-color: #d50000;
+	padding: .5em;
+	color: white;
+	border: 0;
+	cursor: pointer;
+}
+
+@media (min-width: 800px){
+div.logo {
+    padding-left: 4em;
+    max-width: 11em;
+}
+
+section {
+    padding: 3em;
+}
+
+div.contenidoPublicacion figure {
+    width: 19%;
+}
+
+div.contenidoPublicacion figcaption {
+    padding: 1em;
+}
+}
