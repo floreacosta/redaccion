@@ -59,7 +59,7 @@ div.logo {
 }
 
 div.menu {
-    position: absolute;
+    position: relative;
     right: -13em;
     min-width: 13em;
 }
