@@ -16,6 +16,14 @@
 	box-sizing: border-box;
 }
 
+a{
+	color:white;
+}
+
+a:hover{
+	color:gray;
+}
+
 body{
 	overflow-x:hidden;
 }
@@ -310,5 +318,43 @@ div.contenidoPublicacion figure {
 
 div.contenidoPublicacion figcaption {
     padding: 1em;
+}
+
+footer{
+	color:white;
+	background-color: #000000;
+	font-size: 0.7em;
+	text-align:center;
+	line-height: 2em;
+	display: flex;
+    width: 100%;
+    justify-content: space-around;
+	padding: 3em;
+
+}
+
+.siteMap>h3{
+	color: #e08200;
+}
+
+.siteMap{
+	position:relative;
+}
+
+.contacto>h3{
+	color: #e08200;
+}
+
+.contacto{
+	position:relative;
+}
+
+.redesSociales>h3{
+	color: #e08200;
+}
+
+.redesSociales{
+	position:relative;
+	
 }
 }
