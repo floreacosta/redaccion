@@ -4,25 +4,12 @@
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<title>Redacción</title>
-		
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1"/> 
-		<meta name="expires" content="-1"/>
-		<meta name="description" content="Tp final - Programación Web II" />
-		<meta name="author" content="Acosta, Florencia / Orieta, Romina / Giani, Nahuel / Muñoz, Fernando." />
-		<meta name="keywords" content="redaccion, revista"/>
-		
-		<!--<link rel="shortcut icon" href="img/style/favicon.ico">-->
-		<link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
-		<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-		<script src='js/query.js'></script>
-		<link rel="stylesheet" href="css/style.css">
-	<head>
+    <?php
+	include_once('include/head.php');
+	?>
 	<body>
 		<header>
 			<div class='logo'>
@@ -172,33 +159,8 @@
 				</figure>
 			</div><!--FIN PUBLICACIONES-->
 		</section>
-		<footer>
-			<div class='siteMap'>
-				<h3>Mapa del sitio</h3>
-				<p>
-					<a href='#'>Index</a>
-					<a href='#'>Primer link</a>
-					<a href='#'>Segundo link</a>
-					<a href='#'>Tercer link</a>
-					<a href='#'>Usuarios</a>
-					<a href='#'>Suscriptores</a>
-				</p>
-			</div>
-			<div class='redesSociales'>
-				<p class='fb'>/laredaccion</p>
-				<p class='tw'>@laredaccion</p>
-			</div>
-			<div class='contacto'>
-				<address>
-					<a href="mailto:contacto@laredaccion.com.ar">contacto@laredaccion.com.ar</a>
-					<p>+ (011) 4639 1256</p>
-				</address>
-				<address>
-					<h3>Oficina central</h3>
-					<p>Av. de mayo | CABA</p>
-				</address>
-			</div>
-		</footer>
-		
+		<?php 
+		include_once('include/footer.php');
+		?>
 	</body>
 </html>
