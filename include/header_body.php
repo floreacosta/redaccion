@@ -1,3 +1,12 @@
+<?php
+	include_once('clases/BaseDatos.php');
+	include_once('clases/Usuarios.php');
+	$usuario = new Usuarios();
+	
+	if(ISSET($_POST['ingresarLogin'])){
+		$usuario->login($_POST['userLector'], $_POST['passLector']);		
+	}
+?>
 <header>
 	<div class='logo'>
 		<img class='imgLogo' src='img/logo.png' />
@@ -21,7 +30,15 @@
 			</ul>
 		</div>
 	</div>
+	
+	<div class='buscar'>
+		<form action='' enctype='' method=''>
+			<input type='text' placeholder='Buscar' value=''></input>
+			<input type='submit' value='Enviar'></input>
+		</form>
+	</div>
 </header>
+
 <div class='login none lectorBox' id='soyLector'>
 	<form action='index.php' method='POST' enctype='multipart/form-data' class='lector'>
 		<a href='#' onClick='modalCloseLector();'>x</a>
@@ -29,7 +46,7 @@
 		<div class='in'>
 			<input type='text' id='userLector' name='userLector' placeholder='Usuario' value=''></input>
 			<input type='text' id='passLector' name='passLector' placeholder='Contraseña' value=''></input>
-			<input type='submit' id='ingresarLogin' name='ingresarLogin' value='LogIn'></input>
+			<input type='submit' id='ingresarLogin' name='ingresarLogin' value='LogIn'></input><!--BOTON LECTOR -->
 		</div>
 		<ul class='aclaracion'>
 			<li><a href='/redaccion/registro-lector.php'>Quiero registrarme.</a></li>
@@ -44,7 +61,7 @@
 		<div class='in'>
 			<input type='text' id='userRedactor' name='userRedactor' placeholder='Usuario' value=''></input>
 			<input type='text' id='passRedactor' name='passRedactor' placeholder='Contraseña' value=''></input>
-			<input type='submit' id='ingresarLogin' name='ingresarLogin' value='LogIn'></input>
+			<input type='submit' id='ingresarLogin' name='ingresarLogin' value='LogIn'></input><!--BOTON REDACTOR -->
 		</div>
 		<ul class='aclaracion'>
 			<div><a href='#'>Contactar al administrador.</a></div>

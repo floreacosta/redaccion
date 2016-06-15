@@ -1,3 +1,8 @@
+<?php
+	session_start();
+	include_once('clases/function.php');
+?>
+
 <head>
 		<title>Redacción</title>
 		
@@ -13,9 +18,4 @@
 		<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 		<script src='js/query.js'></script>
 		<link rel="stylesheet" href="css/style.css">
-		<?php
-			session_start();
-			include_once('clases/BaseDatos.php');
-			include_once('clases/usuario.php');
-		?>
 </head>

@@ -13,7 +13,7 @@ function menu(){
 		}else{
 			contador = 1;
 			$('.menu').animate({
-				right: '-13em'
+				right: '-100%'
 			});
 		}
 	})

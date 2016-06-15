@@ -34,8 +34,9 @@
 				
 				<?php
 					$registro= new usuario();
-					$registro->altaUsuarioLector($_POST['nombreUsuario'],$_POST['clave'],$_POST['nombre'],$_POST['apellido'],$_POST['nombreUsuario'])
+					$registro->altaUsuarioLector($_POST['nombreUsuario'],$_POST['clave'],$_POST['nombre'],$_POST['apellido'],$_POST['nombreUsuario']);
 				?>
+				
 			</form>
 		</section>
 		<?php 
