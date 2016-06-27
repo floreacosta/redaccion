@@ -101,7 +101,7 @@ ul>li.login {
     text-align: left;
 }
 
-li.login>button {
+li.login button {
     padding: .7em .5em;
     border-radius: .5em;
     border: 0;
@@ -109,6 +109,7 @@ li.login>button {
     margin: .25em 0em;
 	color: white;
 	font-weight: bold;
+	width: 100%;
 	cursor: pointer;
 }
 
@@ -407,6 +408,46 @@ button.comprar{
     display: block;
 }
 
+/*footer*/
+
+footer{
+	color:white;
+	background-color: #000000;
+	font-size: 0.7em;
+	text-align:center;
+	line-height: 2em;
+	display: flex;
+    width: 100%;
+    justify-content: space-around;
+	padding: 3em;
+
+}
+
+.siteMap>h3{
+	color: #e08200;
+}
+
+.siteMap{
+	position:relative;
+}
+
+.contacto>h3{
+	color: #e08200;
+}
+
+.contacto{
+	position:relative;
+}
+
+.redesSociales>h3{
+	color: #e08200;
+}
+
+.redesSociales{
+	position:relative;
+	
+}
+
 @media (min-width: 450px){
 	.fecha {
 		font-size: 1.8em;
@@ -535,46 +576,6 @@ section {
 
 .introduccion .clima{
 	width; 38%
-}
-
-/*footer*/
-
-footer{
-	color:white;
-	background-color: #000000;
-	font-size: 0.7em;
-	text-align:center;
-	line-height: 2em;
-	display: flex;
-    width: 100%;
-    justify-content: space-around;
-	padding: 3em;
-
-}
-
-.siteMap>h3{
-	color: #e08200;
-}
-
-.siteMap{
-	position:relative;
-}
-
-.contacto>h3{
-	color: #e08200;
-}
-
-.contacto{
-	position:relative;
-}
-
-.redesSociales>h3{
-	color: #e08200;
-}
-
-.redesSociales{
-	position:relative;
-	
 }
 
 /*registro lector*/

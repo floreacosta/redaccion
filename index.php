@@ -6,26 +6,22 @@
 		include_once('include/head.php');
 		include_once('clases/Publicacion.php');
 	?>
-	
 	<body>
 		<?php
 			include_once('include/header_body.php');
 		?>
-		
-		<section class='introduccion'>
-		
+	
+		<section class='introduccion content'>
 			<div class='fechaLogin'>
 				<div class='fecha'>
 					<h1><span>Hoy,</span></h1>
 					<h1>23 de Mayo, 2016</h1>
 				</div>
-				<div class='loginEscritorio'>
-					<span>Login</span>
-					<div>
-						<button id='lector' name='lector' value='lector' onClick='modalOpenLector();'>Soy Lector</button>
-						<button id='redactor' name='redactor' value='redactor' onClick='modalOpenRedactor();'>Soy Redactor</button>
-					</div>
-				</div>
+				<li class='login loginEscritorio'>
+					<?php
+					imprimirLogeo();
+					?>
+				</li>
 			</div>
 			
 			<h4>¿Qué leer hoy? Te recomendamos:</h4>
@@ -55,7 +51,7 @@
 			</div>
 		</section>
 
-		<section class='publicacion'>
+		<section class='publicacion content'>
 			<h2>Publicaciones disponibles</h2>
 			<div class='contenidoPublicacion'><!--INICIO PUBLICACIONES-->
 				<?php
@@ -63,15 +59,13 @@
 					$publicacion->mostrarPublicaciones(0);
 				?>
 			</div><!--FIN PUBLICACIONES-->
-			<div class='cargarMas'>
+			<div class='cargarMas noFlote'>
 				<a href='#'>Cargar más</a>
 			</div>
 
-		</section>
-		
+		</section>	
 		<?php 
 		include_once('include/footer.php');
 		?>
-		
 	</body>
 </html>

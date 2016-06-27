@@ -71,11 +71,21 @@
 		
 		public function login($usuario, $pass){
 			$this->usuario = $usuario;
+			
+			if(ISSET($_POST['ingresarLoginLector'])){
+				$tablaUsuario = "usuariolector";
+				
+			}else if(ISSET($_POST['ingresarLoginRedactor'])){
+				$tablaUsuario = "usuarioadministrativo";				
+			}else{
+				exit();
+			}
+
 
 			if(ISSET($this->usuario) && $this->usuario != '' && ISSET($pass) && $pass != ''){
 				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
-				$strSql = "SELECT LEC.nombre, LEC.clave
-						   FROM usuariolector LEC
+				$strSql = "SELECT US.nombre
+						   FROM $tablaUsuario US
 						   WHERE usuario = '".$this->usuario."' AND clave = '".$pass."'";
 
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
@@ -143,7 +153,10 @@
 		}
 		
 		public function cerrarSesion(){
-			session_destroy();
+			if(ISSET($_POST['cerrarSesion'])){
+				session_destroy();
+				Header('Location: index.php');		
+			}
 		}
 	
 	}//fin class

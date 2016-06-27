@@ -15,6 +15,7 @@
 			$this->clave=$clave;
 			$this->db=$db;
 			$this->conectarBaseDatos();
+			
 		}
 		
 		private function conectarBaseDatos(){

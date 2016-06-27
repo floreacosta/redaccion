@@ -1,0 +1,673 @@
+@font-face {
+    font-family: 'modern_pictogramsnormal';
+    src: url('../font/modernpictogram/modernpics-webfont.woff2') format('woff2'),
+         url('../font/modernpictogram/modernpics-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	font-family: 'Oswald', sans-serif;
+	box-sizing: border-box;
+}
+
+a{
+	color:white;
+}
+
+a:hover{
+	color:gray;
+}
+
+::before, ::after{
+    font-family: 'modern_pictogramsnormal';
+}
+
+.none{
+	display: none;
+}
+
+img{
+	width: 100%;
+}
+
+/*LOGIN*/
+div.login {
+	background: rgba(0,0,0,.7);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    z-index: 1500;
+}
+
+div.login form {
+	background-color: #323232;
+	padding: 2.5em;
+	height: 23em;
+	margin: .5em;
+	position: relative;
+	top: calc(50% - 10em);
+    display: inline-block;
+}
+
+div.login img {
+    padding: 1.7em 1em;
+    border-radius: 100%;
+    position: relative;
+    box-sizing: content-box;
+    top: -5.8em;
+    width: calc(46px * 1.5);
+    height: calc(28px * 1.5);
+    left: calc(50% - 36px);
+}
+
+div.login form:before {
+	color: #323232;
+    font-size: 5em;
+    padding: .25em;
+    display: inline-block;
+    border-radius: 1em;
+    position: relative;
+    top: -1.2em;
+    width: 1.15em;
+    left: calc(50% - .75em);
+}
+
+form.lector:before{
+    content: 'g';
+    background-color: #00c853;
+}
+
+form.redactor:before{
+    content: 'e';
+    background-color: #e08200;
+    text-align: center;
+}
+
+div.login>form>a {
+    position: absolute;
+    right: 0;
+    top: -2em;
+    font-size: 1.5em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form.lector a{
+    color: #00c853;
+}
+
+form.redactor a{
+    color: #e08200;
+}
+
+div.in {
+    top: -5em;
+    position: relative;
+}
+
+div.in input {
+    width: 100%;
+    margin: .5em 0em;
+    padding: 1em;
+    border: 0;
+}
+
+input#ingresarLogin {
+    cursor: pointer;
+    color: white;
+}
+
+form.lector input#ingresarLogin{
+	background-color: #00c853;
+}
+
+form.redactor input#ingresarLogin{
+	background-color: #e08200;
+}
+
+ul.aclaracion {
+    top: -5em;
+    position: relative;
+}
+
+/*Fin LOGIN*/
+
+/*Header*/
+header {
+    width: 100%;
+    background: #656565;
+    padding: 1.5em;
+    display: inline-block;
+}
+
+.logo {
+	width: 11em;
+    display: inline-block;
+    float: left;
+}
+
+.logo a {
+    display: inline-block;
+}
+
+	/*Menu desplegable Logueo*/
+	.iconMenu {
+		width: 2.5em;
+		display: inline-block;
+		position: relative;
+		float: right;
+		/* margin: 1em; */
+		cursor: pointer;
+	}
+
+	.iconMenu hr {
+		border: 0;
+		width: 100%;
+		height: 3px;
+		margin: .4em 0;
+		background: #00c853;
+	}
+
+	.iconMenu:hover hr {
+		opacity: .7;
+	}
+
+	.menuDesplegable {
+		position: absolute;
+		margin-top: 4.2em;
+		width: 100%;
+		right: 0;
+		overflow: hidden;
+	}
+	
+	.menu{
+		border-top: solid white 1px;
+		position: relative;
+		right: -100%;		
+	}
+	
+	li.login {
+		background: white;
+	}
+
+	li.buscar {
+		background: #656565;
+	}
+
+	li.buscar, li.login{
+		padding: 1.5em;
+	}
+	
+		/*LOGIN: botones*/
+		li.login button {
+			padding: .7em .5em;
+			border-radius: .5em;
+			border: 0;
+			font-size: 1.1em;
+			margin: .25em 0em;
+			color: white;
+			font-weight: bold;
+			width: 100%;
+			cursor: pointer;
+		}
+
+		li.login>span{
+			color: #656565;
+			font-weight: lighter;
+			font-size: 1.1em;
+		}
+
+		button#lector{
+			background-color: #00c853;
+		}
+
+		button#redactor{
+			background-color: #e08200;
+		}
+		/*FIN LOGIN: botones*/
+		
+		/*BUSCAR menu mobile*/
+		li.buscar form input#search, li.buscar form input#btnSearch {
+			padding: .5em;
+			border-radius: .5em;
+			background-color: #cccccc;
+			border: 0;
+			color: white;
+			font-weight: lighter;
+		}
+		
+		li.buscar form input#search {
+			width: 80%;
+		}
+
+		li.buscar form input#btnSearch {
+			width: 18%;
+			float: right;
+			background-color: transparent;
+			cursor: pointer;
+			font-family: 'modern_pictogramsnormal';
+			padding: 0;
+			font-size: 2.5em;
+			position: relative;
+			top: -4px;
+		}
+
+		li.buscar form input#search::-webkit-input-placeholder { color: white; } /* WebKit */
+		li.buscar form input#search:-moz-placeholder { color: white; } /* Firefox 18- */
+		li.buscar form input#search::-moz-placeholder { color: white; } /* Firefox 19+ */
+		li.buscar form input#search:-ms-input-placeholder { color: white; } /* IE 10+ */
+		
+		.buscar.escritorio{
+			display: none;
+		}
+		/*FIN BUSCAR menu mobile*/
+	/*FIN Menu desplegable Logueo*/
+/*FIN Header*/
+
+/*Content*/
+.col{
+	width: 48%;
+	display: inline-block;
+	margin: 1%;
+	float: left;
+}
+
+.content{
+	width: 100%;
+	padding: 1em .5em;
+}
+
+.noFlote{
+	clear: both;
+}
+/*Fin Content*/
+
+/*USUARIO Logueado*/
+img.perfil {
+    width: 5em;
+    height: 5em;
+    display: inline-block;
+    float: left;
+    margin-right: 1em;
+    border-radius: 3em;
+}
+
+input#cerrarSesion {
+    width: calc(100% - 8em);
+    display: inline-block;
+    border: none;
+    background: grey;
+    color: white;
+    padding: .5em;
+    border-radius: .5em;
+}
+
+input#cerrarSesion:hover{
+	opacity: .8;
+	cursor: pointer;
+}
+
+li.login p {
+    padding-bottom: 1em;
+	color: #323232;
+}
+/*FIN USUARIO Logueado*/
+
+/*SECTION introduccion*/
+.fechaLogin {
+    display: inline-block;
+    width: 100%;
+}
+
+.introduccion{
+	background: #cccccc;
+    display: inline-block;
+}
+
+.fecha {
+    color: #00c853;
+    font-size: 1.5em;
+    line-height: 1.3;
+}
+
+.loginEscritorio{
+	display: none;
+}
+
+.fecha>h1>span {
+    font-weight: normal;
+}
+
+.introduccion h4 {
+    color: #656565;
+    font-size: .9em;
+    padding: 1em 0em;
+    font-weight: normal;
+}
+
+.publicacionRandom div.imgPublicacion {
+    background-color: #00c853;
+    margin: 0;
+    padding: .8em;
+    width: 100%;
+    max-width: 100%;
+}
+
+.publicacionRandom figcaption {
+    margin-top: .5em;
+    background-color: white;
+    padding: .7em;
+    color: #323232;
+}
+
+.publicacionRandom figcaption h1 {
+    font-size: 1.8em;
+    font-weight: normal;
+}
+
+.publicacionRandom figcaption h5 {
+    font-size: .7em;
+    font-weight: normal;
+}
+
+.publicacionRandom figcaption p {
+    padding: 1em 0em;
+    line-height: 1.3;
+}
+
+.publicacionRandom .precioPublicacion {
+    font-size: 2em;
+    display: inline-block;
+    float: left;
+    color: #d50000;
+}
+
+.comprarPublicacion {
+    display: inline-block;
+    float: right;
+}
+
+.publicacionRandom .comprarPublicacion>button {
+    font-size: 1.2em;
+}
+
+.publicacionRandom div.imgPublicacion img {
+    width: 100%;
+}
+
+	/*CLIMA*/
+	.clima {
+		display: inline-block;
+		width: 40%;
+	}
+	/*FIN CLIMA*/
+	
+/*FIN SECTION introduccion*/
+
+/*SECTION publicacion*/
+.publicacion{
+	background: #656565;
+	display: inline-block;
+}
+
+section.publicacion>h2 {
+    color: #00c853;
+    font-size: 1.3em;
+	padding-bottom: 1em;
+}
+
+div.contenidoPublicacion {
+    width: 100%;
+}
+
+div.contenidoPublicacion figure {
+	background: white;
+}
+
+div.imgPublicacion {
+    max-width: 13em;
+    margin: .7em;
+}
+
+div.contenidoPublicacion figcaption {
+    background-color: #cccccc;
+    padding: .5em;
+    min-height: 8.5em;
+}
+
+figcaption .titulo {
+    min-height: 5em;
+}
+
+figcaption h4 {
+    font-size: .8em;
+    font-weight: lighter;
+	color: #323232;
+}
+
+figcaption h3 {
+    font-size: 1.1em;
+    line-height: 1.4;
+    padding-top: .5em;
+	color: #323232;
+}
+
+div.infoPublicacion {
+    padding: .5em 0em;
+    display: inline-block;
+    width: 100%;
+}
+
+div.precioPublicacion {
+    font-size: 1em;
+    color: #d50000;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+
+button.comprar{
+	background-color: #d50000;
+	padding: .5em;
+	color: white;
+	border: 0;
+	cursor: pointer;
+}
+
+.cargarMas{
+	text-align: center;
+    padding-top: 2em;
+}
+
+.cargarMas a {
+    display: inline-block;
+}
+/*FIN SECTION publicacion*/
+
+/*footer*/
+
+footer{
+	color:white;
+	background-color: #000000;
+	font-size: 0.7em;
+	text-align:center;
+	line-height: 2em;
+    width: 100%;
+	padding: 3em;
+	display: inline-block;
+
+}
+
+.siteMap, .contacto, .redesSociales{
+	padding: 1em 0em;
+}
+
+.siteMap>h3{
+	color: #e08200;
+}
+
+.siteMap{
+	position:relative;
+}
+
+.contacto>h3{
+	color: #e08200;
+}
+
+.contacto{
+	position:relative;
+}
+
+.redesSociales>h3{
+	color: #e08200;
+}
+
+.redesSociales{
+	position:relative;
+	
+}
+/*FIN Footer*/
+
+/*RESPONSIVE*/
+@media (min-width: 500px){
+	div.login form {
+		width: 30em;
+		left: calc(50% - 15em);
+	}
+
+	.logo {
+		width: 20em;
+	}
+
+	.iconMenu {
+		top: .8em;
+	}
+
+	.menuDesplegable {
+		margin-top: 5.8em;
+	    visibility: hidden;
+	}
+
+	.col{
+		width: 31%;
+	}
+	
+	/*SECTION introduccion*/
+	.publicacionRandom figcaption {
+		margin-top: 0;
+		padding: 1.5em;
+		display: inline-block;
+		width: 55%;
+		max-height: 100%;
+	}
+	
+	.random>figure {
+		width: 45%;
+		float: left;
+		display: inline-block;
+	}
+	/*Fin SECTION introduccion*/
+	.random {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.siteMap, .contacto, .redesSociales{
+		float: left;
+		width: 30%;
+		margin-left: 1.5%;
+		margin-right: 1.5%;
+	}
+
+}
+
+@media (min-width: 800px){
+	header {
+		padding-left: 5em;
+		padding-right: 5em;
+	}
+
+	.iconMenu {
+		display: none;
+	}
+	
+	.buscar.escritorio {
+		width: 17em;
+		float: right;
+		padding: 0;
+		position: relative;
+		top: 1.1em;
+		display: block;
+	}
+	
+	.content{
+		padding: 3% 8%;
+	}
+	
+	.col{
+		width: 23%;
+	}
+
+	section.publicacion>h2{
+		font-size: 2em;
+		padding-left: .35em;
+	}
+	
+	/*SECTION introduccion*/
+	.loginEscritorio {
+		width: 40%;
+		display: inline-block;
+	}
+	
+	.fecha {
+		font-size: 1.8em;
+		line-height: 1.4;
+		width: 60%;
+		display: inline-block;
+		float: left;
+	}
+	
+	.random {
+		display: inline-block;
+		width: 60%;
+	}
+
+	.publicacionRandom figcaption h1 {
+		font-size: 3em;
+		line-height: 1.3;
+	}
+
+	.publicacionRandom figcaption h5 {
+		font-size: .9em;
+	}
+
+	.publicacionRandom figcaption p {
+		font-size: 1.1em
+	}
+	/*FIN SECTION introduccion*/
+}
+
+@media (min-width: 1024px){
+	.col{
+		width: 18%;
+	}
+
+	.fecha {
+		font-size: 220%;
+	}
+	
+	li.login button {
+		width: 48%;
+	}
+}
+
+@media (min-width: 1400px){
+
+}
+/*Fin RESPONSIVE*/
