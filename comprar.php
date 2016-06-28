@@ -13,7 +13,7 @@
 	
 		<section class='introduccion content'>
 			<h1>Prueba</h1>
-			<?php echo $_GET['idEdicion']; ?>
+			<?php echo $_GET['edicion']; ?>
 		</section>
 		<?php 
 		include_once('include/footer.php');
