@@ -32,7 +32,6 @@
 <div class='login none lectorBox' id='soyLector'>
 	<form action='index.php' method='POST' enctype='multipart/form-data' class='lector'>
 		<a href='#' onClick='modalCloseLector();'>x</a>
-		<!--<img src='img/iconLogin-user.png'/>-->
 		<div class='in'>
 			<input type='text' id='userLector' name='userLector' placeholder='Usuario' value=''></input>
 			<input type='text' id='passLector' name='passLector' placeholder='Contraseña' value=''></input>
@@ -45,9 +44,8 @@
 	</form>
 </div>
 <div class='login none redactorBox' id='soyRedactor' >
-	<form action='index.php' method='POST' enctype='multipart/form-data'class='redactor'>
+	<form action='index.php' method='POST' enctype='multipart/form-data' class='redactor'>
 		<a href='#' onClick='modalCloseRedactor();'>x</a>
-		<!--<img src='img/iconLogin-trabajadores.png'/>-->
 		<div class='in'>
 			<input type='text' id='userRedactor' name='userRedactor' placeholder='Usuario' value=''></input>
 			<input type='text' id='passRedactor' name='passRedactor' placeholder='Contraseña' value=''></input>
@@ -55,6 +53,19 @@
 		</div>
 		<ul class='aclaracion'>
 			<div><a href='#'>Contactar al administrador.</a></div>
+			<div><a href='#'>Olvidé mi usuario y/o contraseña.</a></div>
+		</ul>
+	</form>
+</div>
+<div class='login none administradorBox' id='soyAdministrador' >
+	<form action='index.php' method='POST' enctype='multipart/form-data' class='administrador'>
+		<a href='#' onClick='modalCloseAdministrador();'>x</a>
+		<div class='in'>
+			<input type='text' id='userAdministrador' name='userRedactor' placeholder='Usuario' value=''></input>
+			<input type='text' id='passAdministrador' name='passRedactor' placeholder='Contraseña' value=''></input>
+			<input type='submit' id='ingresarLoginAdministrador' name='ingresarLoginAdministrador' value='LogIn'></input><!--BOTON ADMINISTRADOR -->
+		</div>
+		<ul class='aclaracion'>
 			<div><a href='#'>Olvidé mi usuario y/o contraseña.</a></div>
 		</ul>
 	</form>

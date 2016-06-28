@@ -28,9 +28,6 @@
 		<link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 		<!--<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>-->
 		<script src='js/jquery-3.0.0.js'></script>
-		<script src='js/jquery.validate.js'></script>
-		<script src="js/additional-methods.js"></script>
-		<script src="js/messages_es.js"></script>
 		<script src='js/query.js'></script>
 		<!--<link rel="stylesheet" href="css/style.css">-->
 		<link rel="stylesheet" href="css/style2.css">

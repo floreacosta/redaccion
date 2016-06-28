@@ -5,8 +5,9 @@
 		echo"
 			<span>Login</span>
 			<div>
-				<button id='lector' name='lector' value='lector' onClick='modalOpenLector();'>Soy Lector</button>
-				<button id='redactor' name='redactor' value='redactor' onClick='modalOpenRedactor();'>Soy Redactor</button>
+				<button id='lector' name='lector' value='lector' onClick='modalOpenLector();'>Lector</button>
+				<button id='redactor' name='redactor' value='redactor' onClick='modalOpenRedactor();'>Contenidista</button>
+				<button id='administrador' name='administrador' value='administrador' onClick='modalOpenAdministrador();'>Administrador</button>
 			</div>
 		";
 	}
@@ -16,8 +17,8 @@
 			<form action='index.php' enctype='' method='POST'>
 				<div>
 					<img class='perfil' src='#'/>
-					<a href='perfil.php'><p>".$_SESSION['usuarioLector']."</p></a>
-					<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>
+					<a href='perfil.php'><p>".$_SESSION['usuario']."</p></a>
+					<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesión'></input>
 				</div>
 			</form>
 		";

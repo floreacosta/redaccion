@@ -39,6 +39,15 @@ function modalCloseRedactor(){
 	$('.redactorBox').removeClass('get');
 }
 
+function modalOpenAdministrador(){
+	$('.administradorBox').removeClass('none');
+	$('.administradorBox').addClass('get');
+}
+
+function modalCloseAdministrador(){
+	$('.administradorBox').addClass('none');
+	$('.administradorBox').removeClass('get');
+}
 
 function getXMLHTTP() {
 	var xmlhttp=false;
@@ -101,5 +110,3 @@ function buscaLocalidad(provincia) {
 			req.send(null);
 		}
 }
-
-

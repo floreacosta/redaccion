@@ -18,7 +18,7 @@
 				<img class='fotoPerfil' src='#'/>
 				<div class='datosPerfil'>
 					<h2>Bienvenido/a</h2>
-					<h1>Carlos Alberto <a class='iconModificar' href='perfil_modif.php'>r</a></h1>
+					<h1>Carlos Alberto <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php'>r</a></h1>
 				</div>
 			</div>
 			

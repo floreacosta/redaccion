@@ -89,6 +89,12 @@ form.redactor:before{
     text-align: center;
 }
 
+form.administrador:before {
+    content: 'n';
+    background-color: #e5273d;
+    text-align: center;
+}
+
 div.login>form>a {
     position: absolute;
     right: 0;
@@ -104,6 +110,10 @@ form.lector a{
 
 form.redactor a{
     color: #e08200;
+}
+
+form.administrador a{
+    color: #e5273d;
 }
 
 div.in {
@@ -230,6 +240,10 @@ header {
 		button#redactor{
 			background-color: #e08200;
 		}
+		
+		button#administrador{
+			background-color: #e5273d;
+		}
 		/*FIN LOGIN: botones*/
 		
 		/*BUSCAR menu mobile*/
@@ -320,6 +334,19 @@ li.login p {
 /*FIN USUARIO Logueado*/
 
 /*SECTION introduccion*/
+/*
+.contenedor{
+	display: table !important;
+}
+
+.contenido{
+	display: table-row !important;
+}
+
+.columna{
+	display: table-cell !important;
+}*/
+
 .fechaLogin {
     display: inline-block;
     width: 100%;
@@ -517,6 +544,8 @@ section.perfil{
 
 div.perfil {
     margin: 2em 0em;
+    display: inline-block;
+    width: 100%;
 }
 
 img.fotoPerfil {
@@ -625,6 +654,68 @@ a.cancelarSuscripcion {
     border-top: 0;
 }
 /*FIN PERFIL USUARIO*/
+
+/*PERFIL CONTENIDISTA*/
+.tablasABM div {
+    margin: 2em 0em;
+    background: white;
+    padding: 1em;
+    border-radius: 1em;
+    display: inline-block;
+    width: 100%;
+	clear: both;
+}
+
+.tablasABM table {
+    width: 100%;
+    text-align: left;
+    margin-top: 1em;
+}
+
+.tablasABM table>thead tr th {
+    background: grey;
+    color: white;
+    padding: .5em;
+}
+
+.tablasABM table>tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.tablasABM table>tbody tr td {
+    padding: .5em;
+	font-weight: 300;
+}
+
+th.btnAccion {
+    background: transparent !important;
+}
+
+.btnAccion-td{
+	text-align: center;
+}
+
+td>button {
+    font-family: 'modern_pictogramsnormal';
+    border: 0;
+    background: transparent;
+    color: #e5273d;
+    font-size: 2em;
+    line-height: 1;
+	cursor: pointer;
+}
+
+td>button:hover {
+	opacity: .6;
+}
+
+.altaContenido{
+	font-family: 'modern_pictogramsnormal';
+	display: inline-block;
+	color: #e5273d;
+	font-size: 2em;
+}
+/*FIN Perfil Contenidista*/
 
 /*ALTA USUARIOS*/
 .modificacionDatos{
@@ -841,7 +932,7 @@ footer{
 	}
 	
 	li.login button {
-		width: 48%;
+		width: 32%;
 	}
 }
 

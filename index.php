@@ -27,25 +27,27 @@
 			<h4>¿Qué leer hoy? Te recomendamos:</h4>
 			
 			<div class='publicacionRandom'>
-				<div class='random'>
-					<figure>
-						<div class='imgPublicacion'>
-							<img src='img/thumbs-publicacion/revista1.png'/>
-						</div>
-					</figure>
-					<figcaption>
-						<div>
-							<h1>90 + 10</h1>
-							<h5>Publicada: 10/05/2016</h5>
-							<p>Tres ilustradores: Irma Gruenhalz / Car Pintos / Chris Buzeli.</p>
-						</div>
-						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$45.00</div>
-							<div class='comprarPublicacion'>
-								<button class='comprar' value='comprar' id='comprar'>Comprar</button>
+				<div class='contenedor'>
+					<div class='random contenido'>
+						<figure class='columna'>
+							<div class='imgPublicacion'>
+								<img src='img/thumbs-publicacion/revista1.png'/>
 							</div>
-						</div>
-					</figcaption>
+						</figure>
+						<figcaption class='columna'>
+							<div>
+								<h1>90 + 10</h1>
+								<h5>Publicada: 10/05/2016</h5>
+								<p>Tres ilustradores: Irma Gruenhalz / Car Pintos / Chris Buzeli.</p>
+							</div>
+							<div class='infoPublicacion'>
+								<div class='precioPublicacion'>$45.00</div>
+								<div class='comprarPublicacion'>
+									<button class='comprar' value='comprar' id='comprar'>Comprar</button>
+								</div>
+							</div>
+						</figcaption>
+					</div>
 				</div>
 				<div class='clima'></div>
 			</div>

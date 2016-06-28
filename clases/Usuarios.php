@@ -75,7 +75,7 @@
 			if(ISSET($_POST['ingresarLoginLector'])){
 				$tablaUsuario = "usuariolector";
 				
-			}else if(ISSET($_POST['ingresarLoginRedactor'])){
+			}else if(ISSET($_POST['ingresarLoginRedactor']) || ISSET($_POST['ingresarLoginAdministrador'])){
 				$tablaUsuario = "usuarioadministrativo";				
 			}else{
 				exit();
@@ -91,7 +91,7 @@
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 				
 				if($resultado = mysqli_fetch_assoc($consulta)){
-					$_SESSION['usuarioLector'] = $resultado['nombre'];
+					$_SESSION['usuario'] = $resultado['nombre'];
 					
 					Header('Location: index.php');
 				}else{
