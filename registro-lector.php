@@ -1,6 +1,8 @@
 <?php
 	include_once('clases/Usuarios.php');
 	include_once('clases/BaseDatos.php');
+	
+//NO PUDE PONER LAS VALIDACIONES EN EL JS PORQUE NO ME LAS TOMABA AUN-FALTA FORMATO
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
