@@ -110,3 +110,24 @@ function buscaLocalidad(provincia) {
 			req.send(null);
 		}
 }
+
+function buscaUsuario(usuario) {
+    var strURL="include/usuarioDisponible.php?usuario="+usuario;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('usuarioOcupado').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
+
