@@ -8,7 +8,7 @@
 	$resultado = mysqli_query($bd->getEnlace(), $sql);
 	while($fila = mysqli_fetch_assoc($resultado)){
 		if($fila["usuario"]==$usuario){
-			echo"El nombre de usuario ".$usuario." no est&aacute; disponible <input type='hidden' required/>";
+			echo"El nombre de usuario ".$usuario." no est&aacute; disponible";
 		}
 		else{
 		}
