@@ -10,10 +10,9 @@
 	<div class='menuDesplegable'>
 		<div class='menu'>
 				<li class='buscar'>
-					<form action='search.php' method='POST' enctype='multipart/form-data'>
-						<input type='text' id='search' name='search' placeholder='Buscar' value=''></input>
-						<input type='submit' id='btnSearch' name='btnSearch' value='s'></input>
-					</form>
+					<?php
+					imprimirBotonBusqueda();
+					?>
 				</li>
 				<li class='login'>
 					<?php
@@ -24,10 +23,9 @@
 	</div>
 	
 	<li class='buscar escritorio'>
-		<form action='search.php' method='POST' enctype='multipart/form-data'>
-			<input type='text' id='search' name='search' placeholder='Buscar' value=''></input>
-			<input type='submit' id='btnSearch' name='btnSearch' value='s'></input>
-		</form>
+		<?php
+		imprimirBotonBusqueda();
+		?>
 	</li>
 </header>
 
@@ -41,7 +39,7 @@
 			<input type='submit' id='ingresarLoginLector' name='ingresarLoginLector' value='LogIn'></input><!--BOTON LECTOR -->
 		</div>
 		<ul class='aclaracion'>
-			<li><a href='/redaccion/registro-lector.php'>Quiero registrarme.</a></li>
+			<li><a href='/redaccion/perfil_modificacion.php'>Quiero registrarme.</a></li>
 			<li><a href='#'>Olvidé mi usuario y/o contraseña.</a></li>
 		</ul>
 	</form>

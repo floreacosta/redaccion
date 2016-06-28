@@ -472,7 +472,8 @@ div.precioPublicacion {
     top: 5px;
 }
 
-button.comprar{
+a.comprar{
+	display: inline-block;
 	background-color: #d50000;
 	padding: .5em;
 	color: white;

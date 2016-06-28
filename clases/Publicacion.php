@@ -13,20 +13,26 @@
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 			while($resultado = mysqli_fetch_assoc($consulta)){
+				$_SESSION['idEdicion'] = $resultado['idEdicion'];
+				$_SESSION['imagenTapaEdicion'] = $resultado['imagenTapaEdicion'];
+				$_SESSION['fechaEdicion'] = $resultado['fecha'];
+				$_SESSION['tituloEdicion'] = $resultado['tituloEdicion'];
+				$_SESSION['precioEdicion'] = $resultado['precio'];
+				
 				echo"
 				<figure class='col'>
 					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
+						<img src='img/thumbs-publicacion/".$_SESSION['imagenTapaEdicion']."'/>
 					</div>
 					<figcaption>
 						<div class='titulo'>
-							<h4>".$resultado['fecha']."</h4>
-							<h3>".$resultado['tituloEdicion']."</h3>
+							<h4>".$_SESSION['fechaEdicion']."</h4>
+							<h3>".$_SESSION['tituloEdicion']."</h3>
 						</div>
 						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$resultado['precio'].".00</div>
+							<div class='precioPublicacion'>$".$_SESSION['precioEdicion'].".00</div>
 							<div class='comprarPublicacion'>
-								<button class='comprar' value='comprar' id='comprar'>Comprar</button>
+								<a class='comprar' href='comprar.php?idEdicion=".$_SESSION['idEdicion']."'>Comprar</a>
 							</div>
 						</div>
 					</figcaption>
@@ -120,6 +126,54 @@
 				//mostrar tabla (que tenga boton ver, borrar y modificar)
 			}
 			//boton "agregar"
+		}
+		
+		public function buscarPublicacion($topeId){
+			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			
+			$strSql = "
+				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
+				FROM edicion ED
+				WHERE ED.tituloEdicion LIKE '%".$_GET['search']."%'
+				ORDER BY ED.idEdicion LIMIT $topeId, 10
+			";
+
+			$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+			$encontro = FALSE;
+			while($resultado = mysqli_fetch_assoc($consulta)){
+				$encontro = TRUE;
+				$_SESSION['idEdicion'] = $resultado['idEdicion'];
+				$_SESSION['imagenTapaEdicion'] = $resultado['imagenTapaEdicion'];
+				$_SESSION['fechaEdicion'] = $resultado['fecha'];
+				$_SESSION['tituloEdicion'] = $resultado['tituloEdicion'];
+				$_SESSION['precioEdicion'] = $resultado['precio'];
+				echo"
+				<figure class='col'>
+					<div class='imgPublicacion'>
+						<img src='img/thumbs-publicacion/".$_SESSION['imagenTapaEdicion']."'/>
+					</div>
+					<figcaption>
+						<div class='titulo'>
+							<h4>".$_SESSION['fechaEdicion']."</h4>
+							<h3>".$_SESSION['tituloEdicion']."</h3>
+						</div>
+						<div class='infoPublicacion'>
+							<div class='precioPublicacion'>$".$_SESSION['precioEdicion'].".00</div>
+							<div class='comprarPublicacion'>
+								<a class='comprar' href='comprar.php?idEdicion=".$_SESSION['idEdicion']."'>Comprar</a>
+							</div>
+						</div>
+					</figcaption>
+				</figure>
+				";					
+			}
+			
+			if(!$encontro){
+				echo"
+					<h2 class='noResultados'>No se han encontrado resultados que coincidan con '".$_GET['search']."'.</h2>
+				";				
+			}
 		}
 		
 	}

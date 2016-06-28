@@ -32,5 +32,14 @@
 			pestañaLogin();
 		}
 	}
+	
+	function imprimirBotonBusqueda(){
+		echo"
+			<form action='resultado_busqueda.php' method='GET' enctype='multipart/form-data'>
+				<input type='text' id='search' name='search' placeholder='Buscar' value=''></input>
+				<input type='submit' id='btnSearch' name='btnSearch' value='s'></input>
+			</form>
+		";
+	}
 	/*FIN Impresion por pantalla de pestaña logeo*/
 ?>

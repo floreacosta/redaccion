@@ -3,7 +3,7 @@
 		private $usuario;
 		
 		/*
-		function__construct($usuario, $pass, $nombreApellido, $fotoPerfil, $dni, $localidad, $provincia, $pais){
+		function __construct($usuario, $pass, $nombreApellido, $fotoPerfil, $dni, $localidad, $provincia, $pais){
 			$this->usuario = $usuario;
 			$this->pass = $pass;
 			$this->nombreApellido = $nombreApellido;

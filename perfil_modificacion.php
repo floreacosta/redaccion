@@ -25,6 +25,12 @@
 					<label for='dniUsuario'>Dni</label>
 					<input type='text' name='dniUsuario' placeholder='9 dígitos' value=''/>
 
+					<label for='fechaUsuario'>Fecha de nacimiento</label>
+					<input type='date' name='fechaUsuario' placeholder='' value=''/>
+
+					<label for='mailUsuario'>Correo electrónico</label>
+					<input type='email' name='mailUsuario' placeholder='xxx@ejemplo.com' value=''/>
+
 					<label for='paisUsuario'>País</label>
 					<select name='paisUsuario'>
 						<option value='' selected>Seleccionar país</option>
