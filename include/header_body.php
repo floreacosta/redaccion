@@ -61,8 +61,8 @@
 	<form action='index.php' method='POST' enctype='multipart/form-data' class='administrador'>
 		<a href='#' onClick='modalCloseAdministrador();'>x</a>
 		<div class='in'>
-			<input type='text' id='userAdministrador' name='userRedactor' placeholder='Usuario' value=''></input>
-			<input type='text' id='passAdministrador' name='passRedactor' placeholder='Contraseña' value=''></input>
+			<input type='text' id='userAdministrador' name='userAdministrador' placeholder='Usuario' value=''></input>
+			<input type='text' id='passAdministrador' name='passAdministrador' placeholder='Contraseña' value=''></input>
 			<input type='submit' id='ingresarLoginAdministrador' name='ingresarLoginAdministrador' value='LogIn'></input><!--BOTON ADMINISTRADOR -->
 		</div>
 		<ul class='aclaracion'>

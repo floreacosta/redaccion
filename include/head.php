@@ -9,7 +9,9 @@
 		$usuario->login($_POST['userLector'], $_POST['passLector']);		
 	}else if(ISSET($_POST['ingresarLoginRedactor'])){
 		$usuario->login($_POST['userRedactor'], $_POST['passRedactor']);				
-	}
+	}else if(ISSET($_POST['ingresarLoginAdministrador'])){
+-		$usuario->login($_POST['userAdministrador'], $_POST['passAdministrador']);	
+ 	}
 	
 	$usuario->cerrarSesion();
 ?>
