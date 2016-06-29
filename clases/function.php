@@ -15,15 +15,10 @@
 	function usuarioLogeado(){
 		echo"
 			<form action='index.php' enctype='' method='POST'>
-				<div>";
-					if(ISSET($_SESSION['usuariolector'])){
-						echo "<img class='perfil' src='img/iconLogin-user.png'/>
-							  <a href='perfil_lector.php'><p>".$_SESSION['usuariolector']."</p></a>";
-					}else if(ISSET($_SESSION['usuarioadministrativo'])){
-						echo "<img class='perfil' src='img/iconLogin-trabajadores.png'/>
-							  <a href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>";
-					}
-				echo "<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>
+				<div>
+					<img class='perfil' src='#'/>
+					<a href='perfil.php'><p>".$_SESSION['usuario']."</p></a>
+					<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesión'></input>
 				</div>
 			</form>
 		";
@@ -32,7 +27,7 @@
 	//usar funcion de CERRAR SESION (en clase Usuarios)
 	
 	function imprimirLogeo(){
-		if(ISSET($_SESSION['usuariolector']) || ISSET($_SESSION['usuarioadministrativo'])){
+		if(ISSET($_SESSION['usuarioLector'])){
 			usuarioLogeado();
 		}else{
 			pestañaLogin();

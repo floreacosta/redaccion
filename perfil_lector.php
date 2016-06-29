@@ -7,7 +7,8 @@
 		include_once('clases/Publicacion.php');
 	?>
 	<body>
-		<?php include_once('include/header_body.php'); ?>
+		<?php include_once('include/header_body.php'); 
+		?>
 		
 		<section class='perfil content'>
 			<div class='ubicacion'>
@@ -17,8 +18,8 @@
 			<div class='perfil'>
 				<img class='fotoPerfil' src='#'/>
 				<div class='datosPerfil'>
-					<h2>Bienvenido/a</h2>
-					<h1>Carlos Alberto <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php'>r</a></h1>
+					<h2>Bienvenido/a Carlos Alberto!</h2>
+					<h1><?php ?> <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php'>r</a></h1>
 				</div>
 			</div>
 			

@@ -717,6 +717,22 @@ td>button:hover {
 }
 /*FIN Perfil Contenidista*/
 
+/*USUARIO REGISTRADO*/
+
+.izq{
+position:relative;
+float: left;
+width: 50%;
+}
+.der{
+position:relative;
+float: right;
+text-align: right;
+width: 50%;
+}
+
+/*FIN USUARIO REGISTRADO*/
+
 /*ALTA USUARIOS*/
 .modificacionDatos{
 	background: #cccccc;
