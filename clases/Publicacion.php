@@ -14,30 +14,27 @@
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 			while($resultado = mysqli_fetch_assoc($consulta)){
-				$_SESSION['idEdicion'] = $resultado['idEdicion'];
-				$_SESSION['imagenTapaEdicion'] = $resultado['imagenTapaEdicion'];
-				$_SESSION['fechaEdicion'] = $resultado['fecha'];
-				$_SESSION['tituloEdicion'] = $resultado['tituloEdicion'];
-				$_SESSION['precioEdicion'] = $resultado['precio'];
-				
+
 				echo"
-				<figure class='col'>
-					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$_SESSION['imagenTapaEdicion']."'/>
-					</div>
-					<figcaption>
-						<div class='titulo'>
-							<h4>".$_SESSION['fechaEdicion']."</h4>
-							<h3>".$_SESSION['tituloEdicion']."</h3>
+					<figure class='col'>
+						<div class='imgPublicacion'>
+							<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 						</div>
-						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$_SESSION['precioEdicion'].".00</div>
-							<div class='comprarPublicacion'>
-								<a class='comprar' href='comprar.php?edicion=".$_SESSION['idEdicion']."'>Comprar</a>
+						<figcaption>
+							<div class='titulo'>
+								<h4>".$resultado['fecha']."</h4>
+								<h3>".$resultado['tituloEdicion']."</h3>
 							</div>
-						</div>
-					</figcaption>
-				</figure>
+							<div class='infoPublicacion'>
+								<div class='precioPublicacion'>$".$resultado['precio'].".00</div>
+								<div class='comprarPublicacion'>
+				";
+									$this->mostrarBoton($resultado['idEdicion']);
+									
+				echo"			</div>
+							</div>
+						</figcaption>
+					</figure>
 				";
 			}
 			echo "<div class='cargarMas noFlote'>";
@@ -68,32 +65,29 @@
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 			if($edicion = mysqli_fetch_assoc($consulta)){
-				$nombrePublicacion = $edicion['nombre'];
-				$idEdicion = $edicion['idEdicion'];
-				$tituloEdicion = $edicion['tituloEdicion'];
-				$imagenTapaEdicion = $edicion['imagenTapaEdicion'];
-				$fechaEdicion = $edicion['fecha'];
-				$precioEdicon = $edicion['precio'];
-						
+					
 				echo "
-				<figure class='columna'>
-					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$imagenTapaEdicion."'/>
-					</div>
-				</figure>
-				<figcaption class='columna'>
-					<div>
-						<h1>".$nombrePublicacion."</h1>
-						<h5>Publicada: ".$fechaEdicion."</h5>
-						<p>".$tituloEdicion."</p>
-					</div>
-					<div class='infoPublicacion'>
-						<div class='precioPublicacion'>$".$precioEdicon.".00</div>
-						<div class='comprarPublicacion'>
-							<button class='comprar' value='comprar' onClick=\"window.location.href='comprar.php?edicion=".$idEdicion."';\" id='comprar'>Comprar</button>
+					<figure class='columna'>
+						<div class='imgPublicacion'>
+							<img src='img/thumbs-publicacion/".$edicion['imagenTapaEdicion']."'/>
 						</div>
-					</div>
-				</figcaption>";
+					</figure>
+					<figcaption class='columna'>
+						<div>
+							<h1>".$edicion['nombre']."</h1>
+							<h5>Publicada: ".$edicion['fecha']."</h5>
+							<p>".$edicion['tituloEdicion']."</p>
+						</div>
+						<div class='infoPublicacion'>
+							<div class='precioPublicacion'>$".$edicion['precio'].".00</div>
+							<div class='comprarPublicacion'>
+				";
+							$this->mostrarBoton($edicion['idEdicion']);
+				echo "
+							</div>
+						</div>
+					</figcaption>
+				";
 				//cargar edicon Random
 			}
 		}		
@@ -195,27 +189,23 @@
 			
 			$encontro = FALSE;
 			while($resultado = mysqli_fetch_assoc($consulta)){
-				$encontro = TRUE;
-				$_SESSION['idEdicion'] = $resultado['idEdicion'];
-				$_SESSION['imagenTapaEdicion'] = $resultado['imagenTapaEdicion'];
-				$_SESSION['fechaEdicion'] = $resultado['fecha'];
-				$_SESSION['tituloEdicion'] = $resultado['tituloEdicion'];
-				$_SESSION['precioEdicion'] = $resultado['precio'];
+
 				echo"
 				<figure class='col'>
 					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$_SESSION['imagenTapaEdicion']."'/>
+						<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 					</div>
 					<figcaption>
 						<div class='titulo'>
-							<h4>".$_SESSION['fechaEdicion']."</h4>
-							<h3>".$_SESSION['tituloEdicion']."</h3>
+							<h4>".$resultado['fecha']."</h4>
+							<h3>".$resultado['tituloEdicion']."</h3>
 						</div>
 						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$_SESSION['precioEdicion'].".00</div>
+							<div class='precioPublicacion'>$".$resultado['precio'].".00</div>
 							<div class='comprarPublicacion'>
-								<a class='comprar' href='comprar.php?edicion=".$_SESSION['idEdicion']."'>Comprar</a>
-							</div>
+				";
+								$this->mostrarBoton($resultado['idEdicion']);
+				echo"		</div>
 						</div>
 					</figcaption>
 				</figure>
@@ -228,7 +218,31 @@
 				";				
 			}
 		}
-		
+		public function mostrarBoton($idEdicion){
+			if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			
+				$strSql = "
+					SELECT 1 
+					FROM Compras
+					WHERE idUsuarioLector = ".$_SESSION['idUsuario']." 
+					  AND idEdicion = ".$idEdicion."
+				";
+
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($comprada = mysqli_fetch_assoc($consulta)){
+					echo "<button class='comprar' value='comprar' onClick=\"window.location.href='comprar.php?edicion=".$idEdicion."';\" id='comprar'>Mirar</button>
+					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
+				}else{
+					echo "<button class='comprar' value='comprar' onClick='modalOpenLector();' id='comprar'>Comprar</button>
+					";//escribir el direccionamiento a la pagina modal de compra	
+				}
+			}else{
+				echo "<button class='comprar' id='lector' name='lector' value='lector' onClick='modalOpenLector();'>Comprar</button>
+				";
+			}
+		}
 	}
 
 ?>

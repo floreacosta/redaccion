@@ -15,21 +15,22 @@
 	function usuarioLogeado(){
  		echo"
  			<form action='index.php' enctype='' method='POST'>
-				<div>";
+				<div>
+		";
 					if(ISSET($_SESSION['usuariolector'])){
 						echo "
 							<img class='perfil' src='#'/>
 							<a href='perfil_lector.php'><p>".$_SESSION['usuariolector']."</p></a>
-							<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesión'></input>
 						";
 
 					}else if(ISSET($_SESSION['usuariolector'])){
 						echo "
 							<img class='perfil' src='#'/>
 							<a href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
-							<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesión'></input>
 						";
 					}
+					echo "<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>
+					";
  		echo"	</div>
  			</form>
  		";

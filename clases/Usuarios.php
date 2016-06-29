@@ -74,9 +74,10 @@
 			
 			if(ISSET($_POST['ingresarLoginLector'])){
 				$tablaUsuario = "usuariolector";
-				
+				$campoId ="idUsuarioLector";
 			}else if(ISSET($_POST['ingresarLoginRedactor']) || ISSET($_POST['ingresarLoginAdministrador'])){
-				$tablaUsuario = "usuarioadministrativo";				
+				$tablaUsuario = "usuarioadministrativo";
+				$campoId = "idUsuarioAdmin";
 			}else{
 				exit();
 			}
@@ -84,7 +85,7 @@
 
 			if(ISSET($this->usuario) && $this->usuario != '' && ISSET($pass) && $pass != ''){
 				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
-				$strSql = "SELECT US.nombre
+				$strSql = "SELECT US.nombre,US.".$campoId."
 						   FROM $tablaUsuario US
 						   WHERE usuario = '".$this->usuario."' AND clave = '".$pass."'";
 
@@ -92,7 +93,7 @@
 				
 				if($resultado = mysqli_fetch_assoc($consulta)){
 					$_SESSION["$tablaUsuario"] = $resultado['nombre'];
-					
+					$_SESSION['idUsuario'] = $resultado["$campoId"];
 					Header('Location: index.php');
 				}else{
 					echo'<h1>Error de Logueo.</h1>';
