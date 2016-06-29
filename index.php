@@ -16,7 +16,7 @@
 			<div class='fechaLogin'>
 				<div class='fecha'>
 					<h1><span>Hoy,</span></h1>
-					<h1>23 de Mayo, 2016</h1>
+					<h1><?php echo date("d F , Y"); ?></h1>
 				</div>
 				<li class='login loginEscritorio'>
 					<?php
