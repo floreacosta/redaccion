@@ -41,7 +41,7 @@
 					<label>Email</label>
 					<input type='email' id='email' name='email' required/></br>
 					<label>Tel&eacute;fono</label> 
-					<input type='text' id='tel' name='tel' placeholder='ej. 11 4432-2342' pattern='[0-9_-]{8,20}' required/><br>
+					<input type='text' id='tel' name='tel' placeholder='ej. 4432-2342' pattern='[0-9_-]{8,20}' required/><br>
 					<label>Pa&iacute;s</label>
 					<?php
 						$bd= new BaseDatos('localhost', 'root', '', 'dbredaccion');
