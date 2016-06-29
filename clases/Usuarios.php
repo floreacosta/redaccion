@@ -91,7 +91,7 @@
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 				
 				if($resultado = mysqli_fetch_assoc($consulta)){
-					$_SESSION['usuario'] = $resultado['nombre'];
+					$_SESSION["$tablaUsuario"] = $resultado['nombre'];
 					
 					Header('Location: index.php');
 				}else{

@@ -54,19 +54,21 @@
 			echo "</div>";
 			
 		}
+		
 		public function edicionRandom(){
 			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
 			
 			$strSql = "
-				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
-				FROM edicion ED
+				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio, PUB.nombre
+				FROM edicion ED JOIN publicacion PUB
+					ON PUB.idPublicacion = ED.idPublicacion
 				ORDER BY rand() LIMIT 1
 			";
 
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
-			$encontro = FALSE;
 			if($edicion = mysqli_fetch_assoc($consulta)){
+				$nombrePublicacion = $edicion['nombre'];
 				$idEdicion = $edicion['idEdicion'];
 				$tituloEdicion = $edicion['tituloEdicion'];
 				$imagenTapaEdicion = $edicion['imagenTapaEdicion'];
@@ -76,14 +78,14 @@
 				echo "
 				<figure class='columna'>
 					<div class='imgPublicacion'>
-						<img src='".$imagenTapaEdicion."'/>
+						<img src='img/thumbs-publicacion/".$imagenTapaEdicion."'/>
 					</div>
 				</figure>
 				<figcaption class='columna'>
 					<div>
-						<h1>".$tituloEdicion."</h1>
+						<h1>".$nombrePublicacion."</h1>
 						<h5>Publicada: ".$fechaEdicion."</h5>
-						<p>Tres ilustradores: Irma Gruenhalz / Car Pintos / Chris Buzeli.</p>
+						<p>".$tituloEdicion."</p>
 					</div>
 					<div class='infoPublicacion'>
 						<div class='precioPublicacion'>$".$precioEdicon.".00</div>
@@ -94,8 +96,8 @@
 				</figcaption>";
 				//cargar edicon Random
 			}
-		}
-		
+		}		
+
 		public function listarPublicacion($topeId, $tipo){
 			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
 			
