@@ -4,7 +4,8 @@
 		
 		public function mostrarPublicaciones($topeId){
 			
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
+			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
 				FROM edicion ED
@@ -53,7 +54,7 @@
 		}
 		
 		public function edicionRandom(){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio, PUB.nombre
@@ -93,7 +94,7 @@
 		}		
 
 		public function listarPublicacion($topeId, $tipo){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT PUB.idPublicacion, PUB.nombre, PUB.descripcion
@@ -113,7 +114,7 @@
 		}
 		
 		public function listarEdicion($topeId, $idPublicacion){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, ED.precio 
@@ -134,7 +135,7 @@
 		}
 		
 		public function listarSeccion($topeId, $idEdicion){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 
 			$strSql = "
 				SELECT SEC.idSeccion, SEC.nombre, SEC.descripcion 
@@ -155,7 +156,7 @@
 		}
 		
 		public function listarNota($topeId, $idSeccionPorEdicion){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT NO.idNota, NO.titulo, NO.volanta
@@ -176,7 +177,7 @@
 		}
 		
 		public function buscarEdicion($topeId){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, ED.imagenTapaEdicion, ED.fecha, ED.precio
@@ -220,7 +221,7 @@
 		}
 		public function edicionesCompradas(){
 			if (ISSET($_SESSION['idUsuario'])){
-				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+				$bd = new BaseDatos();
 			
 				$strSql = "
 					SELECT CO.idCompra,CO.fecha fechaCompra,ED.idEdicion,ED.imagenTapaEdicion,ED.fecha fechaEdicion,ED.tituloEdicion,ED.precio
@@ -252,7 +253,7 @@
 		}
 		public function suscripcionesCompradas(){
 			if (ISSET($_SESSION['idUsuario'])){
-				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+				$bd = new BaseDatos();
 		
 				$strSql = "
 					SELECT SU.idSuscripcion,SU.fecha,PU.nombre,TS.tiempoEnMeses,SU.precio
@@ -284,7 +285,7 @@
 		}
 		public function mostrarBoton($idEdicion){
 			if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
-				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+				$bd = new BaseDatos();
 			
 				$strSql = "
 					SELECT 1 

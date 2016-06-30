@@ -48,8 +48,7 @@
 						$desde = 0;
 					}else{
 						$desde = $_GET['desde'];
-					}
-							
+					}			
 					$publicacion->mostrarPublicaciones($desde);		
 				?>
 			</div><!--FIN PUBLICACIONES-->

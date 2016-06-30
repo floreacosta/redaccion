@@ -11,7 +11,7 @@
 					$tablaUsuario = "usuarioadministrativo";
 					$campoId = "idUsuarioAdmin";
 				}
-				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+				$bd = new BaseDatos();
 			
 				$strSql = "
 					SELECT UL.nombre, UL.apellido,UL.imagenPerfil
@@ -31,73 +31,7 @@
 					";
 				}
 			}
-		}
-		/*
-		function __construct($usuario, $pass, $nombreApellido, $fotoPerfil, $dni, $localidad, $provincia, $pais){
-			$this->usuario = $usuario;
-			$this->pass = $pass;
-			$this->nombreApellido = $nombreApellido;
-			$this->fotoPerfil = $fotoPerfil;
-			$this->dni = $dni;
-			$this->localidad = $localidad;
-			$this->provincia = $provincia;
-			$this->pais = $pais;
-		}
-		
-		
-		public function imprimirFormulario(){
-			echo"
-				<form action='' method='POST' enctype=''>
-
-					<div>
-						<label for='user'>Usuario</label>
-						<input type='text' name='usuario' value='' placeholder='pedro123'></input>
-					</div>
-
-					<div>
-						<label for='pass'>Contraseña</label>
-						<input type='text' name='clave' value='' placeholder=''></input>
-					</div>
-
-					<div>
-						<label for='pass'>Repita Contraseña</label>
-						<input type='text' name='reingresoClave' value='' placeholder=''></input>
-					</div>
-					
-					<div>
-						<label for='nombreApellido'>Nombre y apellido</label>
-						<input type='text' name='nombreApellido' value='' placeholder='Ernesto Juarez'></input>
-					</div>
-
-					<div>
-						<label for='fotoPerfil'>Foto de perfil</label>
-						<input type='file' name='fotoPerfil' value='' placeholder='mifoto.jpg o mifoto.png'></input>
-					</div>
-
-					<div>
-						<label for='dni'>Número de documento</label>
-						<input type='text' name='dni' value='' placeholder='9 dígitos'></input>
-					</div>
-
-					<div>
-						<select name='provincia'>
-							<option value='' disable selected>Provincia...</option>
-						</select>
-					</div>
-
-					<div>
-						<select name='localidad'>
-							<option value='' disable selected>Localidad...</option>
-						</select>
-					</div>
-					
-					<div>
-						<input type='submit' name='enviar' value='enviar'></input>
-					</div>
-				</form>
-			";
-		}
-		*/
+		}		
 		
 		public function login($usuario, $pass){
 			$this->usuario = $usuario;
@@ -113,7 +47,7 @@
 
 
 			if(ISSET($this->usuario) && $this->usuario != '' && ISSET($pass) && $pass != ''){
-				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+				$bd = new BaseDatos();
 				$strSql = "SELECT US.nombre,US.".$campoId.",US.imagenPerfil
 						   FROM $tablaUsuario US
 						   WHERE usuario = '".$this->usuario."' AND clave = '".$pass."'";
