@@ -159,7 +159,7 @@
 			
 			$strSql = "
 				SELECT NO.idNota, NO.titulo, NO.volanta
-				FROM nota NO JOIN 
+				FROM nota NO 
 				WHERE  NO.idSeccionPorEdicion = $idSeccionPorEdicion 
 				ORDER BY ED.titulo DESC
 				LIMIT $topeId, 10
@@ -179,7 +179,7 @@
 			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
 			
 			$strSql = "
-				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
+				SELECT ED.idEdicion, ED.tituloEdicion, ED.imagenTapaEdicion, ED.fecha, ED.precio
 				FROM edicion ED
 				WHERE ED.tituloEdicion LIKE '%".$_GET['search']."%'
 				ORDER BY ED.idEdicion LIMIT $topeId, 10
@@ -218,6 +218,70 @@
 				";				
 			}
 		}
+		public function edicionesCompradas(){
+			if (ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			
+				$strSql = "
+					SELECT CO.idCompra,CO.fecha fechaCompra,ED.idEdicion,ED.imagenTapaEdicion,ED.fecha fechaEdicion,ED.tituloEdicion,ED.precio
+					FROM Compras CO JOIN Edicion ED ON CO.idEdicion = ED.idEdicion
+					WHERE CO.idUsuarioLector = ".$_SESSION['idUsuario']." 
+					ORDER BY CO.idCompra DESC
+				";
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				while($resultado = mysqli_fetch_assoc($consulta)){
+					echo "
+						<figure class='col'><!-- Item Compra 1 -->
+							<p class='numCompra'>N°: ".$resultado['idCompra']."</p>
+							<div class='informacion'>
+								<img class='tapaRevista' src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
+								<div class='informacionEdicion'>
+									<p class='fechaEdicion'>".date("d-m-Y", strtotime($resultado['fechaEdicion']))."</p>
+									<h3>".$resultado['tituloEdicion']."</h3>
+									
+								</div>
+							</div>
+							<p class='fechaCompra'>Fecha de compra: ".date("d-m-Y", strtotime($resultado['fechaCompra']))."</p>
+							<p class='costoCompra'>Precio: $".$resultado['precio'].".00</p>
+							<a class='cancelarSuscripcion' href='edicion.php?edicion=".$resultado['idEdicion']."'>mirar edicion</a>
+						</figure>
+					";//hay que revisar donde poner el boton de mirar edicion y cambiarle la class
+				}
+			}
+		}
+		public function suscripcionesCompradas(){
+			if (ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+		
+				$strSql = "
+					SELECT SU.idSuscripcion,SU.fecha,PU.nombre,TS.tiempoEnMeses,SU.precio
+					FROM Suscripcion SU JOIN Publicacion PU ON SU.idPublicacion = PU.idPublicacion
+										JOIN TiempoSuscripcion TS ON SU.idTiempoSuscripcion = TS.idTiempoSuscripcion
+					WHERE SU.idUsuarioLector = ".$_SESSION['idUsuario']." 
+					ORDER BY SU.idSuscripcion DESC
+				";
+				
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				while($resultado = mysqli_fetch_assoc($consulta)){
+					echo "
+						<figure class='col'><!-- Item Compra 1 -->
+							<p class='numCompra'>N°: ".$resultado['idSuscripcion']."</p>
+							<div class='informacion'>
+								<div class='informacionEdicion'>
+									<h3>".$resultado['nombre']."</h3>
+								</div>
+							</div>
+							<p class='fechaCompra'>Fecha de inicio: ".date("d-m-Y", strtotime($resultado['fecha']))."</p>
+							<p class='fechaCompra'>duracion : ".$resultado['tiempoEnMeses']." meses</p>
+							<p class='costoSuscripcion'>Precio: $".$resultado['precio'].".00</p>
+							<a class='cancelarSuscripcion' href='#'>Cancelar suscripción</a>
+						</figure>
+					";
+				}
+			}
+		}
 		public function mostrarBoton($idEdicion){
 			if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
 				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
@@ -232,7 +296,7 @@
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 				if($comprada = mysqli_fetch_assoc($consulta)){
-					echo "<button class='comprar' value='comprar' onClick=\"window.location.href='comprar.php?edicion=".$idEdicion."';\" id='comprar'>Mirar</button>
+					echo "<button class='comprar' value='comprar' onClick=\"window.location.href='edicion.php?edicion=".$idEdicion."';\" id='comprar'>Mirar</button>
 					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
 				}else{
 					echo "<button class='comprar' value='comprar' onClick='modalOpenLector();' id='comprar'>Comprar</button>

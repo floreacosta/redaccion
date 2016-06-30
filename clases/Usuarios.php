@@ -2,6 +2,36 @@
 	class Usuarios{
 		private $usuario;
 		
+		public function encabezadoPerfil(){
+			if (ISSET($_SESSION['idUsuario'])){
+				if(ISSET($_SESSION['usuariolector'])){
+					$tablaUsuario = "usuariolector";
+					$campoId ="idUsuarioLector";
+				}else if(ISSET($_SESSION['usuarioadministrativo'])){
+					$tablaUsuario = "usuarioadministrativo";
+					$campoId = "idUsuarioAdmin";
+				}
+				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			
+				$strSql = "
+					SELECT UL.nombre, UL.apellido,UL.imagenPerfil
+					FROM ".$tablaUsuario." UL
+					WHERE UL.".$campoId." = ".$_SESSION['idUsuario']." 
+				";
+				
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($resultado = mysqli_fetch_assoc($consulta)){
+					echo "
+						<img class='fotoPerfil' src='img/perfil/".$resultado['imagenPerfil']."'/>
+						<div class='datosPerfil'>
+							<h2>Bienvenido/a</h2>
+							<h1>".$resultado['nombre']." ".$resultado['apellido']." <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php'>r</a></h1>
+						</div>
+					";
+				}
+			}
+		}
 		/*
 		function __construct($usuario, $pass, $nombreApellido, $fotoPerfil, $dni, $localidad, $provincia, $pais){
 			$this->usuario = $usuario;
@@ -71,7 +101,6 @@
 		
 		public function login($usuario, $pass){
 			$this->usuario = $usuario;
-			
 			if(ISSET($_POST['ingresarLoginLector'])){
 				$tablaUsuario = "usuariolector";
 				$campoId ="idUsuarioLector";
@@ -85,7 +114,7 @@
 
 			if(ISSET($this->usuario) && $this->usuario != '' && ISSET($pass) && $pass != ''){
 				$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
-				$strSql = "SELECT US.nombre,US.".$campoId."
+				$strSql = "SELECT US.nombre,US.".$campoId.",US.imagenPerfil
 						   FROM $tablaUsuario US
 						   WHERE usuario = '".$this->usuario."' AND clave = '".$pass."'";
 
@@ -94,6 +123,7 @@
 				if($resultado = mysqli_fetch_assoc($consulta)){
 					$_SESSION["$tablaUsuario"] = $resultado['nombre'];
 					$_SESSION['idUsuario'] = $resultado["$campoId"];
+					$_SESSION['Perfil'] = $resultado['imagenPerfil'] ;
 					Header('Location: index.php');
 				}else{
 					echo'<h1>Error de Logueo.</h1>';
