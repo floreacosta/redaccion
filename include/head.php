@@ -30,5 +30,8 @@
 		<link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 		<script src='js/jquery-3.0.0.js'></script>
 		<script src='js/query.js'></script>
-		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript" src='js/graficos.js'></script>
+		<link rel="stylesheet" href="css/style2.css">
+
 </head>
