@@ -523,6 +523,46 @@ div.precioPublicacion {
 }
 /*FIN SECTION publicacion*/
 
+
+/*SECTION ADMINISTRADOR*/
+#administradorGraficos{
+	background: #B5B5B5;
+	display: inline-block;
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	bottom: 50px;
+	padding-left: 10%;
+	padding-bottom: 5%;
+	}
+	
+#graficos_izquierda>h2{
+    color: #00c853;
+    font-size: 1.3em;
+	padding-bottom: 1em;
+}
+#graficos_derecha>h2{
+    color: #00c853;
+    font-size: 1.3em;
+	padding-bottom: 1em;
+}
+
+#graficos_izquierda{
+width: 50%;
+float: left;
+position: relative;
+auto: margin;
+}
+
+#graficos_derecha{
+width: 50%;
+float: right;
+position: relative;
+auto: margin;
+}
+
+/*FIN SECTION ADMINISTRADOR*/
+
 /*PERFIL USUARIO*/
 section.perfil{
     background: #cccccc;
