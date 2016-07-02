@@ -31,6 +31,14 @@ a:hover{
 	display: none;
 }
 
+input[type='submit']{
+	cursor: pointer;
+}
+
+input[type='submit']:hover{
+	opacity: .7;
+}
+
 img{
 	width: 100%;
 }
@@ -91,6 +99,12 @@ form.redactor:before{
 
 form.administrador:before {
     content: 'n';
+    background-color: #e5273d;
+    text-align: center;
+}
+
+form.modalCompra:before {
+    content: '.';
     background-color: #e5273d;
     text-align: center;
 }
@@ -523,7 +537,6 @@ div.precioPublicacion {
 }
 /*FIN SECTION publicacion*/
 
-
 /*SECTION ADMINISTRADOR*/
 #administradorGraficos{
 	background: #B5B5B5;
@@ -564,6 +577,13 @@ auto: margin;
 /*FIN SECTION ADMINISTRADOR*/
 
 /*PERFIL USUARIO*/
+.verPerfil{
+	font-family: 'modern_pictogramsnormal';
+	font-size: 1.3em;
+	padding-left: .25em;
+	color: red;
+}
+
 section.perfil{
     background: #cccccc;
     padding-top: 2em;
@@ -640,6 +660,7 @@ h2.tituloCompras, h2.tituloSuscripcion {
 
 .comprasUsuario, .suscripcionUsuario {
     display: inline-block;
+	width: 100%;
 }
 
 .comprasUsuario figure>p.costoCompra, .suscripcionUsuario figure>p.costoSuscripcion {
@@ -765,15 +786,15 @@ td>button:hover {
 /*USUARIO REGISTRADO*/
 
 .izq{
-position:relative;
-float: left;
-width: 50%;
+	position:relative;
+	float: left;
+	width: 50%;
 }
 .der{
-position:relative;
-float: right;
-text-align: right;
-width: 50%;
+	position:relative;
+	float: right;
+	text-align: right;
+	width: 50%;
 }
 
 /*FIN USUARIO REGISTRADO*/
@@ -795,7 +816,7 @@ width: 50%;
 	margin-top: 1.5em;
 }
 
-.formularioUsuario input, .formularioUsuario select{
+.formularioUsuario input, .formularioUsuario select, .abmContenidista input, .abmContenidista select, .suscripciones input, .suscripciones select{
 	display: inline-block;
 	width: 100%;
 	background-color: white;
@@ -804,11 +825,11 @@ width: 50%;
 	border: 0;
 }
 
-.formularioUsuario select{
+.formularioUsuario select, .suscripciones select{
 	cursor: pointer;
 }
 
-.formularioUsuario input[type="submit"] {
+.formularioUsuario input[type="submit"], .abmContenidista  input[type="submit"] {
     margin-top: 1.5em;
     background: #00c853;
     color: white;
@@ -820,6 +841,79 @@ width: 50%;
 	opacity: .7;
 }
 /*FIN Alta usuarios*/
+
+/*ABM CONTENIDISTA*/
+.abmContenidista h1 {
+    margin-top: 1.5em;
+	color: #656565;
+	font-size: 1.4em;
+}
+
+.abmContenidista label {
+    width: 100%;
+    display: inline-block;
+    font-size: .9em;
+    color: #656565;
+	margin-top: 1em;
+	margin-bottom: .5em;
+}
+
+.abmContenidista input[type='checkbox'] {
+    width: 1em;
+    float: left;
+    position: relative;
+    top: 5px;
+    margin-right: .5em;
+}
+
+.abmContenidista p{
+    color: #656565;
+	font-size: .9em;
+}
+
+.abmContenidista form span {
+    display: inline-block;
+    width: 6em;
+}
+
+.abmContenidista .cleditorMain{
+	margin-top: 1em !important;
+}
+/*FIN ABM Contenidista*/
+
+/*Suscripciones index*/
+.suscripciones {
+    background: white;
+}
+
+.suscripciones label{
+	color: #323232;
+	margin-bottom: 0.5em;
+	display: inline-block;
+}
+.suscripciones select, .suscripciones input{
+	background: #f2f2f2 !important;
+}
+
+.suscripciones select{
+	margin-bottom: 1.25em;
+}
+
+.suscripciones input[type='submit']{
+	background: #e08200 !important;
+	color: #f2f2f2;
+}
+
+.precio{
+	text-align: center;
+	color: #e08200;
+	margin-bottom: 1em;
+}
+
+.itemsSuscripcion, .periodoSuscripcion, .precio{
+	width: 100%;
+} 
+/*Fin Suscripciones index*/
 
 /*footer*/
 footer{
@@ -892,9 +986,15 @@ footer{
 	.publicacionRandom figcaption {
 		margin-top: 0;
 		padding: 1.5em;
-		display: inline-block;
+		/*display: inline-block;*/
 		width: 55%;
 		max-height: 100%;
+
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+		justify-content: space-between;
+		
 	}
 	
 	.random>figure {
@@ -904,7 +1004,8 @@ footer{
 	}
 	/*Fin SECTION introduccion*/
 	.random {
-		display: inline-block;
+		/*display: inline-block;*/
+		display: flex;
 		width: 100%;
 	}
 
@@ -915,6 +1016,18 @@ footer{
 		margin-right: 1.5%;
 	}
 
+	.itemsSuscripcion, .periodoSuscripcion{
+		width: 48%;
+		float: left;
+	}
+	
+	.periodoSuscripcion{
+		margin-left: 2%;
+	}
+	
+	.precio{
+		clear: both;
+	}
 }
 
 @media (min-width: 800px){
@@ -964,7 +1077,7 @@ footer{
 	}
 	
 	.random {
-		display: inline-block;
+		/*display: inline-block;*/
 		width: 60%;
 	}
 
@@ -981,6 +1094,27 @@ footer{
 		font-size: 1.1em
 	}
 	/*FIN SECTION introduccion*/
+	
+	form.suscripcion{
+		padding-left: .5em;
+	}
+	.itemsSuscripcion, .periodoSuscripcion, .precio{
+		width: 40%;
+		float: left;
+	}
+	
+	.periodoSuscripcion, .precio{
+		margin-left: 1%;
+	}
+	
+	.precio{
+		width: 18%;
+		clear: none;
+		position: relative;
+		top: 17px;
+		font-size: 2em;
+	}
+	
 }
 
 @media (min-width: 1024px){

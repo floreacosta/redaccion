@@ -43,6 +43,7 @@
 		</ul>
 	</form>
 </div>
+
 <div class='login none redactorBox' id='soyRedactor' >
 	<form action='index.php' method='POST' enctype='multipart/form-data' class='redactor'>
 		<a href='#' onClick='modalCloseRedactor();'>x</a>
@@ -57,6 +58,7 @@
 		</ul>
 	</form>
 </div>
+
 <div class='login none administradorBox' id='soyAdministrador' >
 	<form action='index.php' method='POST' enctype='multipart/form-data' class='administrador'>
 		<a href='#' onClick='modalCloseAdministrador();'>x</a>
@@ -68,5 +70,14 @@
 		<ul class='aclaracion'>
 			<div><a href='#'>Olvidé mi usuario y/o contraseña.</a></div>
 		</ul>
+	</form>
+</div>
+
+<div class='login none compraBox' id='compraBox' >
+	<form action='index.php' method='POST' enctype='multipart/form-data' class='modalCompra'><!-- CUANDO EXPLIQUEN MERCADO PAGO SE QUITA EL FORM PARA DEJAR MP -->
+		<a href='#' onClick='modalCloseCompra();'>x</a><!-- CUANDO SE BORRE EL FORM, QUEDA ESTE A FUERA -->
+		<div class='in' id="compraArealizar"><!-- CUANDO SE BORRE EL FORM, QUEDA ESTE DIV FUERA -->
+
+		</div>
 	</form>
 </div>

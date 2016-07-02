@@ -10,7 +10,7 @@
 		private $enlace;
 
 		function __construct(){
-			include('conexion/datos.php');
+			include('datos.php');
 			$this->conexion = $conexion;
 			$this->usuario = $usuario;
 			$this->clave = $clave;

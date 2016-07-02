@@ -17,25 +17,25 @@
  			<form action='index.php' enctype='' method='POST'>
 				<div>
 		";	
-					if(ISSET($_SESSION['Perfil']) ){
-						echo "
-							<img class='perfil' src='img/perfil/".$_SESSION['Perfil']."'/>
-						";
-						if(ISSET($_SESSION['usuariolector'])){
-							echo "
-								<a href='perfil_lector.php'><p>".$_SESSION['usuariolector']."</p></a>
-							";
-
-						}else if(ISSET($_SESSION['usuarioadministrativo'])){
-							echo "
-								<a href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
-							";
-						}
-					}
+			if(ISSET($_SESSION['Perfil']) ){
+				echo "
+					<img class='perfil' src='img/perfil/".$_SESSION['Perfil']."'/>
+				";
+				if(ISSET($_SESSION['usuariolector'])){
 					echo "
-						<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>
+						<a title='Ver Perfil' href='perfil_lector.php'><p>".$_SESSION['usuariolector']." <span class='verPerfil'>E</span></p></a>
 					";
- 		echo"	</div>
+
+				}else if(ISSET($_SESSION['usuarioadministrativo'])){
+					echo "
+						<a title='Ver Perfil' href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
+					";
+				}
+			}
+			echo "
+				<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>
+			";
+			echo"</div>
  			</form>
  		";
 	}

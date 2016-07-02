@@ -14,6 +14,14 @@
 	
 		<?php
 			include_once('include/header_body.php');
+			
+			if (ISSET($_GET['edit']) && ($_GET['edit'] == 1) && 
+				ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])){
+				$datos = $usuario->cargarDatosUsuario($_SESSION['idUsuario']);
+				
+			}else{
+				$datos =$usuario->limpiarDatos();
+			}
 		?>
 		
 		<section class='modificacionDatos content'>
@@ -22,54 +30,72 @@
 			</div>
             <div class='formularioUsuario'>
 			
-				<form id='formLector' action='/redaccion/usuario_registrado.php' method='POST' class="" enctype='multipart/form-data'>
-				
+				<form id='formLector' action='/redaccion/usuario_registrado.php' method='POST' class="" enctype='multipart/form-data'>				
 					<label>Nombre de usuario</label> 
-					<input title='Solo letras, n&uacute;meros y guiones' type='text' id='usuario' name='usuario' placeholder='Nombre de Usuario' pattern='[A-Za-z0-9_-]{1,15}' onchange='buscaUsuario(this.value)' required/>
+					<input  type='hidden' value='<?php echo $datos['idUsuario'];?>' id='idUsuario' name='idUsuario'></input>
+					<input value='<?php echo $datos['usuario'];?>' title='Solo letras, números y guiones' type='text' id='usuario' name='usuario' placeholder='Nombre de Usuario' pattern='[A-Za-z0-9_-]{1,15}' onchange='buscaUsuario(this.value)' required/>
 					<span id='usuarioOcupado' style='font-size:0.8em; color:red;'></span>
+					
 					<label>Contraseña</label>
-					<input title='Letras y n&uacute;meros, entre 4 y 8 caracteres' type='password' id='clave' name='clave' placeholder='Contraseña' pattern='[A-Za-z0-9]{4,8}' required/>
-					<label>Repita su contraseña</label></br> <input type='password' id='reClave' name='reClave' required/></br>
+					<input title='Letras y números, entre 4 y 8 caracteres' type='password' id='clave' name='clave' placeholder='Contraseña' pattern='[A-Za-z0-9]{4,8}' required/>
+					
+					<label>Repita su contraseña</label>
+					<input type='password' id='reClave' name='reClave' placeholder='Repita contraseña' required/></br>
+					
 					<label>Nombre</label>
-					<input title='Solo se admiten letras' type='text' id='nombre' name='nombre' placeholder='Nombre' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></br>
+					<input value='<?php echo $datos['nombre'];?>' title='Solo se admiten letras' type='text' id='nombre' name='nombre' placeholder='Nombre' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></br>
+					
 					<label>Apellido</label>
-					<input title='Solo se admiten letras' type='text' id='apellido' name='apellido' placeholder='Apellido' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></br>
+					<input value='<?php  echo $datos['apellido'];?>' title='Solo se admiten letras' type='text' id='apellido' name='apellido' placeholder='Apellido'  pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></br>
+					
 					<label>DNI</label>
-					<input type='text' id='dni' name='dni' placeholder='9 digitos' pattern='[0-9]{9}' required/></br>
+					<input value='<?php echo $datos['documento'];?>' type='text' id='dni' name='dni' placeholder='8 digitos' pattern='[0-9]{8}' required/></br>
+
 					<label>Fecha Nacimiento</label>
-					<input type='date' id='fechaNacimiento' name='fechaNacimiento' max='1919-12-31' required/></br>
-					<label>Email</label>
-					<input type='email' id='email' name='email' required/></br>
-					<label>Tel&eacute;fono</label> 
-					<input type='text' id='tel' name='tel' placeholder='ej. 4432-2342' pattern='[0-9_-]{8,20}' required/><br>
-					<label>Pa&iacute;s</label>
+					<input value='<?php echo $datos['fechaNacimiento'];?>' type='date' id='fechaNacimiento' name='fechaNacimiento' max='31-12-1919' required/></br>
+
+					<label>Email</label>					
+					<input value='<?php echo $datos['mail'];?>' type='email' id='email' name='email' required/></br>
+
+					<label>Teléfono</label>
+					<input value='<?php echo $datos['telefono'];?>' type='text' id='tel' name='tel' placeholder='ej. 4432-2342' pattern='[0-9_-]{8,20}' required/><br>
+
+					<label>País</label>
 					<?php
-						$bd= new BaseDatos('localhost', 'root', '', 'dbredaccion');
+						$bd= new BaseDatos();
 						$sql = "SELECT * FROM pais;";
 						$resultado = mysqli_query($bd->getEnlace(), $sql);
 						echo "<select name='pais' onchange='buscaProvincia(this.value)'>";
-						echo "<option value=''>Seleccionar</option>";
+						echo "<option value='".$datos['idPais']."'>".$datos['pais']."</option>";
 						while($fila = mysqli_fetch_assoc($resultado)){
 							echo "<option value='"  . $fila["idPais"] . "'>" . $fila["nombre"] . "</option>";
 						}
 						echo "</select>";
 					?>
+					
 					<label>Provincia</label>
 					<?php
-						echo "<select id='provincia' onchange='buscaLocalidad(this.value)'>
-						<option value=''>Seleccionar</option>
-						</select>";
+						echo "
+						<select id='provincia' name='provinciaUsuario' onchange='buscaLocalidad(this.value)'>
+							<option value='".$datos['idProvincia']."'>".$datos['provincia']."</option>
+						</select>
+						";
 					?>
+					
 					<label>Localidad</label>
 					<?php
-						echo "<select id='localidad'>
-						<option value=''>Seleccionar</option>
-						</select>";
+						echo "
+						<select id='localidad' name='localidadUsuario'>
+							<option value='".$datos['idLocalidad']."'>".$datos['localidad']."</option>
+						</select>
+						";
 					?>
+					
 					<label>Calle</label>
-					<input type='text' id='calle' name='calle' placeholder='calle' size='21' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/>
-					<label>N&uacute;mero</label>
-					<input type='text' id='nro' name='nro' placeholder='numero' size='21' pattern='[0-9]{1,5}' required/>
+					<input value='<?php echo $datos['calle'];?>' type='text' id='calle' name='calle' placeholder='calle' size='21' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/>
+					
+					<label>Número</label>
+					<input value='<?php echo $datos['numero'];?>' type='text' id='nro' name='nro' placeholder='numero' size='21' pattern='[0-9]{1,5}' required/>
 					
 					<input type='submit' id='enviar' name='enviar'></input>
 					
@@ -79,16 +105,16 @@
 							//$registro->altaUsuarioLecto($_POST['apellido'],$_POST['nombre'],$_POST['fechaNacimiento'],$_POST['calle'],$_POST['numero'],$_POST['telefono'],$_POST['mail'],$_POST['localidad'],$_POST['provincia'],$_POST['pais'],$_POST['usuario'],$_POST['clave']);
 						}
 					?>
-					<script>
+					<script type='text/javascript'>
 						var clave = document.getElementById("clave")
 						, reClave = document.getElementById("reClave");
 
 						function validarClave(){
-						if(clave.value != reClave.value) {
-						reClave.setCustomValidity("Las contraseñas no coinciden");
-						} else {
-						reClave.setCustomValidity('');
-						}
+							if(clave.value != reClave.value) {
+								reClave.setCustomValidity("Las contraseñas no coinciden");
+							}else{
+								reClave.setCustomValidity('');
+							}
 						}
 
 						clave.onchange = validarClave;

@@ -27,7 +27,7 @@
 								<h3>".$resultado['tituloEdicion']."</h3>
 							</div>
 							<div class='infoPublicacion'>
-								<div class='precioPublicacion'>$".$resultado['precio'].".00</div>
+								<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
 								<div class='comprarPublicacion'>
 				";
 									$this->mostrarBoton($resultado['idEdicion']);
@@ -40,14 +40,14 @@
 			}
 			echo "<div class='cargarMas noFlote'>";
 			if ($topeId > 0){
-				echo "<a  href=\"index.php?desde=".($topeId - 10)."\" >Anterior</a> ";
+				echo "<a  href=\"index.php?desde=".($topeId - 10)."#publicaciones\" >Anterior</a> ";//chequear ANCLA
 			}
 			if ($topeId > 0 && mysqli_num_rows( $consulta ) == 10){
 				echo "<h7>| </h7>";
 			}
 			if (mysqli_num_rows( $consulta ) == 10){
 				
-				echo "<a href=\"index.php?desde=".($topeId + 10)."\" >Siguiente</a>";
+				echo "<a href=\"index.php?desde=".($topeId + 10)."#publicaciones\" >Siguiente</a>";
 			}
 			echo "</div>";
 			
@@ -80,7 +80,7 @@
 							<p>".$edicion['tituloEdicion']."</p>
 						</div>
 						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$edicion['precio'].".00</div>
+							<div class='precioPublicacion'>$".sprintf("%.2f", $edicion['precio'])."</div>
 							<div class='comprarPublicacion'>
 				";
 							$this->mostrarBoton($edicion['idEdicion']);
@@ -190,7 +190,7 @@
 			
 			$encontro = FALSE;
 			while($resultado = mysqli_fetch_assoc($consulta)){
-
+			$encontro = TRUE;
 				echo"
 				<figure class='col'>
 					<div class='imgPublicacion'>
@@ -202,7 +202,7 @@
 							<h3>".$resultado['tituloEdicion']."</h3>
 						</div>
 						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$resultado['precio'].".00</div>
+							<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
 							<div class='comprarPublicacion'>
 				";
 								$this->mostrarBoton($resultado['idEdicion']);
@@ -219,6 +219,7 @@
 				";				
 			}
 		}
+		
 		public function edicionesCompradas(){
 			if (ISSET($_SESSION['idUsuario'])){
 				$bd = new BaseDatos();
@@ -234,7 +235,7 @@
 				while($resultado = mysqli_fetch_assoc($consulta)){
 					echo "
 						<figure class='col'><!-- Item Compra 1 -->
-							<p class='numCompra'>N°: ".$resultado['idCompra']."</p>
+							<p class='numCompra'>N° Compra: ".$resultado['idCompra']."</p>
 							<div class='informacion'>
 								<img class='tapaRevista' src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 								<div class='informacionEdicion'>
@@ -244,7 +245,7 @@
 								</div>
 							</div>
 							<p class='fechaCompra'>Fecha de compra: ".date("d-m-Y", strtotime($resultado['fechaCompra']))."</p>
-							<p class='costoCompra'>Precio: $".$resultado['precio'].".00</p>
+							<p class='costoCompra'>Precio: $".sprintf("%.2f", $resultado['precio'])."</p>
 							<a class='cancelarSuscripcion' href='edicion.php?edicion=".$resultado['idEdicion']."'>mirar edicion</a>
 						</figure>
 					";//hay que revisar donde poner el boton de mirar edicion y cambiarle la class
@@ -276,10 +277,63 @@
 							</div>
 							<p class='fechaCompra'>Fecha de inicio: ".date("d-m-Y", strtotime($resultado['fecha']))."</p>
 							<p class='fechaCompra'>duracion : ".$resultado['tiempoEnMeses']." meses</p>
-							<p class='costoSuscripcion'>Precio: $".$resultado['precio'].".00</p>
+							<p class='costoSuscripcion'>Precio: $".sprintf("%.2f", $resultado['precio'])."</p>
 							<a class='cancelarSuscripcion' href='#'>Cancelar suscripción</a>
 						</figure>
 					";
+				}
+			}
+		}
+		public function comprarEdicion($idEdicion){
+			if (ISSET($idEdicion) && ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+			
+				$strSql = "
+							INSERT INTO compras(idUsuarioLector,idEdicion,fecha)
+							VALUES(".$_SESSION['idUsuario'].",".intval($idEdicion).",'".date("Y/m/d")."');
+				";
+				
+				if(!($resultado = mysqli_query($bd->getEnlace(), $strSql))){
+					echo '<script language="javascript">alert("Error al intentar realizar la compra");</script>'; 
+				}
+			}
+		}
+		public function comprarSuscripcion($idPublicacion, $idTiempoSuscripcion){
+			if (ISSET($idPublicacion) && ISSET($idTiempoSuscripcion) &&
+				ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+				$bd= new BaseDatos();
+
+				$sqlSql = "
+						SELECT ED.precio
+						FROM edicion ED 
+						WHERE idPublicacion = ".$idPublicacion."
+						ORDER BY ED.idEdicion DESC LIMIT 1";
+				$consulta = mysqli_query($bd->getEnlace(), $sqlSql);
+		
+				IF($resultado = mysqli_fetch_assoc($consulta)){
+					$precio = $resultado['precio'];
+					$sqlSql = "
+							SELECT TS.tiempoEnMeses, TS.porcentajeDescuento
+							FROM tiemposuscripcion TS
+							WHERE idTiempoSuscripcion = ".$idTiempoSuscripcion;	
+					
+					$consulta = mysqli_query($bd->getEnlace(), $sqlSql);
+					
+					IF($resultado = mysqli_fetch_assoc($consulta)){
+						$porcentaje =floatval($resultado['porcentajeDescuento'] /100);
+						$meses = $resultado['tiempoEnMeses'];
+						$precio = ((floatval($precio) - ($precio * $porcentaje)) * intval($meses));
+						$precio = sprintf("%.2f", $precio);		
+						
+						$strSql = "
+								INSERT INTO suscripcion(idUsuarioLector,idTiempoSuscripcion,idPublicacion,fecha,precio)
+								VALUES(".$_SESSION['idUsuario'].",".$idTiempoSuscripcion.",".$idPublicacion.",
+									   '".date('Y-m-d')."',".$precio.")
+						";
+						if(!($resultado = mysqli_query($bd->getEnlace(), $strSql))){
+							echo '<script language="javascript">alert("Error al intentar realizar la suscripcion");</script>'; 
+						}
+					}
 				}
 			}
 		}
@@ -297,10 +351,10 @@
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 				if($comprada = mysqli_fetch_assoc($consulta)){
-					echo "<button class='comprar' value='comprar' onClick=\"window.location.href='edicion.php?edicion=".$idEdicion."';\" id='comprar'>Mirar</button>
+					echo "<a class='comprar' value='comprar' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Mirar</a>
 					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
 				}else{
-					echo "<button class='comprar' value='comprar' onClick='modalOpenLector();' id='comprar'>Comprar</button>
+					echo "<button class='comprar' value='comprar' onClick='buscaCompra(".$idEdicion.");modalOpenCompra()' id='comprar'>Comprar</button> 
 					";//escribir el direccionamiento a la pagina modal de compra	
 				}
 			}else{

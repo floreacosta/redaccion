@@ -26,7 +26,7 @@
 						<img class='fotoPerfil' src='img/perfil/".$resultado['imagenPerfil']."'/>
 						<div class='datosPerfil'>
 							<h2>Bienvenido/a</h2>
-							<h1>".$resultado['nombre']." ".$resultado['apellido']." <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php'>r</a></h1>
+							<h1>".$resultado['nombre']." ".$resultado['apellido']." <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php?edit=1'>r</a></h1>
 						</div>
 					";
 				}
@@ -48,19 +48,19 @@
 
 			if(ISSET($this->usuario) && $this->usuario != '' && ISSET($pass) && $pass != ''){
 				$bd = new BaseDatos();
-				$strSql = "SELECT US.nombre,US.".$campoId.",US.imagenPerfil
+				$strSql = "SELECT US.nombre, US.apellido, US.".$campoId.", US.imagenPerfil
 						   FROM $tablaUsuario US
 						   WHERE usuario = '".$this->usuario."' AND clave = '".$pass."'";
 
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 				
 				if($resultado = mysqli_fetch_assoc($consulta)){
-					$_SESSION["$tablaUsuario"] = $resultado['nombre'];
+					$_SESSION["$tablaUsuario"] = $resultado['nombre']." ".$resultado['apellido'];
 					$_SESSION['idUsuario'] = $resultado["$campoId"];
 					$_SESSION['Perfil'] = $resultado['imagenPerfil'] ;
 					Header('Location: index.php');
 				}else{
-					echo'<h1>Error de Logueo.</h1>';
+					echo '<script language="javascript">alert("Error de Logueo.");</script>'; 
 				}
 			}	
 		}//fin public function login();
@@ -123,7 +123,68 @@
 				Header('Location: index.php');		
 			}
 		}
-	
+		
+		public function cargarDatosUsuario($idUsuario){
+			
+			if (ISSET($idUsuario)){
+			
+				$bd = new BaseDatos();
+				
+				$strSql = "
+					SELECT UL.usuario,UL.apellido,UL.nombre,UL.documento,UL.fechaNacimiento,UL.mail,UL.telefono,UL.calle,UL.numero,
+						   PA.idPais, PA.nombre pais, PR.idProvincia, PR.nombre provincia, LO.idLocalidad, LO.nombre localidad
+					FROM usuariolector UL JOIN Pais PA ON UL.idPais=PA.idPais
+										  JOIN Provincia PR ON PA.idPais = PR.idPais
+										  JOIN Localidad LO ON PR.idProvincia= LO.idProvincia	
+					WHERE UL.idUsuarioLector = ".$idUsuario." 
+				";
+
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($resultado = mysqli_fetch_assoc($consulta)){
+					$datos['idUsuario'] = $idUsuario;
+					$datos["usuario"] =$resultado['usuario'];
+					$datos["apellido"] =$resultado['apellido'];
+					$datos["nombre"] =$resultado['nombre'];
+					$datos["documento"] =$resultado['documento'];
+					$datos["fechaNacimiento"] =$resultado['fechaNacimiento'];
+					$datos["mail"] =$resultado['mail'];
+					$datos["telefono"] =$resultado['telefono'];
+					$datos["idPais"] =$resultado['idPais'];
+					$datos["pais"] =$resultado['pais'];
+					$datos["idProvincia"] =$resultado['idProvincia'];
+					$datos["provincia"] =$resultado['provincia'];
+					$datos["idLocalidad"] =$resultado['idLocalidad'];
+					$datos["localidad"] =$resultado['localidad'];
+					$datos["calle"] =$resultado['calle'];
+					$datos["numero"] =$resultado['numero'];
+					return $datos;
+				}
+			}
+			
+		}
+		public function limpiarDatos(){
+			$datos['idUsuario'] ="";
+			$datos["usuario"] ="";
+			$datos["apellido"] ="";
+			$datos["nombre"] ="";
+			$datos["documento"] ="";
+			$datos["fechaNacimiento"] ="";
+			$datos["mail"] ="";
+			$datos["telefono"] ="";
+			$datos["idPais"] ="";
+			$datos["pais"] ="Seleccionar";
+			$datos["idProvincia"] ="";
+			$datos["provincia"] ="Seleccionar";
+			$datos["idLocalidad"] ="";
+			$datos["localidad"] ="Seleccionar";
+			$datos["calle"] ="";
+			$datos["numero"] ="";
+			return $datos;
+		}
+		public function validarUsuario($usuario,$seccion){
+			
+		}
 	}//fin class
 	
 ?>

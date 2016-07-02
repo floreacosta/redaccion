@@ -33,5 +33,4 @@
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src='js/graficos.js'></script>
 		<link rel="stylesheet" href="css/style.css">
-
 </head>
