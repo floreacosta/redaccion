@@ -13,21 +13,36 @@
 	}
 	
 	function usuarioLogeado(){
-		echo"
-			<form action='index.php' enctype='' method='POST'>
+ 		echo"
+ 			<form action='index.php' enctype='' method='POST'>
 				<div>
-					<img class='perfil' src='#'/>
-					<a href='perfil.php'><p>".$_SESSION['usuario']."</p></a>
-					<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesión'></input>
-				</div>
-			</form>
-		";
+		";	
+			if(ISSET($_SESSION['Perfil']) ){
+				echo "
+					<img class='perfil' src='img/perfil/".$_SESSION['Perfil']."'/>
+				";
+				if(ISSET($_SESSION['usuariolector'])){
+					echo "
+						<a title='Ver Perfil' href='perfil_lector.php'><p>".$_SESSION['usuariolector']." <span class='verPerfil'>E</span></p></a>
+					";
+
+				}else if(ISSET($_SESSION['usuarioadministrativo'])){
+					echo "
+						<a title='Ver Perfil' href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
+					";
+				}
+			}
+			echo "
+				<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>
+			";
+			echo"</div>
+ 			</form>
+ 		";
 	}
-	
 	//usar funcion de CERRAR SESION (en clase Usuarios)
 	
 	function imprimirLogeo(){
-		if(ISSET($_SESSION['usuarioLector'])){
+		if(ISSET($_SESSION['usuariolector']) || ISSET($_SESSION['usuarioadministrativo'])){
 			usuarioLogeado();
 		}else{
 			pestañaLogin();

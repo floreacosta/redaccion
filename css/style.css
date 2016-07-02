@@ -1,10 +1,9 @@
 @font-face {
     font-family: 'modern_pictogramsnormal';
-    src: url('/font/modernpics-webfont.woff2') format('woff2'),
-         url('/font/modernpics-webfont.woff') format('woff');
+    src: url('../font/modernpictogram/modernpics-webfont.woff2') format('woff2'),
+         url('../font/modernpictogram/modernpics-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 * {
@@ -24,10 +23,6 @@ a:hover{
 	color:gray;
 }
 
-body{
-	overflow-x:hidden;
-}
-
 ::before, ::after{
     font-family: 'modern_pictogramsnormal';
 }
@@ -36,133 +31,16 @@ body{
 	display: none;
 }
 
-.get{
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
+input[type='submit']{
+	cursor: pointer;
+}
+
+input[type='submit']:hover{
+	opacity: .7;
 }
 
 img{
-	max-width: 100%;
-}
-
-/*
-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    background-color: #656565;
-    height: 5em;
-    position: relative;
-    z-index: 1000;
-	overflow: hidden;
-}*/
-
-header {
-    width: 100%;
-    background-color: #656565;
-    height: 5em;
-    position: relative;
-    z-index: 1000;
-}
-
-div.logo {
-    padding-left: 1em;
-    padding-top: 1em;
-    max-width: 14em;
-    float: left;
-    display: inline-block;
-}
-
-.menuDesplegable {
-    text-align: right;
-}
-
-div.menu {
-    position: relative;
-    right: -100%;
-    min-width: 13em;
-}
-
-.menu>ul {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-
-ul>li.login {
-    background-color: white;
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-li.login button {
-    padding: .7em .5em;
-    border-radius: .5em;
-    border: 0;
-    font-size: 1.1em;
-    margin: .25em 0em;
-	color: white;
-	font-weight: bold;
 	width: 100%;
-	cursor: pointer;
-}
-
-li.login>span{
-	color: #656565;
-    font-weight: lighter;
-	font-size: 1.1em;
-}
-
-button#lector{
-	background-color: #00c853;
-}
-
-button#redactor{
-	background-color: #e08200;
-}
-
-li.buscar form input#search, li.buscar form input#btnSearch {
-    padding: .5em;
-    border-radius: .5em;
-    background-color: #cccccc;
-    border: 0;
-    color: white;
-    font-weight: lighter;
-}
-
-li.buscar form input#btnSearch{
-	background-color: #d50000;
-	cursor: pointer;
-}
-
-li.buscar form input#search::-webkit-input-placeholder { color: white; } /* WebKit */
-li.buscar form input#search:-moz-placeholder { color: white; } /* Firefox 18- */
-li.buscar form input#search::-moz-placeholder { color: white; } /* Firefox 19+ */
-li.buscar form input#search:-ms-input-placeholder { color: white; } /* IE 10+ */
-
-li.buscar>form {
-    padding: .7em;
-    background-color: #656565;
-    display: flex;
-    justify-content: space-around;
-}
-
-div.iconMenu {
-    margin-top: 1.8em;
-    margin-bottom: 1.8em;
-    margin-right: 1.5em;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.buscar{
-	display: none;
 }
 
 /*LOGIN*/
@@ -176,11 +54,13 @@ div.login {
 }
 
 div.login form {
-    background-color: #323232;
-    padding: 2.5em;
-    height: 20em;
-    margin: .5em;
-    position: relative;
+	background-color: #323232;
+	padding: 2.5em;
+	height: 23em;
+	margin: .5em;
+	position: relative;
+	top: calc(50% - 10em);
+    display: inline-block;
 }
 
 div.login img {
@@ -194,12 +74,39 @@ div.login img {
     left: calc(50% - 36px);
 }
 
-form.lector img{
+div.login form:before {
+	color: #323232;
+    font-size: 5em;
+    padding: .25em;
+    display: inline-block;
+    border-radius: 1em;
+    position: relative;
+    top: -1.2em;
+    width: 1.15em;
+    left: calc(50% - .75em);
+}
+
+form.lector:before{
+    content: 'g';
     background-color: #00c853;
 }
 
-form.redactor img{
+form.redactor:before{
+    content: 'e';
     background-color: #e08200;
+    text-align: center;
+}
+
+form.administrador:before {
+    content: 'n';
+    background-color: #e5273d;
+    text-align: center;
+}
+
+form.modalCompra:before {
+    content: '.';
+    background-color: #e5273d;
+    text-align: center;
 }
 
 div.login>form>a {
@@ -217,6 +124,10 @@ form.lector a{
 
 form.redactor a{
     color: #e08200;
+}
+
+form.administrador a{
+    color: #e5273d;
 }
 
 div.in {
@@ -249,16 +160,215 @@ ul.aclaracion {
     position: relative;
 }
 
-/*seccion*/
-section {
-    padding: 1em;
+/*Fin LOGIN*/
+
+/*Header*/
+header {
+    width: 100%;
+    background: #656565;
+    padding: 1.5em;
+    display: inline-block;
 }
 
+.logo {
+	width: 11em;
+    display: inline-block;
+    float: left;
+}
 
-/*Seccion con publicacion random*/
-section.introduccion {
-    background-color: #cccccc;
-    padding-top: 2em;
+.logo a {
+    display: inline-block;
+}
+
+	/*Menu desplegable Logueo*/
+	.iconMenu {
+		width: 2.5em;
+		display: inline-block;
+		position: relative;
+		float: right;
+		/* margin: 1em; */
+		cursor: pointer;
+	}
+
+	.iconMenu hr {
+		border: 0;
+		width: 100%;
+		height: 3px;
+		margin: .4em 0;
+		background: #00c853;
+	}
+
+	.iconMenu:hover hr {
+		opacity: .7;
+	}
+
+	.menuDesplegable {
+		position: absolute;
+		margin-top: 4.2em;
+		width: 100%;
+		right: 0;
+		overflow: hidden;
+	}
+	
+	.menu{
+		border-top: solid white 1px;
+		position: relative;
+		right: -100%;		
+	}
+	
+	li.login {
+		background: white;
+	}
+
+	li.buscar {
+		background: #656565;
+	}
+
+	li.buscar, li.login{
+		padding: 1.5em;
+	}
+	
+		/*LOGIN: botones*/
+		li.login button {
+			padding: .7em .5em;
+			border-radius: .5em;
+			border: 0;
+			font-size: 1.1em;
+			margin: .25em 0em;
+			color: white;
+			font-weight: bold;
+			width: 100%;
+			cursor: pointer;
+		}
+
+		li.login>span{
+			color: #656565;
+			font-weight: lighter;
+			font-size: 1.1em;
+		}
+
+		button#lector{
+			background-color: #00c853;
+		}
+
+		button#redactor{
+			background-color: #e08200;
+		}
+		
+		button#administrador{
+			background-color: #e5273d;
+		}
+		/*FIN LOGIN: botones*/
+		
+		/*BUSCAR menu mobile*/
+		li.buscar form input#search, li.buscar form input#btnSearch {
+			padding: .5em;
+			border-radius: .5em;
+			background-color: #cccccc;
+			border: 0;
+			color: white;
+			font-weight: lighter;
+		}
+		
+		li.buscar form input#search {
+			width: 80%;
+		}
+
+		li.buscar form input#btnSearch {
+			width: 18%;
+			float: right;
+			background-color: transparent;
+			cursor: pointer;
+			font-family: 'modern_pictogramsnormal';
+			padding: 0;
+			font-size: 2.5em;
+			position: relative;
+			top: -4px;
+		}
+
+		li.buscar form input#search::-webkit-input-placeholder { color: white; } /* WebKit */
+		li.buscar form input#search:-moz-placeholder { color: white; } /* Firefox 18- */
+		li.buscar form input#search::-moz-placeholder { color: white; } /* Firefox 19+ */
+		li.buscar form input#search:-ms-input-placeholder { color: white; } /* IE 10+ */
+		
+		.buscar.escritorio{
+			display: none;
+		}
+		/*FIN BUSCAR menu mobile*/
+	/*FIN Menu desplegable Logueo*/
+/*FIN Header*/
+
+/*Content*/
+.col{
+	width: 48%;
+	display: inline-block;
+	margin: 1%;
+	float: left;
+}
+
+.content{
+	width: 100%;
+	padding: 1em .5em;
+}
+
+.noFlote{
+	clear: both;
+}
+/*Fin Content*/
+
+/*USUARIO Logueado*/
+img.perfil {
+    width: 5em;
+    height: 5em;
+    display: inline-block;
+    float: left;
+    margin-right: 1em;
+    border-radius: 3em;
+}
+
+input#cerrarSesion {
+    width: calc(100% - 8em);
+    display: inline-block;
+    border: none;
+    background: grey;
+    color: white;
+    padding: .5em;
+    border-radius: .5em;
+}
+
+input#cerrarSesion:hover{
+	opacity: .8;
+	cursor: pointer;
+}
+
+li.login p {
+    padding-bottom: 1em;
+	color: #323232;
+}
+/*FIN USUARIO Logueado*/
+
+/*SECTION introduccion*/
+/*
+.contenedor{
+	display: table !important;
+}
+
+.contenido{
+	display: table-row !important;
+}
+
+.columna{
+	display: table-cell !important;
+}*/
+
+.fechaLogin {
+    display: inline-block;
+    width: 100%;
+}
+
+.introduccion{
+	background: #cccccc;
+    display: inline-block;
 }
 
 .fecha {
@@ -314,6 +424,14 @@ section.introduccion {
 
 .publicacionRandom .precioPublicacion {
     font-size: 2em;
+    display: inline-block;
+    float: left;
+    color: #d50000;
+}
+
+.comprarPublicacion {
+    display: inline-block;
+    float: right;
 }
 
 .publicacionRandom .comprarPublicacion>button {
@@ -324,32 +442,33 @@ section.introduccion {
     width: 100%;
 }
 
-/*Fin seccion publi radom*/
+	/*CLIMA*/
+	.clima {
+		display: inline-block;
+		width: 40%;
+	}
+	/*FIN CLIMA*/
+	
+/*FIN SECTION introduccion*/
 
-section.publicacion{
-	background-color: #656565;
+/*SECTION publicacion*/
+.publicacion{
+	background: #656565;
+	display: inline-block;
 }
 
 section.publicacion>h2 {
     color: #00c853;
     font-size: 1.3em;
-    padding-bottom: 1.8em;
+	padding-bottom: 1em;
 }
 
 div.contenidoPublicacion {
-    display: flex;
     width: 100%;
-    justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 div.contenidoPublicacion figure {
-    width: 48%;
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-	margin: .5em 0;
+	background: white;
 }
 
 div.imgPublicacion {
@@ -361,9 +480,10 @@ div.contenidoPublicacion figcaption {
     background-color: #cccccc;
     padding: .5em;
     min-height: 8.5em;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+}
+
+figcaption .titulo {
+    min-height: 5em;
 }
 
 figcaption h4 {
@@ -380,22 +500,21 @@ figcaption h3 {
 }
 
 div.infoPublicacion {
-    display: flex;
-    justify-content: space-between;
     padding: .5em 0em;
-    align-items: center;
+    display: inline-block;
+    width: 100%;
 }
 
-div.precioPublicaciones {
-	font-size: 1em;
+div.precioPublicacion {
+    font-size: 1em;
     color: #d50000;
+    display: inline-block;
+    position: relative;
+    top: 5px;
 }
 
-.precioPublicacion {
-    color: #d50000;
-}
-
-button.comprar{
+.comprar{
+	display: inline-block;
 	background-color: #d50000;
 	padding: .5em;
 	color: white;
@@ -403,24 +522,414 @@ button.comprar{
 	cursor: pointer;
 }
 
-.cargarMas a {
-    text-align: center;
-    display: block;
+.comprar:hover{
+	color: white;
+	opacity: .7;
 }
 
-/*footer*/
+.cargarMas{
+	text-align: center;
+    padding-top: 2em;
+}
 
+.cargarMas a {
+    display: inline-block;
+}
+/*FIN SECTION publicacion*/
+
+/*SECTION ADMINISTRADOR*/
+#administradorGraficos{
+	background: #B5B5B5;
+	display: inline-block;
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	bottom: 50px;
+	padding-left: 10%;
+	padding-bottom: 5%;
+	}
+	
+#graficos_izquierda>h2{
+    color: #00c853;
+    font-size: 1.3em;
+	padding-bottom: 1em;
+}
+#graficos_derecha>h2{
+    color: #00c853;
+    font-size: 1.3em;
+	padding-bottom: 1em;
+}
+
+#graficos_izquierda{
+width: 50%;
+float: left;
+position: relative;
+auto: margin;
+}
+
+#graficos_derecha{
+width: 50%;
+float: right;
+position: relative;
+auto: margin;
+}
+
+/*FIN SECTION ADMINISTRADOR*/
+
+/*PERFIL USUARIO*/
+.verPerfil{
+	font-family: 'modern_pictogramsnormal';
+	font-size: 1.3em;
+	padding-left: .25em;
+	color: red;
+}
+
+section.perfil{
+    background: #cccccc;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.ubicacion {
+    font-size: 85%;
+    color: grey;
+}
+
+.separacion{
+	padding: 0em .5em;
+}
+
+.ubicacion a {
+    color: #656565;
+}
+
+.ubicacion a.here {
+    color: #00c853;
+}
+
+div.perfil {
+    margin: 2em 0em;
+    display: inline-block;
+    width: 100%;
+}
+
+img.fotoPerfil {
+    width: 7em;
+    height: 7em;
+    border-radius: 4em;
+    float: left;
+    margin-right: 1em;
+}
+
+.datosPerfil {
+    display: inline-block;
+    width: 50%;
+    color: #656565;
+}
+
+.datosPerfil h2 {
+    font-size: 1.1em;
+    font-weight: normal;
+}
+
+.datosPerfil h1 {
+    line-height: 1.2;
+}
+
+a.iconModificar {
+    content: 'r';
+    color: #00c853;
+    font-size: 2em;
+    position: relative;
+    top: 3px;
+    display: inline-block;
+    font-weight: normal;
+    font-family: 'modern_pictogramsnormal';
+}
+
+a.modificar:hover{
+	opacity: .6;
+}
+
+h2.tituloCompras, h2.tituloSuscripcion {
+    font-size: 1.1em;
+    color: #656565;
+    font-weight: normal;
+    margin: 1em .2em;
+}
+
+.comprasUsuario, .suscripcionUsuario {
+    display: inline-block;
+	width: 100%;
+}
+
+.comprasUsuario figure>p.costoCompra, .suscripcionUsuario figure>p.costoSuscripcion {
+	background: #00c853;
+    border-top: solid 1px white;
+}
+
+.comprasUsuario figure>p, .suscripcionUsuario figure>p {
+    background: #656565;
+    padding:.5em;
+    color: white;
+    font-size: 90%;
+    clear: both;
+	display: inline-block;
+	width: 100%;
+    border-top: solid 1px white;
+}
+
+.informacion {
+    display: inline-block;
+    background: white;
+	padding: .5em;
+	width: 100%;
+}
+
+img.tapaRevista {
+    width: 40%;
+    float: left;
+    margin-right: 2%;
+}
+
+.informacionEdicion {
+    display: inline-block;
+    width: 56%;
+    font-size: 80%;
+    color: #323232;
+}
+
+.informacionEdicion>h3 {
+    line-height: 1.2;
+    margin-top: .25em;
+}
+
+.suscripcionUsuario .informacionEdicion{
+	width: 100%;
+}
+
+a.cancelarSuscripcion {
+    font-size: 80%;
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+    color: #d50000;
+}
+
+.comprasUsuario figure>p.numCompra, .suscripcionUsuario figure>p.numCompra {
+    border-top: 0;
+}
+/*FIN PERFIL USUARIO*/
+
+/*PERFIL CONTENIDISTA*/
+.tablasABM div {
+    margin: 2em 0em;
+    background: white;
+    padding: 1em;
+    border-radius: 1em;
+    display: inline-block;
+    width: 100%;
+	clear: both;
+}
+
+.tablasABM table {
+    width: 100%;
+    text-align: left;
+    margin-top: 1em;
+}
+
+.tablasABM table>thead tr th {
+    background: grey;
+    color: white;
+    padding: .5em;
+}
+
+.tablasABM table>tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.tablasABM table>tbody tr td {
+    padding: .5em;
+	font-weight: 300;
+}
+
+th.btnAccion {
+    background: transparent !important;
+}
+
+.btnAccion-td{
+	text-align: center;
+}
+
+td>button {
+    font-family: 'modern_pictogramsnormal';
+    border: 0;
+    background: transparent;
+    color: #e5273d;
+    font-size: 2em;
+    line-height: 1;
+	cursor: pointer;
+}
+
+td>button:hover {
+	opacity: .6;
+}
+
+.altaContenido{
+	font-family: 'modern_pictogramsnormal';
+	display: inline-block;
+	color: #e5273d;
+	font-size: 2em;
+}
+/*FIN Perfil Contenidista*/
+
+/*USUARIO REGISTRADO*/
+
+.izq{
+	position:relative;
+	float: left;
+	width: 50%;
+}
+.der{
+	position:relative;
+	float: right;
+	text-align: right;
+	width: 50%;
+}
+
+/*FIN USUARIO REGISTRADO*/
+
+/*ALTA USUARIOS*/
+.modificacionDatos{
+	background: #cccccc;
+}
+
+.formularioUsuario h2 {
+    margin: 1em 0em;
+}
+
+.formularioUsuario label {
+    display: inline-block;
+    width: 100%;
+    font-size: 80%;
+	margin-bottom: .5em;
+	margin-top: 1.5em;
+}
+
+.formularioUsuario input, .formularioUsuario select, .abmContenidista input, .abmContenidista select, .suscripciones input, .suscripciones select{
+	display: inline-block;
+	width: 100%;
+	background-color: white;
+	padding: 1em;
+	border-radius: 1em;
+	border: 0;
+}
+
+.formularioUsuario select, .suscripciones select{
+	cursor: pointer;
+}
+
+.formularioUsuario input[type="submit"], .abmContenidista  input[type="submit"] {
+    margin-top: 1.5em;
+    background: #00c853;
+    color: white;
+	cursor: pointer;
+	font-size: 1.2em;
+}
+
+.formularioUsuario input[type="submit"]:hover{
+	opacity: .7;
+}
+/*FIN Alta usuarios*/
+
+/*ABM CONTENIDISTA*/
+.abmContenidista h1 {
+    margin-top: 1.5em;
+	color: #656565;
+	font-size: 1.4em;
+}
+
+.abmContenidista label {
+    width: 100%;
+    display: inline-block;
+    font-size: .9em;
+    color: #656565;
+	margin-top: 1em;
+	margin-bottom: .5em;
+}
+
+.abmContenidista input[type='checkbox'] {
+    width: 1em;
+    float: left;
+    position: relative;
+    top: 5px;
+    margin-right: .5em;
+}
+
+.abmContenidista p{
+    color: #656565;
+	font-size: .9em;
+}
+
+.abmContenidista form span {
+    display: inline-block;
+    width: 6em;
+}
+
+.abmContenidista .cleditorMain{
+	margin-top: 1em !important;
+}
+/*FIN ABM Contenidista*/
+
+/*Suscripciones index*/
+.suscripciones {
+    background: white;
+}
+
+.suscripciones label{
+	color: #323232;
+	margin-bottom: 0.5em;
+	display: inline-block;
+}
+.suscripciones select, .suscripciones input{
+	background: #f2f2f2 !important;
+}
+
+.suscripciones select{
+	margin-bottom: 1.25em;
+}
+
+.suscripciones input[type='submit']{
+	background: #e08200 !important;
+	color: #f2f2f2;
+}
+
+.precio{
+	text-align: center;
+	color: #e08200;
+	margin-bottom: 1em;
+}
+
+.itemsSuscripcion, .periodoSuscripcion, .precio{
+	width: 100%;
+} 
+/*Fin Suscripciones index*/
+
+/*footer*/
 footer{
 	color:white;
 	background-color: #000000;
 	font-size: 0.7em;
 	text-align:center;
 	line-height: 2em;
-	display: flex;
     width: 100%;
-    justify-content: space-around;
 	padding: 3em;
+	display: inline-block;
 
+}
+
+.siteMap, .contacto, .redesSociales{
+	padding: 1em 0em;
 }
 
 .siteMap>h3{
@@ -447,38 +956,129 @@ footer{
 	position:relative;
 	
 }
+/*FIN Footer*/
 
-@media (min-width: 450px){
-	.fecha {
-		font-size: 1.8em;
-		line-height: 1.4;
+/*RESPONSIVE*/
+@media (min-width: 500px){
+	div.login form {
+		width: 30em;
+		left: calc(50% - 15em);
 	}
 
+	.logo {
+		width: 20em;
+	}
+
+	.iconMenu {
+		top: .8em;
+	}
+
+	.menuDesplegable {
+		margin-top: 5.8em;
+	    visibility: hidden;
+	}
+
+	.col{
+		width: 31%;
+	}
+	
+	/*SECTION introduccion*/
 	.publicacionRandom figcaption {
 		margin-top: 0;
 		padding: 1.5em;
+		/*display: inline-block;*/
+		width: 55%;
+		max-height: 100%;
+
 		display: flex;
-		justify-content: space-between;
+		align-items: flex-start;
 		flex-direction: column;
-	}	
-
-	div.contenidoPublicacion figure {
-		width: 17%;
-	}
-
-	div.contenidoPublicacion figcaption {
-		padding: .5em 1em
-	}
-
-	.introduccion .publicacionRandom{
-		display: flex;
 		justify-content: space-between;
+		
 	}
-
-	.introduccion .random {
+	
+	.random>figure {
+		width: 45%;
+		float: left;
+		display: inline-block;
+	}
+	/*Fin SECTION introduccion*/
+	.random {
+		/*display: inline-block;*/
 		display: flex;
-		justify-content: space-between;
 		width: 100%;
+	}
+
+	.siteMap, .contacto, .redesSociales{
+		float: left;
+		width: 30%;
+		margin-left: 1.5%;
+		margin-right: 1.5%;
+	}
+
+	.itemsSuscripcion, .periodoSuscripcion{
+		width: 48%;
+		float: left;
+	}
+	
+	.periodoSuscripcion{
+		margin-left: 2%;
+	}
+	
+	.precio{
+		clear: both;
+	}
+}
+
+@media (min-width: 800px){
+	header {
+		padding-left: 5em;
+		padding-right: 5em;
+	}
+
+	.iconMenu {
+		display: none;
+	}
+	
+	.buscar.escritorio {
+		width: 17em;
+		float: right;
+		padding: 0;
+		position: relative;
+		top: 1.1em;
+		display: block;
+	}
+	
+	.content{
+		padding: 3% 8%;
+	}
+	
+	.col{
+		width: 23%;
+	}
+
+	section.publicacion>h2{
+		font-size: 2em;
+		padding-left: .35em;
+	}
+	
+	/*SECTION introduccion*/
+	.loginEscritorio {
+		width: 40%;
+		display: inline-block;
+	}
+	
+	.fecha {
+		font-size: 1.8em;
+		line-height: 1.4;
+		width: 60%;
+		display: inline-block;
+		float: left;
+	}
+	
+	.random {
+		/*display: inline-block;*/
+		width: 60%;
 	}
 
 	.publicacionRandom figcaption h1 {
@@ -493,119 +1093,45 @@ footer{
 	.publicacionRandom figcaption p {
 		font-size: 1.1em
 	}
-
-	.publicacionRandom .precioPublicacion {
+	/*FIN SECTION introduccion*/
+	
+	form.suscripcion{
+		padding-left: .5em;
+	}
+	.itemsSuscripcion, .periodoSuscripcion, .precio{
+		width: 40%;
+		float: left;
+	}
+	
+	.periodoSuscripcion, .precio{
+		margin-left: 1%;
+	}
+	
+	.precio{
+		width: 18%;
+		clear: none;
+		position: relative;
+		top: 17px;
 		font-size: 2em;
 	}
+	
+}
 
-	.fechaLogin {
-		display: flex;
-		justify-content: space-between;
+@media (min-width: 1024px){
+	.col{
+		width: 18%;
+	}
+
+	.fecha {
+		font-size: 220%;
+	}
+	
+	li.login button {
+		width: 32%;
 	}
 }
 
-@media (min-width: 800px){
-div.logo {
-    padding-left: 4em;
-    max-width: 23em;
-    padding-top: 0.3em;
-}
-
-section {
-    padding: 3em 9em;
-}
-
-.menuDesplegable{
-	display: none;
-}
-
-.buscar {
-    display: inline-block;
-    margin-right: 3em;
-    position: relative;
-    float: right;
-    margin-top: 1.3em;
-}
-
-.buscar input[type="submit"] {
-    cursor: pointer;
-}
-
-.buscar input {
-    border: 0;
-    padding: .6em;
-    text-align: right;
-    border-radius: .5em;
-    color: #656565;
-}
-
-.fechaLogin .loginEscritorio {
-    width: 38%;
-    background-color: white;
-    padding: 1.3em 1.5em;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    color: #656565;
-}
-
-.fechaLogin .loginEscritorio span {
-    font-size: 1.2em;
-}
-
-.fechaLogin .loginEscritorio div {
-	display: flex;
-	justify-content: space-between;
-}
-
-.fechaLogin .loginEscritorio button {
-    width: 46%;
-    border: 0;
-    padding: .7em;
-    font-size: 1em;
-    color: white;
-    cursor: pointer;
-    border-radius: .5em;
-}
-
-.introduccion .random {
-	display: flex;
-	justify-content: space-between;
-	width: 58%;
-}
-
-.introduccion .clima{
-	width; 38%
-}
-
-/*registro lector*/
-
-.registroLector{
-	background-color: #656565;
-	display:block;
-	color: #e08200;
-}
-
-.registroLector>form{
-	margin-left: 5em;
-}
-
-.registroLector>form>input{
-	overflow: hidden;
-	margin:1em;
-	width:30em;
-	height:3em;
-	
-}
-
-.registroLector>form>input#enviar{
-	background-color: #e08200;
-	color: white;
-	width: 10em;
-	
-}
-
-
-
+@media (min-width: 1400px){
 
 }
+/*Fin RESPONSIVE*/

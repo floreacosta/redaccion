@@ -49,21 +49,28 @@ function modalCloseAdministrador(){
 	$('.administradorBox').removeClass('get');
 }
 
+function modalOpenCompra(){
+	$('.compraBox').removeClass('none');
+	$('.compraBox').addClass('get');
+}
+
+function modalCloseCompra(){
+	$('.compraBox').addClass('none');
+	$('.compraBox').removeClass('get');
+}
+
 function getXMLHTTP() {
-	var xmlhttp=false;
+	var xmlhttp = false;
 	try{
-		xmlhttp=new XMLHttpRequest();
-	}
-	catch(e)	{
+		xmlhttp = new XMLHttpRequest();
+	}catch(e){
 		try{
-			xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		catch(e){
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}catch(e){
 			try{
 				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-			}
-			catch(e){
-				xmlhttp=false;
+			}catch(e){
+				xmlhttp = false;
 			}
 		}
 	}
@@ -72,15 +79,15 @@ function getXMLHTTP() {
 
 
 function buscaProvincia(pais) {
-    var strURL="include/provincia.php?pais="+pais;
+    var strURL = "include/provincia.php?pais="+pais;
     var req = getXMLHTTP();
     if (req) {
         req.onreadystatechange = function() {
             if (req.readyState == 4) {
                 // only if "OK"
                 if (req.status == 200) {
-                    document.getElementById('provincia').innerHTML =req.responseText ;
-                } else {
+                    document.getElementById('provincia').innerHTML = req.responseText ;
+                }else{
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
             }
@@ -89,8 +96,6 @@ function buscaProvincia(pais) {
 			req.send(null);
 	}
 }
-
-
 
 function buscaLocalidad(provincia) {
     var strURL="include/localidad.php?provincia="+provincia;
@@ -130,4 +135,40 @@ function buscaUsuario(usuario) {
 		}
 }
 
+function buscaCompra(idEdicion) {
+    var strURL="include/compras.php?idEdicion="+idEdicion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('compraArealizar').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
 
+function calcularImporte(idPublicacion, idPeriodo) {
+    var strURL="include/importe.php?idPublicacion="+idPublicacion+"&idPeriodo="+idPeriodo;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('importe').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}

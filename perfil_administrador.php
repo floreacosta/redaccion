@@ -8,7 +8,7 @@
 	?>
 	<body>
 		<?php include_once('include/header_body.php'); ?>
-		
+		<?php include_once('clases/administrador.php'); ?>
 		<section class='perfil content'>
 			<div class='ubicacion'>
 				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a class='here' href='perfil_lector.php'>Perfil de usuario</a></p>
@@ -22,6 +22,22 @@
 				</div>
 			</div>
 		</section>
+		
+
+		<div id="administradorGraficos">
+			<div id="graficos_izquierda">
+				<h2>Productos vendidos</h2>	
+				<div id='grafico_compras'>
+					<button type='button' onClick='grafico_compras()' value="grafico">Ver productos vendidos</button>
+				</div>
+			</div>
+			<div id="graficos_derecha">
+				<h2>Suscripciones realizadas</h2>	
+				<div id='grafico_suscripciones'>
+					<button type='button' onClick='grafico_suscripciones()' value="grafico">Ver suscripciones realizadas</button>
+				</div>
+			</div>
+		</div>
 		
 		<?php include_once('include/footer.php'); ?>
 	</body>

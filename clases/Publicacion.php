@@ -4,7 +4,8 @@
 		
 		public function mostrarPublicaciones($topeId){
 			
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
+			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
 				FROM edicion ED
@@ -14,90 +15,86 @@
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 			while($resultado = mysqli_fetch_assoc($consulta)){
-				$_SESSION['idEdicion'] = $resultado['idEdicion'];
-				$_SESSION['imagenTapaEdicion'] = $resultado['imagenTapaEdicion'];
-				$_SESSION['fechaEdicion'] = $resultado['fecha'];
-				$_SESSION['tituloEdicion'] = $resultado['tituloEdicion'];
-				$_SESSION['precioEdicion'] = $resultado['precio'];
-				
+
 				echo"
-				<figure class='col'>
-					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$_SESSION['imagenTapaEdicion']."'/>
-					</div>
-					<figcaption>
-						<div class='titulo'>
-							<h4>".$_SESSION['fechaEdicion']."</h4>
-							<h3>".$_SESSION['tituloEdicion']."</h3>
+					<figure class='col'>
+						<div class='imgPublicacion'>
+							<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 						</div>
-						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$_SESSION['precioEdicion'].".00</div>
-							<div class='comprarPublicacion'>
-								<a class='comprar' href='comprar.php?edicion=".$_SESSION['idEdicion']."'>Comprar</a>
+						<figcaption>
+							<div class='titulo'>
+								<h4>".$resultado['fecha']."</h4>
+								<h3>".$resultado['tituloEdicion']."</h3>
 							</div>
-						</div>
-					</figcaption>
-				</figure>
+							<div class='infoPublicacion'>
+								<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
+								<div class='comprarPublicacion'>
+				";
+									$this->mostrarBoton($resultado['idEdicion']);
+									
+				echo"			</div>
+							</div>
+						</figcaption>
+					</figure>
 				";
 			}
 			echo "<div class='cargarMas noFlote'>";
 			if ($topeId > 0){
-				echo "<a  href=\"index.php?desde=".($topeId - 10)."\" >Anterior</a> ";
+				echo "<a  href=\"index.php?desde=".($topeId - 10)."#publicaciones\" >Anterior</a> ";//chequear ANCLA
 			}
 			if ($topeId > 0 && mysqli_num_rows( $consulta ) == 10){
 				echo "<h7>| </h7>";
 			}
 			if (mysqli_num_rows( $consulta ) == 10){
 				
-				echo "<a href=\"index.php?desde=".($topeId + 10)."\" >Siguiente</a>";
+				echo "<a href=\"index.php?desde=".($topeId + 10)."#publicaciones\" >Siguiente</a>";
 			}
 			echo "</div>";
 			
 		}
+		
 		public function edicionRandom(){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
-				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
-				FROM edicion ED
+				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio, PUB.nombre
+				FROM edicion ED JOIN publicacion PUB
+					ON PUB.idPublicacion = ED.idPublicacion
 				ORDER BY rand() LIMIT 1
 			";
 
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
-			$encontro = FALSE;
 			if($edicion = mysqli_fetch_assoc($consulta)){
-				$idEdicion = $edicion['idEdicion'];
-				$tituloEdicion = $edicion['tituloEdicion'];
-				$imagenTapaEdicion = $edicion['imagenTapaEdicion'];
-				$fechaEdicion = $edicion['fecha'];
-				$precioEdicon = $edicion['precio'];
-						
+					
 				echo "
-				<figure class='columna'>
-					<div class='imgPublicacion'>
-						<img src='".$imagenTapaEdicion."'/>
-					</div>
-				</figure>
-				<figcaption class='columna'>
-					<div>
-						<h1>".$tituloEdicion."</h1>
-						<h5>Publicada: ".$fechaEdicion."</h5>
-						<p>Tres ilustradores: Irma Gruenhalz / Car Pintos / Chris Buzeli.</p>
-					</div>
-					<div class='infoPublicacion'>
-						<div class='precioPublicacion'>$".$precioEdicon.".00</div>
-						<div class='comprarPublicacion'>
-							<button class='comprar' value='comprar' onClick=\"window.location.href='comprar.php?edicion=".$idEdicion."';\" id='comprar'>Comprar</button>
+					<figure class='columna'>
+						<div class='imgPublicacion'>
+							<img src='img/thumbs-publicacion/".$edicion['imagenTapaEdicion']."'/>
 						</div>
-					</div>
-				</figcaption>";
+					</figure>
+					<figcaption class='columna'>
+						<div>
+							<h1>".$edicion['nombre']."</h1>
+							<h5>Publicada: ".$edicion['fecha']."</h5>
+							<p>".$edicion['tituloEdicion']."</p>
+						</div>
+						<div class='infoPublicacion'>
+							<div class='precioPublicacion'>$".sprintf("%.2f", $edicion['precio'])."</div>
+							<div class='comprarPublicacion'>
+				";
+							$this->mostrarBoton($edicion['idEdicion']);
+				echo "
+							</div>
+						</div>
+					</figcaption>
+				";
 				//cargar edicon Random
 			}
-		}
-		
+		}		
+
 		public function listarPublicacion($topeId, $tipo){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT PUB.idPublicacion, PUB.nombre, PUB.descripcion
@@ -117,7 +114,7 @@
 		}
 		
 		public function listarEdicion($topeId, $idPublicacion){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, ED.precio 
@@ -138,7 +135,7 @@
 		}
 		
 		public function listarSeccion($topeId, $idEdicion){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 
 			$strSql = "
 				SELECT SEC.idSeccion, SEC.nombre, SEC.descripcion 
@@ -159,11 +156,11 @@
 		}
 		
 		public function listarNota($topeId, $idSeccionPorEdicion){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
 				SELECT NO.idNota, NO.titulo, NO.volanta
-				FROM nota NO JOIN 
+				FROM nota NO 
 				WHERE  NO.idSeccionPorEdicion = $idSeccionPorEdicion 
 				ORDER BY ED.titulo DESC
 				LIMIT $topeId, 10
@@ -180,10 +177,10 @@
 		}
 		
 		public function buscarEdicion($topeId){
-			$bd = new BaseDatos('localhost', 'root', '', 'dbredaccion');
+			$bd = new BaseDatos();
 			
 			$strSql = "
-				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
+				SELECT ED.idEdicion, ED.tituloEdicion, ED.imagenTapaEdicion, ED.fecha, ED.precio
 				FROM edicion ED
 				WHERE ED.tituloEdicion LIKE '%".$_GET['search']."%'
 				ORDER BY ED.idEdicion LIMIT $topeId, 10
@@ -193,27 +190,23 @@
 			
 			$encontro = FALSE;
 			while($resultado = mysqli_fetch_assoc($consulta)){
-				$encontro = TRUE;
-				$_SESSION['idEdicion'] = $resultado['idEdicion'];
-				$_SESSION['imagenTapaEdicion'] = $resultado['imagenTapaEdicion'];
-				$_SESSION['fechaEdicion'] = $resultado['fecha'];
-				$_SESSION['tituloEdicion'] = $resultado['tituloEdicion'];
-				$_SESSION['precioEdicion'] = $resultado['precio'];
+			$encontro = TRUE;
 				echo"
 				<figure class='col'>
 					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$_SESSION['imagenTapaEdicion']."'/>
+						<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 					</div>
 					<figcaption>
 						<div class='titulo'>
-							<h4>".$_SESSION['fechaEdicion']."</h4>
-							<h3>".$_SESSION['tituloEdicion']."</h3>
+							<h4>".$resultado['fecha']."</h4>
+							<h3>".$resultado['tituloEdicion']."</h3>
 						</div>
 						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".$_SESSION['precioEdicion'].".00</div>
+							<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
 							<div class='comprarPublicacion'>
-								<a class='comprar' href='comprar.php?edicion=".$_SESSION['idEdicion']."'>Comprar</a>
-							</div>
+				";
+								$this->mostrarBoton($resultado['idEdicion']);
+				echo"		</div>
 						</div>
 					</figcaption>
 				</figure>
@@ -227,6 +220,148 @@
 			}
 		}
 		
+		public function edicionesCompradas(){
+			if (ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+			
+				$strSql = "
+					SELECT CO.idCompra,CO.fecha fechaCompra,ED.idEdicion,ED.imagenTapaEdicion,ED.fecha fechaEdicion,ED.tituloEdicion,ED.precio
+					FROM Compras CO JOIN Edicion ED ON CO.idEdicion = ED.idEdicion
+					WHERE CO.idUsuarioLector = ".$_SESSION['idUsuario']." 
+					ORDER BY CO.idCompra DESC
+				";
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				while($resultado = mysqli_fetch_assoc($consulta)){
+					echo "
+						<figure class='col'><!-- Item Compra 1 -->
+							<p class='numCompra'>N° Compra: ".$resultado['idCompra']."</p>
+							<div class='informacion'>
+								<img class='tapaRevista' src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
+								<div class='informacionEdicion'>
+									<p class='fechaEdicion'>".date("d-m-Y", strtotime($resultado['fechaEdicion']))."</p>
+									<h3>".$resultado['tituloEdicion']."</h3>
+									
+								</div>
+							</div>
+							<p class='fechaCompra'>Fecha de compra: ".date("d-m-Y", strtotime($resultado['fechaCompra']))."</p>
+							<p class='costoCompra'>Precio: $".sprintf("%.2f", $resultado['precio'])."</p>
+							<a class='cancelarSuscripcion' href='edicion.php?edicion=".$resultado['idEdicion']."'>mirar edicion</a>
+						</figure>
+					";//hay que revisar donde poner el boton de mirar edicion y cambiarle la class
+				}
+			}
+		}
+		public function suscripcionesCompradas(){
+			if (ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+		
+				$strSql = "
+					SELECT SU.idSuscripcion,SU.fecha,PU.nombre,TS.tiempoEnMeses,SU.precio
+					FROM Suscripcion SU JOIN Publicacion PU ON SU.idPublicacion = PU.idPublicacion
+										JOIN TiempoSuscripcion TS ON SU.idTiempoSuscripcion = TS.idTiempoSuscripcion
+					WHERE SU.idUsuarioLector = ".$_SESSION['idUsuario']." 
+					ORDER BY SU.idSuscripcion DESC
+				";
+				
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				while($resultado = mysqli_fetch_assoc($consulta)){
+					echo "
+						<figure class='col'><!-- Item Compra 1 -->
+							<p class='numCompra'>N°: ".$resultado['idSuscripcion']."</p>
+							<div class='informacion'>
+								<div class='informacionEdicion'>
+									<h3>".$resultado['nombre']."</h3>
+								</div>
+							</div>
+							<p class='fechaCompra'>Fecha de inicio: ".date("d-m-Y", strtotime($resultado['fecha']))."</p>
+							<p class='fechaCompra'>duracion : ".$resultado['tiempoEnMeses']." meses</p>
+							<p class='costoSuscripcion'>Precio: $".sprintf("%.2f", $resultado['precio'])."</p>
+							<a class='cancelarSuscripcion' href='#'>Cancelar suscripción</a>
+						</figure>
+					";
+				}
+			}
+		}
+		public function comprarEdicion($idEdicion){
+			if (ISSET($idEdicion) && ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+			
+				$strSql = "
+							INSERT INTO compras(idUsuarioLector,idEdicion,fecha)
+							VALUES(".$_SESSION['idUsuario'].",".intval($idEdicion).",'".date("Y/m/d")."');
+				";
+				
+				if(!($resultado = mysqli_query($bd->getEnlace(), $strSql))){
+					echo '<script language="javascript">alert("Error al intentar realizar la compra");</script>'; 
+				}
+			}
+		}
+		public function comprarSuscripcion($idPublicacion, $idTiempoSuscripcion){
+			if (ISSET($idPublicacion) && ISSET($idTiempoSuscripcion) &&
+				ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+				$bd= new BaseDatos();
+
+				$sqlSql = "
+						SELECT ED.precio
+						FROM edicion ED 
+						WHERE idPublicacion = ".$idPublicacion."
+						ORDER BY ED.idEdicion DESC LIMIT 1";
+				$consulta = mysqli_query($bd->getEnlace(), $sqlSql);
+		
+				IF($resultado = mysqli_fetch_assoc($consulta)){
+					$precio = $resultado['precio'];
+					$sqlSql = "
+							SELECT TS.tiempoEnMeses, TS.porcentajeDescuento
+							FROM tiemposuscripcion TS
+							WHERE idTiempoSuscripcion = ".$idTiempoSuscripcion;	
+					
+					$consulta = mysqli_query($bd->getEnlace(), $sqlSql);
+					
+					IF($resultado = mysqli_fetch_assoc($consulta)){
+						$porcentaje =floatval($resultado['porcentajeDescuento'] /100);
+						$meses = $resultado['tiempoEnMeses'];
+						$precio = ((floatval($precio) - ($precio * $porcentaje)) * intval($meses));
+						$precio = sprintf("%.2f", $precio);		
+						
+						$strSql = "
+								INSERT INTO suscripcion(idUsuarioLector,idTiempoSuscripcion,idPublicacion,fecha,precio)
+								VALUES(".$_SESSION['idUsuario'].",".$idTiempoSuscripcion.",".$idPublicacion.",
+									   '".date('Y-m-d')."',".$precio.")
+						";
+						if(!($resultado = mysqli_query($bd->getEnlace(), $strSql))){
+							echo '<script language="javascript">alert("Error al intentar realizar la suscripcion");</script>'; 
+						}
+					}
+				}
+			}
+		}
+		public function mostrarBoton($idEdicion){
+			if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+			
+				$strSql = "
+					SELECT 1 
+					FROM Compras
+					WHERE idUsuarioLector = ".$_SESSION['idUsuario']." 
+					  AND idEdicion = ".$idEdicion."
+				";
+
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($comprada = mysqli_fetch_assoc($consulta)){
+					echo "<a class='comprar' value='comprar' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Mirar</a>
+					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
+				}else{
+					echo "<button class='comprar' value='comprar' onClick='buscaCompra(".$idEdicion.");modalOpenCompra()' id='comprar'>Comprar</button> 
+					";//escribir el direccionamiento a la pagina modal de compra	
+				}
+			}else{
+				echo "<button class='comprar' id='lector' name='lector' value='lector' onClick='modalOpenLector();'>Comprar</button>
+				";
+			}
+		}
 	}
 
 ?>

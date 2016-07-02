@@ -5,6 +5,7 @@
     <?php
 		include_once('include/head.php');
 		include_once('clases/Publicacion.php');
+		include_once('clases/Usuarios.php');
 	?>
 	<body>
 		<?php include_once('include/header_body.php'); ?>
@@ -15,11 +16,10 @@
 			</div>
 			
 			<div class='perfil'>
-				<img class='fotoPerfil' src='#'/>
-				<div class='datosPerfil'>
-					<h2>Bienvenido/a</h2>
-					<h1>Carlos Alberto <a class='iconModificar' title='Ver datos de perfil' href='perfil_modificacion.php'>E</a></h1>
-				</div>
+				<?php 
+					$usuario = new Usuarios();
+					$usuario->encabezadoPerfil();
+				?>
 			</div>
 			
 			<div class='tablasABM'>
