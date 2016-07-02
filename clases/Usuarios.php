@@ -125,13 +125,10 @@
 		}
 		
 		public function cargarDatosUsuario($idUsuario){
-			
 			if (ISSET($idUsuario)){
-			
 				$bd = new BaseDatos();
-				
 				$strSql = "
-					SELECT UL.usuario,UL.apellido,UL.nombre,UL.documento,UL.fechaNacimiento,UL.mail,UL.telefono,UL.calle,UL.numero,
+					SELECT UL.usuario,UL.apellido,UL.nombre,UL.documento,UL.fechaNacimiento,UL.mail,UL.telefono,UL.calle,UL.numero, UL.imagenPerfil,
 						   PA.idPais, PA.nombre pais, PR.idProvincia, PR.nombre provincia, LO.idLocalidad, LO.nombre localidad
 					FROM usuariolector UL JOIN Pais PA ON UL.idPais=PA.idPais
 										  JOIN Provincia PR ON PA.idPais = PR.idPais
@@ -143,31 +140,34 @@
 			
 				if($resultado = mysqli_fetch_assoc($consulta)){
 					$datos['idUsuario'] = $idUsuario;
-					$datos["usuario"] =$resultado['usuario'];
-					$datos["apellido"] =$resultado['apellido'];
-					$datos["nombre"] =$resultado['nombre'];
-					$datos["documento"] =$resultado['documento'];
-					$datos["fechaNacimiento"] =$resultado['fechaNacimiento'];
-					$datos["mail"] =$resultado['mail'];
-					$datos["telefono"] =$resultado['telefono'];
-					$datos["idPais"] =$resultado['idPais'];
-					$datos["pais"] =$resultado['pais'];
-					$datos["idProvincia"] =$resultado['idProvincia'];
-					$datos["provincia"] =$resultado['provincia'];
-					$datos["idLocalidad"] =$resultado['idLocalidad'];
-					$datos["localidad"] =$resultado['localidad'];
-					$datos["calle"] =$resultado['calle'];
-					$datos["numero"] =$resultado['numero'];
+					$datos["usuario"] = $resultado['usuario'];
+					$datos["apellido"] = $resultado['apellido'];
+					$datos["nombre"] = $resultado['nombre'];
+					$datos["fotoPerfil"] = $resultado['imagenPerfil'];
+					$datos["documento"] = $resultado['documento'];
+					$datos["fechaNacimiento"] = $resultado['fechaNacimiento'];
+					$datos["mail"] = $resultado['mail'];
+					$datos["telefono"] = $resultado['telefono'];
+					$datos["idPais"] = $resultado['idPais'];
+					$datos["pais"] = $resultado['pais'];
+					$datos["idProvincia"] = $resultado['idProvincia'];
+					$datos["provincia"] = $resultado['provincia'];
+					$datos["idLocalidad"] = $resultado['idLocalidad'];
+					$datos["localidad"] = $resultado['localidad'];
+					$datos["calle"] = $resultado['calle'];
+					$datos["numero"] = $resultado['numero'];
 					return $datos;
 				}
 			}
 			
 		}
+
 		public function limpiarDatos(){
 			$datos['idUsuario'] ="";
 			$datos["usuario"] ="";
 			$datos["apellido"] ="";
 			$datos["nombre"] ="";
+			$datos["fotoPerfil"] = "";
 			$datos["documento"] ="";
 			$datos["fechaNacimiento"] ="";
 			$datos["mail"] ="";
@@ -182,6 +182,7 @@
 			$datos["numero"] ="";
 			return $datos;
 		}
+
 		public function validarUsuario($usuario,$seccion){
 			
 		}

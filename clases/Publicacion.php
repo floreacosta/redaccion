@@ -234,24 +234,24 @@
 			
 				while($resultado = mysqli_fetch_assoc($consulta)){
 					echo "
-						<figure class='col'><!-- Item Compra 1 -->
+						<figure class='col'>
 							<p class='numCompra'>N° Compra: ".$resultado['idCompra']."</p>
 							<div class='informacion'>
 								<img class='tapaRevista' src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 								<div class='informacionEdicion'>
 									<p class='fechaEdicion'>".date("d-m-Y", strtotime($resultado['fechaEdicion']))."</p>
 									<h3>".$resultado['tituloEdicion']."</h3>
-									
+									<a class='verEdicionComprada' href='edicion.php?edicion=".$resultado['idEdicion']."'>Ver edición</a>									
 								</div>
 							</div>
 							<p class='fechaCompra'>Fecha de compra: ".date("d-m-Y", strtotime($resultado['fechaCompra']))."</p>
 							<p class='costoCompra'>Precio: $".sprintf("%.2f", $resultado['precio'])."</p>
-							<a class='cancelarSuscripcion' href='edicion.php?edicion=".$resultado['idEdicion']."'>mirar edicion</a>
 						</figure>
 					";//hay que revisar donde poner el boton de mirar edicion y cambiarle la class
 				}
 			}
 		}
+		
 		public function suscripcionesCompradas(){
 			if (ISSET($_SESSION['idUsuario'])){
 				$bd = new BaseDatos();
@@ -273,17 +273,18 @@
 							<div class='informacion'>
 								<div class='informacionEdicion'>
 									<h3>".$resultado['nombre']."</h3>
+									<a class='verEdicionComprada' href=''>Ver suscripción</a>									
 								</div>
 							</div>
 							<p class='fechaCompra'>Fecha de inicio: ".date("d-m-Y", strtotime($resultado['fecha']))."</p>
 							<p class='fechaCompra'>duracion : ".$resultado['tiempoEnMeses']." meses</p>
 							<p class='costoSuscripcion'>Precio: $".sprintf("%.2f", $resultado['precio'])."</p>
-							<a class='cancelarSuscripcion' href='#'>Cancelar suscripción</a>
 						</figure>
 					";
 				}
 			}
 		}
+		
 		public function comprarEdicion($idEdicion){
 			if (ISSET($idEdicion) && ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
 				$bd = new BaseDatos();
@@ -298,6 +299,7 @@
 				}
 			}
 		}
+		
 		public function comprarSuscripcion($idPublicacion, $idTiempoSuscripcion){
 			if (ISSET($idPublicacion) && ISSET($idTiempoSuscripcion) &&
 				ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
@@ -351,10 +353,10 @@
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 				if($comprada = mysqli_fetch_assoc($consulta)){
-					echo "<a class='comprar' value='comprar' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Mirar</a>
+					echo "<a class='ver' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Ver</a>
 					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
 				}else{
-					echo "<button class='comprar' value='comprar' onClick='buscaCompra(".$idEdicion.");modalOpenCompra()' id='comprar'>Comprar</button> 
+					echo "<button class='comprar' value='comprar' onClick='buscaCompra(".$idEdicion."); modalOpenCompra();' id='comprar'>Comprar</button> 
 					";//escribir el direccionamiento a la pagina modal de compra	
 				}
 			}else{

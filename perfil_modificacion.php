@@ -30,7 +30,7 @@
 			</div>
             <div class='formularioUsuario'>
 			
-				<form id='formLector' action='/redaccion/usuario_registrado.php' method='POST' class="" enctype='multipart/form-data'>				
+				<form id='formLector' action='/redaccion/usuario_registrado.php' method='POST' enctype='multipart/form-data'>				
 					<label>Nombre de usuario</label> 
 					<input  type='hidden' value='<?php echo $datos['idUsuario'];?>' id='idUsuario' name='idUsuario'></input>
 					<input value='<?php echo $datos['usuario'];?>' title='Solo letras, números y guiones' type='text' id='usuario' name='usuario' placeholder='Nombre de Usuario' pattern='[A-Za-z0-9_-]{1,15}' onchange='buscaUsuario(this.value)' required/>
@@ -48,6 +48,9 @@
 					<label>Apellido</label>
 					<input value='<?php  echo $datos['apellido'];?>' title='Solo se admiten letras' type='text' id='apellido' name='apellido' placeholder='Apellido'  pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></br>
 					
+					<label>Foto de perfil</label>
+					<input value='<?php  echo $datos['fotoPerfil'];?>' type='file' id='fotoPerfil' name='fotoPerfil'/></br>
+					
 					<label>DNI</label>
 					<input value='<?php echo $datos['documento'];?>' type='text' id='dni' name='dni' placeholder='8 digitos' pattern='[0-9]{8}' required/></br>
 
@@ -55,7 +58,7 @@
 					<input value='<?php echo $datos['fechaNacimiento'];?>' type='date' id='fechaNacimiento' name='fechaNacimiento' max='31-12-1919' required/></br>
 
 					<label>Email</label>					
-					<input value='<?php echo $datos['mail'];?>' type='email' id='email' name='email' required/></br>
+					<input value='<?php echo $datos['mail'];?>' placeholder='xxx@xxx.com' type='email' id='email' name='email'/></br>
 
 					<label>Teléfono</label>
 					<input value='<?php echo $datos['telefono'];?>' type='text' id='tel' name='tel' placeholder='ej. 4432-2342' pattern='[0-9_-]{8,20}' required/><br>

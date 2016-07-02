@@ -1,0 +1,201 @@
+DROP DATABASE IF EXISTS dbRedaccion;
+
+CREATE DATABASE dbRedaccion DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci ;
+
+USE dbRedaccion;
+
+CREATE TABLE localidad(
+    idLocalidad INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    idProvincia INT UNSIGNED,
+    nombre VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE provincia(
+	idProvincia INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idPais INT UNSIGNED,
+    nombre VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE pais(
+	idPais INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
+	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE estado(
+	idEstado INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE usuarioLector(
+	idUsuarioLector INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    apellido VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    documento NVARCHAR(8),
+    fechaNacimiento DATE,
+    calle VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    numero INT,
+    telefono VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    mail VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    idLocalidad INT UNSIGNED,
+    idProvincia INT UNSIGNED,
+    idPais INT UNSIGNED,
+    idEstado INT UNSIGNED,
+    usuario VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    clave VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    imagenPerfil varchar(30)CHARACTER SET 'utf8' NULL DEFAULT 'Default.png'	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE usuarioAdministrativo(
+	idUsuarioAdmin INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idTipoUsuario INT UNSIGNED,
+    apellido VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    fechaNacimiento DATE,
+    calle VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    numero INT,
+    telefono VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    mail VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    idLocalidad INT UNSIGNED,
+    idProvincia INT UNSIGNED,
+    idPais INT UNSIGNED,
+    idEstado INT UNSIGNED,
+    usuario VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    clave VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    imagenPerfil varchar(30)CHARACTER SET 'utf8' NULL DEFAULT 'DefaultAdmin.png'	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE tiempoLaboral(
+	idTiempoLaboral INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuarioAdmin INT UNSIGNED,
+    fechaIngreso DATE,
+    fechaEgreso DATE	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE tipoUsuarioAdministrativo(
+	idTipoUsuarioAdmin INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    descripcion VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE permisoUsuario(
+	idPermisoUsuario INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idTipoUsuarioAdmin INT UNSIGNED,
+    idSeccionSistema INT UNSIGNED	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE seccionSistema(
+	idSeccionSistema INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE accion(
+	idAccion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE bitacoraPublicacion(
+	idBitacoraPublicacion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuarioAdmin INT UNSIGNED,
+    idPublicacion INT UNSIGNED,
+  	FECHA DATE,
+    idAccion INT UNSIGNED,
+    cambio VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE publicacion(
+	idPublicacion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    descripcion VARCHAR(100)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    idTipoPublicacion INT UNSIGNED,
+    cantidadEmisionPorMes INT	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE tipoPublicacion(
+	idTipoPublicacion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE bitacoraEdicion(
+	idBitacora INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuarioAdmin INT UNSIGNED,
+    idEdicion INT UNSIGNED,
+    fecha DATE,
+    idAccion INT UNSIGNED,
+    cambio VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE edicion(
+	idEdicion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idPublicacion INT UNSIGNED,
+    tituloEdicion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    imagenTapaEdicion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    fecha DATE,
+    precio DECIMAL(10,2)
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE seccion(
+	idSeccion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE seccionPorEdicion(
+	idSeccionPorEdicion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idEdicion INT UNSIGNED,
+    idSeccion INT UNSIGNED	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE bitacoraNota(
+	idBitacoraNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuarioAdmin INT UNSIGNED,
+    idNota INT UNSIGNED,
+    fecha DATE,
+    idAccion INT UNSIGNED	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE nota(
+	idNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idSeccionPorEdicion INT UNSIGNED,
+    titulo VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    volanta TEXT,
+    copete TEXT,
+    texto TEXT,
+    latitud VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    longitud VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE imagenNota(
+	idImagenNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idNota INT UNSIGNED NOT NULL,
+    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE videoNota(
+	idVideoNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idNota INT UNSIGNED NOT NULL,
+    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE suscripcion(
+	idSuscripcion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuarioLector INT UNSIGNED,
+    idTiempoSuscripcion INT UNSIGNED,
+    idPublicacion INT UNSIGNED,
+    fecha DATE,
+    precio DECIMAL	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE tiempoSuscripcion(
+	idTiempoSuscripcion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    tiempoEnMeses INT,
+    porcentajeDescuento INT	
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+
+CREATE TABLE compras(
+	idCompra INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuarioLector INT UNSIGNED,
+    idEdicion INT UNSIGNED,
+    fecha DATE
+)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
