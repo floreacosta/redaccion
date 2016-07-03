@@ -172,3 +172,84 @@ function calcularImporte(idPublicacion, idPeriodo) {
 			req.send(null);
 		}
 }
+
+
+function mostrarEdiciones(idPublicacion) {
+    var strURL="mostrarTablasContenidista.php?idPublicacion="+idPublicacion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('ediciones').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+		
+	$( "#secciones" ).empty();
+	$( "#notas" ).empty();
+}
+
+function mostrarSecciones(idEdicion) {
+    var strURL="mostrarTablasContenidista.php?idEdicion="+idEdicion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('secciones').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+	$( "#notas" ).empty();
+}
+
+function mostrarNotas(idSeccion) {
+    var strURL="mostrarTablasContenidista.php?idSeccion="+idSeccion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('notas').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
+function editarPublicacion(idPublicacion) {
+    var strURL="editarContenidoTablas.php?idPublicacion="+idPublicacion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('modificacarPublicacion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}

@@ -93,24 +93,69 @@
 			}
 		}		
 
-		public function listarPublicacion($topeId, $tipo){
+		public function listarPublicacion(){
 			$bd = new BaseDatos();
+			
+			$sql= "SELECT * FROM publicacion";
+			$consulta = mysqli_query($bd->getEnlace(), $sql);
+			$numeroRegistros = mysqli_num_rows($consulta);
+			
+			$tamanoPagina = 10;
+			
+			if (!isset($_GET["pagina"])) {
+			   $inicio = 0;
+			   $pagina = 1;
+			}
+			else {
+			   $pagina = $_GET["pagina"];
+			   $inicio = ($pagina - 1) * $tamanoPagina;
+			}
+		
+			$totalPaginas = ceil($numeroRegistros / $tamanoPagina);
 			
 			$strSql = "
 				SELECT PUB.idPublicacion, PUB.nombre, PUB.descripcion
 				FROM publicacion PUB 
 				ORDER BY PUB.idPublicacion
-				LIMIT $topeId, 10 
-			";
+				LIMIT $inicio,$tamanoPagina";
+			
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+			echo "<tablebody>";
+			
 			while($publicacion = mysqli_fetch_assoc($consulta)){
 				$idPublicacion = $publicacion['idPublicacion'];
 				$nombrePublicacion = $publicacion['nombre'];
 				$descripcionPublicacion = $publicacion['descripcion'];
 				
-				//mostrar tabla (que tenga boton ver, borrar y modificar)
+				echo 
+					"
+					<tr>
+						<td id='idPublicacion'>$idPublicacion</td>
+						<td>$nombrePublicacion</td>
+						<td>$descripcionPublicacion</td>
+						<td class='btnAccion-td'><button type='submit' name='modifPublicacion' class='modifPublicacion' onClick=''>e</button></td>
+						<td class='btnAccion-td'><button type='submit' id='verEdiciones' name='verEdiciones' class='verPublicacion' onClick='mostrarEdiciones($idPublicacion)'>E</button></td>
+					</tr>";
 			}
-			//boton "agregar"
+			
+			echo "</tablebody>";
+			
+			$url="perfil_contenidista.php";
+			
+		
+			echo"<div style='background-color:black; width:20%; color:grey; margin:0.5em;'>";
+			
+			for ($i=1;$i<=$totalPaginas;$i++) {
+				if ($pagina == $i){
+					echo "&nbsp;&nbsp;".$pagina;
+				}
+				else{
+					echo '<a href="'.$url.'?pagina='.$i.'">&nbsp;&nbsp;'.$i.'</a>';
+				}
+			}
+			
+			echo"</div>";
 		}
 		
 		public function listarEdicion($topeId, $idPublicacion){
