@@ -870,6 +870,101 @@ td>button:hover {
 }
 /*FIN ABM Contenidista*/
 
+/*PERFIL ADMINISTRADOR*/
+.contenedorGrafico {
+    display: inline-block;
+    width: 48%;
+    background: white;
+    padding: 1em;
+	color: #656565;
+}
+
+.verGraficos {
+    margin-top: 1em;
+    background: #00c853;
+    border: 0;
+    color: white;
+    padding: .5em;
+    width: 100%;
+    font-size: 1.1em;
+	cursor: pointer;
+}
+
+.graficosInputs {
+    margin-top: 1em;
+    background: #00c853;
+    border: 0;
+    color: white;
+    padding: .5em;
+    width: 98%;
+    font-size: 1.1em;
+	cursor: pointer;
+}
+.graficos_compras_izq{
+ width: 48%;
+ float: left;
+ position: relative;
+ width: 50%;
+ font-size: 1.1em;
+ cursor: pointer;
+
+}
+.graficos_compras_der{
+ width: 50%;
+ float: left;
+ position: relative;
+ width: 48%;
+ font-size: 1.1em;
+ cursor: pointer;
+}
+
+.verGraficos:hover{
+	opacity: .7;
+}
+
+a.altaUsuarioDesdeAdmin {
+    color: #e08200;
+}
+
+a.altaUsuarioDesdeAdmin:hover{
+	opacity: .7;
+}
+
+a.altaUsuarioDesdeAdmin span{
+	font-family: 'modern_pictogramsnormal';
+	font-size: 1.5em;
+	line-height: 1;
+}
+
+.tablasABM.modifEmpleadosAdmin div {
+    background: #cccccc;
+}
+
+.generarListados h2{
+	margin-bottom: 1em;
+}
+
+.generarListados select{
+	padding: 1em;
+	background: #ccc;
+	color: white;
+	border: 0;
+	border-radius: .5em;
+	width: 60%;
+	cursor: pointer;
+}
+
+.generarListados input[type='submit']{
+	background: #00c853;
+	padding: 1em;
+	width: 30%;
+	color: white;
+	border: 0;
+	margin-left: 1%;
+	border-radius: .5em;	
+}
+/*Fin PERFIL ADMINISTRADOR*/
+
 /*Suscripciones index*/
 .suscripciones {
     background: white;

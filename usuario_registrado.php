@@ -16,6 +16,12 @@
 				$clave = $_POST['clave'];
 				$nombre = $_POST['nombre'];
 				$apellido = $_POST['apellido'];
+				if(ISSET($_FILES['fotoPerfil'])){
+					move_uploaded_file($_FILES['fotoPerfil']['tmp_name'],'img/perfil/'.$usuario.".jpg");
+					$fotoPerfil = $usuario.".jpg";
+				}else{
+					$fotoPerfil = "Default.png";
+				}
 				$documento = $_POST['dni'];
 				$fechaNacimiento = $_POST['fechaNacimiento'];
 				$email = $_POST['email'];
@@ -37,9 +43,9 @@
 					if($resultadoValid == FALSE){	//Si el usuario ya existe nos tira al ultimo else		
 						$strSql = "
 							INSERT INTO usuariolector(apellido,nombre,documento,fechaNacimiento,calle,numero,telefono,mail,idLocalidad,
-													  idProvincia,idPais,idEstado,usuario,clave)
+													  idProvincia,idPais,idEstado,usuario,clave,imagenPerfil)
 							VALUES ('$apellido','$nombre','$documento','$fechaNacimiento','$calle',$numero,$tel,'$email',$idLocalidad,
-									$idProvincia,$idPais,$estado,'$usuario','$clave');
+									$idProvincia,$idPais,$estado,'$usuario','$clave','$fotoPerfil');
 						";
 						if($resultado = mysqli_query($bd->getEnlace(), $strSql)){		
 							echo"
@@ -81,7 +87,8 @@
 							idPais = $idPais,
 							idEstado = $estado,
 							usuario = '$usuario',
-							clave = '$clave'
+							clave = '$clave',
+							imagenPerfil = '$fotoPerfil'
 						WHERE idUsuarioLector = $idUsuario
 					";
 					if($resultado = mysqli_query($bd->getEnlace(), $strSql)){

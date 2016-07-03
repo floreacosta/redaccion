@@ -26,11 +26,19 @@
 		
 		<section class='modificacionDatos content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a><span class='separacion'>></span><a class='here' href='perfil_lector.php'>Perfil de usuario</a><span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Modificacion/Alta de usuario</a></p>
+				<p><a href='index.php'>Home</a><span class='separacion'>></span><a class='here' href='perfil_lector.php'>Perfil de usuario</a>
+				<?php
+					if (ISSET($_GET['edit']) && ($_GET['edit'] == 1) && 
+						ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])){
+						echo"<span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Modificacion de usuario</a></p>";
+					}else{
+						echo"<span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Alta de usuario</a></p>";
+					}
+				?>
 			</div>
             <div class='formularioUsuario'>
 			
-				<form id='formLector' action='/redaccion/usuario_registrado.php' method='POST' enctype='multipart/form-data'>				
+				<form id='formLector' action='usuario_registrado.php' method='POST' enctype='multipart/form-data'>				
 					<label>Nombre de usuario</label> 
 					<input  type='hidden' value='<?php echo $datos['idUsuario'];?>' id='idUsuario' name='idUsuario'></input>
 					<input value='<?php echo $datos['usuario'];?>' title='Solo letras, números y guiones' type='text' id='usuario' name='usuario' placeholder='Nombre de Usuario' pattern='[A-Za-z0-9_-]{1,15}' onchange='buscaUsuario(this.value)' required/>

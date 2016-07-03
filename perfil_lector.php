@@ -23,7 +23,7 @@
 			</div>
 			
 			<div class='comprasUsuario'>
-				<a name="compras"></a><<h2 class='tituloCompras'>Mis compras</h2>
+				<a name="compras"></a><h2 class='tituloCompras'>Mis compras</h2>
 				<?php
 					$publicacion = new Publicacion();
 					$publicacion->edicionesCompradas();

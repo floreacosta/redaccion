@@ -38,7 +38,7 @@
 			<input type='submit' id='ingresarLoginLector' name='ingresarLoginLector' value='LogIn'></input><!--BOTON LECTOR -->
 		</div>
 		<ul class='aclaracion'>
-			<li><a href='/redaccion/perfil_modificacion.php'>Quiero registrarme.</a></li>
+			<li><a href='perfil_modificacion.php'>Quiero registrarme.</a></li>
 			<li><a href='#'>Olvidé mi usuario y/o contraseña.</a></li>
 		</ul>
 	</form>
