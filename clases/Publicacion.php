@@ -221,7 +221,7 @@
 			//boton "agregar"
 		}
 		
-		public function buscarEdicion($topeId){
+		public function buscarPublicacion($topeId){
 			$bd = new BaseDatos();
 			
 			$strSql = "
@@ -296,7 +296,55 @@
 				}
 			}
 		}
-		
+		public function verEdicion($idEdicion){
+			$bd = new BaseDatos();
+			
+			$strSql = "
+				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio, PUB.nombre nombrePublicacion
+				FROM edicion ED JOIN publicacion PUB
+					ON PUB.idPublicacion = ED.idPublicacion
+				WHERE ED.idEdicion=".$idEdicion;
+
+			$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+			if($edicion = mysqli_fetch_assoc($consulta)){
+				echo "	<div class='tapaEdicion'>
+							<img src='img/thumbs-publicacion/".$edicion['imagenTapaEdicion']."'/>
+						</div>
+						<figcaption class='columna'>
+							<div>
+								<h1>".$edicion['nombrePublicacion']."</h1>
+								<h5>Publicada: ".$edicion['fecha']."</h5>
+								<h2>".$edicion['tituloEdicion']."</h2>
+							</div>
+				";
+				$strSql = "
+				SELECT SE.nombre,SPE.idSeccionPorEdicion,SPE.idSeccion
+				FROM seccionPorEdicion SPE JOIN seccion SE ON SPE.idSeccion = SE.idSeccion
+				WHERE SPE.idEdicion=".$idEdicion;
+				
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+				
+				echo "	<div class='secciones'>";
+				if ($edicion = mysqli_fetch_assoc($consulta)){
+					$primeraSeccion=$edicion['idSeccionPorEdicion'];
+					do{
+						echo "<span onclick='buscarSeccion(".$edicion['idSeccionPorEdicion'].", ".$idEdicion.");'>".$edicion['nombre']."</span>";
+					}while($edicion = mysqli_fetch_assoc($consulta));
+					echo"
+						<script>
+							$( function(){ 
+								buscarSeccion($primeraSeccion, $idEdicion);
+							});
+						</script>
+					";
+					
+				}
+				echo "	</div>
+						</figcaption>";
+				
+			}
+		}		
 		public function suscripcionesCompradas(){
 			if (ISSET($_SESSION['idUsuario'])){
 				$bd = new BaseDatos();
@@ -384,13 +432,87 @@
 				}
 			}
 		}
+		
+		public function datosSuscripcion(){
+			$bd = new BaseDatos();
+	
+			$strSql = "
+					SELECT idPublicacion, nombre
+					FROM publicacion
+					ORDER BY nombre 
+			";
+			
+			$consulta = mysqli_query($bd->getEnlace(), $strSql);
+		
+				echo"<div class='itemsSuscripcion'>
+						<label for='suscripcionesDisponibles'>Suscripciones</label>
+						<select name='suscripcionesDisponibles' onChange='calcularImporte(this.value,periodoSuscripcion.value)'>
+							<option value='' selected>Seleccione opción...</option>";
+							while($resultado = mysqli_fetch_assoc($consulta)){
+								echo "<option value='".$resultado['idPublicacion']."'>".$resultado['nombre']."</option>";
+							}
+				echo"	</select>
+					</div>
+				";	
+				$strSql = "
+						SELECT idTiempoSuscripcion, tiempoEnMeses, porcentajeDescuento
+						FROM tiemposuscripcion
+						ORDER BY idTiempoSuscripcion 
+				";
+
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+	
+				echo"<div class='periodoSuscripcion'>
+						<label for='periodoSuscripcion' >Período en meses</label>
+						<select name='periodoSuscripcion' onChange='calcularImporte(suscripcionesDisponibles.value,this.value)'>
+							<option value='' selected>Seleccione opción...</option>";
+							if ($resultado = mysqli_fetch_assoc($consulta)){
+								echo "<option value='".$resultado['idTiempoSuscripcion']."'>".sprintf("%02d", $resultado['tiempoEnMeses'])." mes</option>";
+								while($resultado = mysqli_fetch_assoc($consulta)){
+									echo "<option value='".$resultado['idTiempoSuscripcion']."'>".sprintf("%02d", $resultado['tiempoEnMeses'])." meses</option>";
+								}
+							}
+		
+				echo"	</select>
+					</div>
+				";
+			
+		}
+		public function datosDeNota($idNota){
+			if (ISSET($idNota)){
+				$bd = new BaseDatos();
+			
+				$strSql = "
+					SELECT NO.titulo, NO.volanta, NO.copete, NO.texto, NO.latitud, 
+						   NO.longitud,INO.descripcion imagen,INO.detalleImagen
+					FROM nota NO JOIN imagenNota INO ON NO.idNota=INO.idNota
+					WHERE NO.idNota = ".$idNota."";
+
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($comprada = mysqli_fetch_assoc($consulta)){
+					$datos['titulo'] = $comprada['titulo'];
+					$datos['volanta'] = $comprada['volanta'];
+					$datos['copete'] = $comprada['copete'];
+					$datos['texto'] = $comprada['texto'];
+					$datos['imagen'] = $comprada['imagen'];
+					$datos['detalleImagen'] = $comprada['detalleImagen'];
+					$datos['latitud'] = $comprada['latitud'];
+					$datos['longitud'] = $comprada['longitud'];
+					$datos['pieNota'] = "Pie de la nota";
+					$datos['autor'] = "Autor de Prueba";
+					return $datos;
+				}
+			}
+		}
+		
 		public function mostrarBoton($idEdicion){
 			if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
 				$bd = new BaseDatos();
 			
 				$strSql = "
-					SELECT 1 
-					FROM Compras
+					SELECT 1
+					FROM compras 
 					WHERE idUsuarioLector = ".$_SESSION['idUsuario']." 
 					  AND idEdicion = ".$idEdicion."
 				";
@@ -401,8 +523,41 @@
 					echo "<a class='ver' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Ver</a>
 					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
 				}else{
-					echo "<button class='comprar' value='comprar' onClick='buscaCompra(".$idEdicion."); modalOpenCompra();' id='comprar'>Comprar</button> 
-					";//escribir el direccionamiento a la pagina modal de compra	
+					$strSql = "
+							SELECT idPublicacion, fecha fechaEdicion
+							FROM edicion
+							WHERE idEdicion = ".$idEdicion."
+					";
+					$consulta = mysqli_query($bd->getEnlace(), $strSql);
+					$mirar = FALSE;
+					IF($comprada = mysqli_fetch_assoc($consulta)){
+						$fechaEdicion = $comprada['fechaEdicion'];
+						$strSql = "
+								SELECT SU.fecha fechaSuscripcion, TS.tiempoEnMeses
+								FROM suscripcion SU JOIN tiempoSuscripcion TS ON SU.idTiempoSuscripcion=TS.idTiempoSuscripcion
+								WHERE SU.idPublicacion = ".$comprada['idPublicacion']."
+								  AND su.idUsuarioLector = ".$_SESSION['idUsuario']."
+						";
+						
+						$consulta = mysqli_query($bd->getEnlace(), $strSql);
+						
+						while($comprada = mysqli_fetch_assoc($consulta)){
+							$fechaCompra = $comprada['fechaSuscripcion'];
+							$fechaVencimiento = strtotime ( "+".$comprada['tiempoEnMeses']." month" , strtotime ( $fechaCompra ) ) ;
+							$fechaVencimiento = date ( 'Y-m-j' , $fechaVencimiento );
+							
+							if ((date('Y-m-j') > date('Y-m-j',strtotime("$fechaCompra"))) && (date('Y-m-j') <= strtotime("$fechaVencimiento")) ){
+								$mirar = TRUE;
+							}
+						}
+					}
+					if($mirar == TRUE){
+						echo "<a class='ver' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Ver</a>
+							";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
+					}else{
+						echo "<button class='comprar' value='comprar' onClick='buscaCompra(".$idEdicion.");modalOpenCompra()' id='comprar'>Comprar</button> 
+						";//escribir el direccionamiento a la pagina modal de compra	
+					}
 				}
 			}else{
 				echo "<button class='comprar' id='lector' name='lector' value='lector' onClick='modalOpenLector();'>Comprar</button>

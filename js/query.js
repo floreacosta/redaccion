@@ -77,7 +77,6 @@ function getXMLHTTP() {
 	return xmlhttp;
 }
 
-
 function buscaProvincia(pais) {
     var strURL = "include/provincia.php?pais="+pais;
     var req = getXMLHTTP();
@@ -173,6 +172,25 @@ function calcularImporte(idPublicacion, idPeriodo) {
 		}
 }
 
+function buscarSeccion(idSeccion,idEdicion) {
+    var strURL="include/seccion.php?edicion="+idEdicion+"&idSeccion="+idSeccion;
+	var req = getXMLHTTP();
+
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('seccion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
 
 function mostrarEdiciones(idPublicacion) {
     var strURL="mostrarTablasContenidista.php?idPublicacion="+idPublicacion;
@@ -234,7 +252,6 @@ function mostrarNotas(idSeccion) {
 			req.send(null);
 		}
 }
-
 function editarPublicacion(idPublicacion) {
     var strURL="editarContenidoTablas.php?idPublicacion="+idPublicacion;
     var req = getXMLHTTP();

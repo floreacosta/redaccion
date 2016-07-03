@@ -25,7 +25,7 @@
 				$meses = $resultado['tiempoEnMeses'];
 				$precio = ((floatval($precio) - ($precio * $porcentaje)) * intval($meses));
 				$precio = sprintf("%.2f", $precio);
-				echo $precio;			
+				echo "$ ".$precio;			
 			}
 		}
 	}else{
