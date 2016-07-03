@@ -45,7 +45,7 @@
  
       var data = new google.visualization.DataTable(<?=$jsonTable?>);
       var opciones = {
-			title: 'Nuevos suscriptores en el periodo ingresado (por día)',
+			title: 'Ganancias obtenidas en el periodo dado(por edicion)',
 			width: 1400,
 			height: 650,
 			backgroundColor: '#B5B5B5',

@@ -5,6 +5,7 @@
     <?php
 		include_once('include/head.php');
 		include_once('clases/Publicacion.php');
+		include_once('clases/Administrador.php');
 	?>
 	<body>
 		<?php include_once('include/header_body.php'); ?>
@@ -67,85 +68,24 @@
 					<table>
 						<thead>
 							<tr>
-								<th>Id de publicación</th>
-								<th>Nombre de publicación</th>
-								<th>Tipo de publicación</th>
-								<th class='btnAccion'></th>
+								<th data-field="id">Id de publicación</th>
+								<th data-field="name">Nombre de publicación</th>
+								<th data-field="price">Tipo de publicación</th>
+								<th class='btnAccion' data-field="price"></th>
+								<th class='btnAccion' data-field="price"></th>
 							</tr>
 						</thead>
 
-						<tbody>
-							<tr><!-- ITEM -->
-								<td>Alvin</td>
-								<td>Eclair</td>
-								<td>$0.87</td>
-								<td class='btnAccion-td' title='Ver Publicación'><button type='submit' name='verPublicacion' class='verPublicacion'>E</button></td>
-							</tr>
-							<tr><!-- ITEM -->
-								<td>Alan</td>
-								<td>Jellybean</td>
-								<td>$3.76</td>
-								<td class='btnAccion-td' title='Ver Publicación'><button type='submit' name='verPublicacion' class='verPublicacion'>E</button></td>
-							</tr>
-							<tr><!-- ITEM -->
-								<td>Jonathan</td>
-								<td>Lollipop</td>
-								<td>$7.00</td>
-								<td class='btnAccion-td' title='Ver Publicación'><button type='submit' name='verPublicacion' class='verPublicacion'>E</button></td>
-							</tr>
-						</tbody>
+	
+						<?php
+							$admin =new Administrador();
+							$admin->ABMpublicaciones();
+						?>
+						
 					</table>
 				</div>
 				
-				<div class='edicionABM'>
-					<h4>Ediciones de la publicación <i>"Genios"</i></h4>
-					<table>
-						<thead>
-							<tr>
-								<th data-field="id">Id de edición</th>
-								<th data-field="name">Título de edición</th>
-								<th data-field="price">Fecha edición</th>
-								<th data-field="price">Secciones</th>
-								<th data-field="price">Precio</th>
-								<th class='estadoPublicacion'>Estado</th>
-								<th class='estadoPublicacion'>Cerrar</th>
-								<th class='btnAccion'></th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr><!-- ITEM -->
-								<td>1</td>
-								<td>Eclair</td>
-								<td>Eclair</td>
-								<td>Cultura | Deportes | Ciencia | Humor</td>
-								<td>$0.87</td>
-								<td class='estado'>n Abierto</td>
-								<td class='estado'><input type='checkbox' name='cerrarPublicacion' id='cerrarPublicacion'/></td>
-								<td class='btnAccion-td' title='Ver Edicion'><button type='submit' name='verEdicion' class='verEdicion'>E</button></td>
-							</tr>
-							<tr><!-- ITEM -->
-								<td>2</td>
-								<td>Alan</td>
-								<td>Jellybean</td>
-								<td>Deportes | Ciencia | Humor</td>
-								<td>$3.76</td>
-								<td class='estado'>n Abierto</td>
-								<td class='estado'><input type='checkbox' name='cerrarPublicacion' id='cerrarPublicacion'/></td>
-								<td class='btnAccion-td' title='Ver Edicion'><button type='submit' name='verEdicion' class='verEdicion'>E</button></td>
-							</tr>
-							<tr><!-- ITEM -->
-								<td>3</td>
-								<td>Lollipop</td>
-								<td>Lollipop</td>
-								<td>Cultura | Ciencia | Humor</td>
-								<td>$7.00</td>
-								<td class='estado'>n Abierto</td>
-								<td class='estado'><input type='checkbox' name='cerrarPublicacion' id='cerrarPublicacion'/></td>
-								<td class='btnAccion-td' title='Ver Edicion'><button type='submit' name='verEdicion' class='verEdicion'>E</button></td>
-							</tr>
-						</tbody>
-					</table>
+				<div id='ediciones' class='edicionABM'>
 				</div>
 		</section>
 
@@ -156,7 +96,8 @@
 					<table>
 						<thead>
 							<tr>
-								<th>Nombre y apellido</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
 								<th>Rol</th>
 								<th>Nombre de usuario</th>
 								<th>Mail</th>
@@ -167,37 +108,12 @@
 							</tr>
 						</thead>
 
-						<tbody>
-							<tr><!-- ITEM -->
-								<td>Alvin</td>
-								<td>Contenidista</td>
-								<td>carlosalberto</td>
-								<td>xx@xxx.com</td>
-								<td>solright22</td>
-								<td class='estado'>Activo</td>
-								<td class='estado'><input type='checkbox' name='cambiarEstadoUsuario' id='cambiarEstadoUsuario'/></td>
-							</tr>
-							<tr><!-- ITEM -->
-								<td>Alvin</td>
-								<td>Contenidista</td>
-								<td>carlosalberto</td>
-								<td>xx@xxx.com</td>
-								<td>solright22</td>
-								<td class='estado'>Activo</td>
-								<td class='estado'><input type='checkbox' name='cambiarEstadoUsuario' id='cambiarEstadoUsuario'/></td>
-							</tr>
-							<tr><!-- ITEM -->
-								<td>Alvin</td>
-								<td>Contenidista</td>
-								<td>carlosalberto</td>
-								<td>xx@xxx.com</td>
-								<td>solright22</td>
-								<td class='estado'>Activo</td>
-								<td class='estado'><input type='checkbox' name='cambiarEstadoUsuario' id='cambiarEstadoUsuario'/></td>
-							</tr>
-						</tbody>
+						<?php
+							$admin=new Administrador();
+							$admin->listarUsuariosAdministrativos();
+						?>
 					</table>
-					<a href='#' class='altaUsuarioDesdeAdmin'>Alta de nuevo empleado <span>+</span></a>
+					<a href='/redaccion_preentrega/perfil_modificacion.php' class='altaUsuarioDesdeAdmin'>Alta de nuevo empleado <span>+</span></a>
 				</div>
 		</section>
 
