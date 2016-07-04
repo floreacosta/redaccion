@@ -37,8 +37,8 @@
 						<td>$mail</td>
 						<td>$clave</td>
 						<td id='estado_$id_administrativo'>$estado</td>
-<td class='btnAccion-td'><button type='submit' id='modifEstado' name='modifEstado' class='modifEstado' onClick='ABMCambiarEstado($id_administrativo,$id_estado)'>w</button></td>		
-<td class='btnAccion-td'><button type='submit' id='eliminarUsuario' name='eliminarUsuario' class='eliminarUsuario' onClick='ABMEliminarUsuario($id_administrativo,$baja)'>X</button></td>
+<td class='btnAccion-td'><button type='submit' title='Dar de baja usuario' id='modifEstado' name='modifEstado' class='modifEstado' onClick='ABMCambiarEstado($id_administrativo,$id_estado)'>w</button></td>		
+<td class='btnAccion-td'><button type='submit' title='Eliminar usuario' id='eliminarUsuario' name='eliminarUsuario' class='eliminarUsuario' onClick='ABMEliminarUsuario($id_administrativo,$baja)'>X</button></td>
 					</tr>";
 			}
 		}
@@ -49,6 +49,7 @@
 			$alta = 1;
 			$modificacion = 2;
 			$baja = 3;
+			$visualizar = 0;
 			
 			
 			$sql= "SELECT * FROM publicacion";
@@ -69,7 +70,7 @@
 			$totalPaginas = ceil($numeroRegistros / $tamanoPagina);
 			
 			$strSql = "
-				SELECT PUB.idPublicacion, PUB.nombre, PUB.descripcion
+				SELECT PUB.idPublicacion, PUB.nombre, PUB.descripcion, PUB.activo
 				FROM publicacion PUB 
 				ORDER BY PUB.idPublicacion
 				LIMIT $inicio,$tamanoPagina";
@@ -80,17 +81,16 @@
 				$idPublicacion = $publicacion['idPublicacion'];
 				$nombre = $publicacion['nombre'];
 				$descripcion = $publicacion['descripcion'];
-				
+				$activo = $publicacion['activo'];
 				echo 
 					"
 				<tr>
 					<td id='idPublicacion'>$idPublicacion</td>
 					<td>$nombre</td>
 					<td>$descripcion</td>
-					<td class='btnAccion-td'><button type='submit' id='verEdiciones' name='verEdiciones' class='verEdiciones' onClick='ABMEdiciones($idPublicacion)'>E</button></td>			
-					<td class='btnAccion-td'><button type='submit' id='modificarPublicacion' name='modificarPublicacion' class='modificarPublicacion' onClick='ABMModificarPublicacion($idPublicacion,$modificacion)'>e</button></td>
-					
-					<td class='btnAccion-td' title='Eliminar publicacion'><button type='submit' id='eliminarPub' name='eliminarPub' class='eliminarPub' onClick='ABMEliminarPublicacion($idPublicacion,$baja)'>x</button></td>
+					<td id='public_activo_$idPublicacion'>$activo</td>
+					<td class='btnAccion-td'><button type='submit' title='Ver ediciones' id='verEdiciones' name='verEdiciones' class='verEdiciones' onClick='ABMMostrarEdiciones($idPublicacion)'>E</button></td>			
+		<td class='btnAccion-td'><button type='submit' title='Dar de baja publicacion (con sus ediciones correspondientes)' name='bajaPublicacion'  class='bajaPublicacion'  onClick='ABMDesactivarPublicacion($idPublicacion,$activo)'>w</button></td>
 				</tr>";
 			}
 			

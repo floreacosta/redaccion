@@ -403,12 +403,7 @@ function ocultarCrearSeccion(){
 }
 	
 
-
-
-
 //////////////////////////////
-//////////////////////////////
-
 ////////////Modificacion y eliminacion de publicacion
 function ABMModificarPublicacion(idPublicacion,modificacion) {
     var strURL="ABM.php?idEdicion="+idPublicacion;
@@ -419,6 +414,24 @@ function ABMModificarPublicacion(idPublicacion,modificacion) {
                 // only if "OK"
                 if (req.status == 200) {
                     document.getElementById('publicaciones').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+function ABMDesactivarPublicacion(idPublicacion,activo) {
+    var strURL="ABM_publicaciones.php?idPublicacion="+idPublicacion+"&activo="+activo;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('public_activo_'+idPublicacion).innerHTML =req.responseText ;
                 } else {
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
@@ -446,9 +459,10 @@ function ABMEliminarPublicacion(idPublicacion,baja) {
 			req.send(null);
 		}
 }
-////Lista ediciones
-function ABMEdiciones(idPublicacion) {
-    var strURL="ABM.php?idPublicacion="+idPublicacion;
+//////////////////////////////
+//////////////////////////////Lista ediciones
+function ABMMostrarEdiciones(idPublicacion,visualizar) {
+    var strURL="ABM_publicaciones.php?idPublicacion="+idPublicacion+"&funcion="+visualizar;
     var req = getXMLHTTP();
     if (req) {
         req.onreadystatechange = function() {
@@ -465,45 +479,27 @@ function ABMEdiciones(idPublicacion) {
 			req.send(null);
 		}
 }
-////////////Modificacion y eliminacion de edicion
-function ABMModificarEdicion(idEdicion,modificacion) {
-    var strURL="ABM.php?idEdicion="+idPublicacion;
-    var req = getXMLHTTP();
-    if (req) {
-        req.onreadystatechange = function() {
-            if (req.readyState == 4) {
-                // only if "OK"
-                if (req.status == 200) {
-                    document.getElementById('ediciones').innerHTML =req.responseText ;
-                } else {
-                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-                }
-            }
-        }
-			req.open("GET", strURL, true);
-			req.send(null);
-		}
-}
-function ABMEliminarEdicion(idEdicion,baja) {
-    var strURL="ABM.php?idEdicion="+idEdicion;
-    var req = getXMLHTTP();
-    if (req) {
-        req.onreadystatechange = function() {
-            if (req.readyState == 4) {
-                // only if "OK"
-                if (req.status == 200) {
-                    document.getElementById('ediciones').innerHTML =req.responseText ;
-                } else {
-                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-                }
-            }
-        }
-			req.open("GET", strURL, true);
-			req.send(null);
-		}
-}
-//////////LISTA EMPLEADOS
 
+function ABMDesactivarEdicion(idEdicion,activo) {
+    var strURL="ABM_publicaciones.php?idEdicion="+idEdicion+"&activo="+activo;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('activo_'+idEdicion).innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+/////////////////////////
+//////////LISTA EMPLEADOS
 function ABMEliminarUsuario(id_administrativo,baja) {
     var strURL="ABM_usuarios.php?id_administrativo="+id_administrativo+"&funcion="+baja;
     var req = getXMLHTTP();

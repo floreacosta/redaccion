@@ -50,7 +50,7 @@
 		
 		<section class='content generarListados'>
 			<h2>Listados</h2>
-			<form action='' enctype='' method=''>
+			<form action='generar_pdf.php' enctype='' method='POST'>
 				<select name='tipoListado'>
 					<option value='' selected>Seleccione el tipo</option>
 					<option value='1'>Compras</option>
@@ -70,12 +70,13 @@
 								<th data-field="id">Id de publicación</th>
 								<th data-field="name">Nombre de publicación</th>
 								<th data-field="price">Tipo de publicación</th>
+								<th data-field="price">Activa</th>
 								<th class='btnAccion' data-field="price"></th>
 								<th class='btnAccion' data-field="price"></th>
 							</tr>
 						</thead>
 
-						<tbody>
+						<tbody id="publicacionesRecargadas">
 						<?php
 							$admin = new Administrador();
 							$admin->ABMpublicaciones();
@@ -84,7 +85,7 @@
 					</table>
 				</div>
 				
-				<div id='ediciones' class='edicionABM'>
+				<div id='ediciones' class='edicionABM'>			
 				</div>
 		</section>
 
