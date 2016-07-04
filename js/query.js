@@ -252,7 +252,10 @@ function mostrarNotas(idSeccion) {
 			req.send(null);
 		}
 }
-function editarPublicacion(idPublicacion) {
+
+
+function modificarPublicacion(idPublicacion) {
+	$("#modificarPublicacion").show();
     var strURL="editarContenidoTablas.php?idPublicacion="+idPublicacion;
     var req = getXMLHTTP();
     if (req) {
@@ -260,7 +263,7 @@ function editarPublicacion(idPublicacion) {
             if (req.readyState == 4) {
                 // only if "OK"
                 if (req.status == 200) {
-                    document.getElementById('modificacarPublicacion').innerHTML =req.responseText ;
+                    document.getElementById('modificarPublicacion').innerHTML =req.responseText ;
                 } else {
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
@@ -270,6 +273,121 @@ function editarPublicacion(idPublicacion) {
 			req.send(null);
 		}
 }
+
+function modificarEdicion(idEdicion) {
+	$("#modificarEdicion").show();
+    var strURL="editarContenidoTablas.php?idEdicion="+idEdicion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('modificarEdicion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
+function modificarSeccion(idSeccion) {
+	$("#modificarSeccion").show();
+    var strURL="editarContenidoTablas.php?idSeccion="+idSeccion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('modificarSeccion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
+function crearEdicion(idPublicacion) {
+	$("#crearEdicion").show();
+    var strURL="crearContenidoTablas.php?idPublicacion="+idPublicacion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('crearEdicion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
+function crearSeccion(idEdicion) {
+	$("#crearSeccion").show();
+    var strURL="crearContenidoTablas.php?idEdicion="+idEdicion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('crearSeccion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+	$( "#notas" ).empty();
+}
+
+
+function ocultarModificarPublicacion(){
+	$("#modificarPublicacion").hide();
+}
+
+function ocultarCrearPublicacion(){
+	$("#crearPublicacion").hide();
+}
+
+function ocultarModificarEdicion(){
+	$("#modificarEdicion").hide();
+}
+	
+function ocultarModificarSeccion(){
+	$("#modificarSeccion").hide();
+}
+
+function mostrarCrearPublicacion(){
+	$("#crearPublicacion").show();
+}
+
+function ocultarCrearEdicion(){
+	$("#crearEdicion").hide();
+}
+
+function ocultarCrearSeccion(){
+	$("#crearSeccion").hide();
+}
+	
+
+
+
+
 //////////////////////////////
 //////////////////////////////
 
