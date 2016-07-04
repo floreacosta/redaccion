@@ -27,9 +27,18 @@
 					";
 
 				}else if(ISSET($_SESSION['usuarioadministrativo'])){
-					echo "
-						<a title='Ver Perfil' href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
-					";
+					include_once('clases/Usuarios.php');
+					$usuario = new Usuarios();
+					$tipo = $usuario->consultarTipoUsuarioAdministrativo($_SESSION['idUsuario']);
+					if ($tipo == 1){ 
+						echo "
+							<a title='Ver Perfil' href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
+						";
+					}else if ($tipo == 2){
+						echo "
+							<a title='Ver Perfil' href='perfil_administrador.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
+						";
+					}
 				}
 			}
 			echo "

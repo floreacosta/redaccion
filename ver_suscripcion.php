@@ -11,17 +11,16 @@
 			include_once('include/header_body.php');
 		?>
 	
-		<section class='introduccion content'>
+		<section class='verSuscripcion introduccion content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a><span class='separacion'>></span><a class='here' href='resultado_busquda.php'>Búsqueda</a></p>
+				<p><a href='index.php'>Home</a><span class='separacion'>></span><a href='perfil_lector.php'>Perfil</a><span class='separacion'>></span><a class='here' href='ver_suscripcion.php'>Ver Suscripción</a></p>
 			</div>
-			<h2>Resultados de la búsqueda: </h2>
-			<div class='contenidoPublicacion'><!--INICIO PUBLICACIONES-->
-				<?php
-					$botonBuscar = new Publicacion();
-					$botonBuscar->buscarPublicacion(0);		
-				?>
-			</div><!--FIN PUBLICACIONES-->
+			<?php
+				if (ISSET($_GET['suscripcion']) && $_GET['suscripcion']){
+					$publicacion = new Publicacion();
+					$publicacion->buscarSuscripcion($_GET['suscripcion']);
+				}
+			?>			
 		</section>	
 		<?php 
 		include_once('include/footer.php');

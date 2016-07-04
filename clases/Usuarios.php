@@ -45,7 +45,6 @@
 				exit();
 			}
 
-
 			if(ISSET($this->usuario) && $this->usuario != '' && ISSET($pass) && $pass != ''){
 				$bd = new BaseDatos();
 				$strSql = "SELECT US.nombre, US.apellido, US.".$campoId.", US.imagenPerfil
@@ -58,9 +57,9 @@
 					$_SESSION["$tablaUsuario"] = $resultado['nombre']." ".$resultado['apellido'];
 					$_SESSION['idUsuario'] = $resultado["$campoId"];
 					$_SESSION['Perfil'] = $resultado['imagenPerfil'] ;
-					Header('Location: index.php');
+					header('Location: index.php');
 				}else{
-					echo '<script language="javascript">alert("Error de Logueo.");</script>'; 
+					header('Location: mensaje.php?mensaje=1');
 				}
 			}	
 		}//fin public function login();
@@ -130,9 +129,9 @@
 				$strSql = "
 					SELECT UL.usuario,UL.apellido,UL.nombre,UL.documento,UL.fechaNacimiento,UL.mail,UL.telefono,UL.calle,UL.numero, UL.imagenPerfil,
 						   PA.idPais, PA.nombre pais, PR.idProvincia, PR.nombre provincia, LO.idLocalidad, LO.nombre localidad
-					FROM usuariolector UL JOIN Pais PA ON UL.idPais=PA.idPais
-										  JOIN Provincia PR ON PA.idPais = PR.idPais
-										  JOIN Localidad LO ON PR.idProvincia= LO.idProvincia	
+					FROM (((usuariolector UL JOIN Pais PA ON UL.idPais=PA.idPais)
+										  JOIN Provincia PR ON UL.idProvincia = PR.idProvincia)
+										  JOIN Localidad LO ON UL.idLocalidad= LO.idLocalidad)
 					WHERE UL.idUsuarioLector = ".$idUsuario." 
 				";
 
@@ -161,6 +160,42 @@
 			}
 			
 		}
+		
+		public function cargarDatosUsuarioAdmin($idUsuario){
+			if (ISSET($idUsuario)){
+				$bd = new BaseDatos();
+				$strSql = "
+					SELECT UA.usuario,UA.apellido,UA.nombre,UA.documento,UA.fechaNacimiento,UA.mail,UA.telefono,UA.calle,UA.numero, UA.imagenPerfil,
+						   PA.idPais, PA.nombre pais, PR.idProvincia, PR.nombre provincia, LO.idLocalidad, LO.nombre localidad
+					FROM (((usuarioAdministrativo UA JOIN Pais PA ON UA.idPais=PA.idPais)
+										  JOIN Provincia PR ON UA.idProvincia = PR.idProvincia)
+										  JOIN Localidad LO ON UA.idLocalidad= LO.idLocalidad)
+					WHERE UA.idUsuarioAdmin = ".$idUsuario." 
+				";
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($resultado = mysqli_fetch_assoc($consulta)){
+					$datos['idUsuario'] = $idUsuario;
+					$datos["usuario"] = $resultado['usuario'];
+					$datos["apellido"] = $resultado['apellido'];
+					$datos["nombre"] = $resultado['nombre'];
+					$datos["fotoPerfil"] = $resultado['imagenPerfil'];
+					$datos["documento"] = $resultado['documento'];
+					$datos["fechaNacimiento"] = $resultado['fechaNacimiento'];
+					$datos["mail"] = $resultado['mail'];
+					$datos["telefono"] = $resultado['telefono'];
+					$datos["idPais"] = $resultado['idPais'];
+					$datos["pais"] = $resultado['pais'];
+					$datos["idProvincia"] = $resultado['idProvincia'];
+					$datos["provincia"] = $resultado['provincia'];
+					$datos["idLocalidad"] = $resultado['idLocalidad'];
+					$datos["localidad"] = $resultado['localidad'];
+					$datos["calle"] = $resultado['calle'];
+					$datos["numero"] = $resultado['numero'];
+					return $datos;
+				}
+			}
+		}
 
 		public function limpiarDatos(){
 			$datos['idUsuario'] ="";
@@ -183,8 +218,213 @@
 			return $datos;
 		}
 
-		public function validarUsuario($usuario,$seccion){
+		public function consultarPermisoLector($idUsuario,$seccion){
+			$seccionPublica = "index.php";
+			$seccionMensaje = "mensaje.php";
 			
+			if($seccion != $seccionPublica &&
+			   $seccion != $seccionMensaje	){
+				   
+				if (ISSET($idUsuario) && ISSET($seccion) && 
+					ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
+					switch ($seccion){
+						case 'resultado_busqueda.php':
+							break;
+						case 'perfil_lector.php':
+							break;
+						case 'perfil_modificacion.php':
+							break;
+						case 'usuario_registrado.php':
+							break;
+						case 'edicion.php':
+							if(ISSET($_GET['edicion']) && $_GET['edicion'] != ""){
+								$idEdicion = $_GET['edicion'];
+								$bd = new BaseDatos();
+								
+								$strSql = "
+									SELECT 1
+									FROM compras 
+									WHERE idUsuarioLector = ".$_SESSION['idUsuario']." 
+									  AND idEdicion = ".$idEdicion."
+								";
+								
+								$consulta = mysqli_query($bd->getEnlace(), $strSql);
+								
+								if($comprada = mysqli_fetch_assoc($consulta)){
+									
+									break;
+								}else{
+									$strSql = "
+											SELECT idPublicacion, fecha fechaEdicion
+											FROM edicion
+											WHERE idEdicion = ".$idEdicion."
+									";
+									$consulta = mysqli_query($bd->getEnlace(), $strSql);
+									$mirar = FALSE;
+									IF($comprada = mysqli_fetch_assoc($consulta)){
+										$fechaEdicion = $comprada['fechaEdicion'];
+										$strSql = "
+												SELECT SU.fecha fechaSuscripcion, TS.tiempoEnMeses
+												FROM (suscripcion SU JOIN tiempoSuscripcion TS ON SU.idTiempoSuscripcion=TS.idTiempoSuscripcion)
+												WHERE SU.idPublicacion = ".$comprada['idPublicacion']."
+												  AND su.idUsuarioLector = ".$_SESSION['idUsuario']."
+										";
+										
+										$consulta = mysqli_query($bd->getEnlace(), $strSql);
+										
+										while($comprada = mysqli_fetch_assoc($consulta)){
+											$fechaCompra = $comprada['fechaSuscripcion'];
+											$fechaVencimiento = strtotime ( "+".$comprada['tiempoEnMeses']." month" , strtotime ( $fechaCompra ) ) ;
+											$fechaVencimiento = date ( 'Y-m-j' , $fechaVencimiento );
+											
+											if ((date('Y-m-j') > date('Y-m-j',strtotime("$fechaCompra"))) && (date('Y-m-j') <= strtotime("$fechaVencimiento")) ){
+												$mirar = TRUE;
+											}
+										}
+									}
+									if($mirar == TRUE){
+										break;
+									}else{
+										header('Location: mensaje.php?mensaje=2');
+									}
+								}
+							}else{
+								header('Location: mensaje.php?mensaje=2');
+							}
+							break;
+						case 'nota.php':
+							if(ISSET($_GET['edicion']) && $_GET['edicion'] != "" &&
+							   ISSET($_GET['nota']) && $_GET['nota'] != "" ){
+								$idEdicion = $_GET['edicion'];
+								$nota = $_GET['nota'];
+								$bd = new BaseDatos();
+								
+								$strSql = "
+									SELECT SPE.idSeccionPorEdicion
+									FROM ((compras CO JOIN seccionPorEdicion SPE ON CO.idEdicion = SPE.idEdicion)
+													JOIN nota NO ON SPE.idSeccionPorEdicion = NO.idSeccionPorEdicion)
+									WHERE CO.idUsuarioLector = ".$_SESSION['idUsuario']." 
+									  AND CO.idEdicion = ".$idEdicion."
+									  AND NO.idNota = ".$nota."
+								";
+
+								$consulta = mysqli_query($bd->getEnlace(), $strSql);
+								
+								if($comprada = mysqli_fetch_assoc($consulta)){
+									break;
+								}else{
+									
+									$strSql = "
+											SELECT ED.idPublicacion, ED.fecha fechaEdicion
+											FROM ((edicion ED JOIN seccionPorEdicion SPE ON ED.idEdicion = SPE.idEdicion)
+															JOIN nota NO ON SPE.idSeccionPorEdicion = SPE.idSeccionPorEdicion)
+											WHERE ED.idEdicion = ".$idEdicion."
+											  AND NO.idNota = ".$nota."
+									";
+									
+									$consulta = mysqli_query($bd->getEnlace(), $strSql);
+									$mirar = FALSE;
+									IF($comprada = mysqli_fetch_assoc($consulta)){
+									
+										$fechaEdicion = $comprada['fechaEdicion'];
+										$strSql = "
+												SELECT SU.idSuscripcion, SU.fecha fechaSuscripcion, TS.tiempoEnMeses
+												FROM (suscripcion SU JOIN tiempoSuscripcion TS ON SU.idTiempoSuscripcion=TS.idTiempoSuscripcion)
+												WHERE SU.idPublicacion = ".$comprada['idPublicacion']."
+												  AND su.idUsuarioLector = ".$_SESSION['idUsuario']."
+										";
+										
+										$consulta = mysqli_query($bd->getEnlace(), $strSql);
+										
+										while($comprada = mysqli_fetch_assoc($consulta)){
+											$fechaCompra = $comprada['fechaSuscripcion'];
+											$fechaVencimiento = strtotime ( "+".$comprada['tiempoEnMeses']." month" , strtotime ( $fechaCompra ) ) ;
+											$fechaVencimiento = date ( 'Y-m-j' , $fechaVencimiento );
+											
+											if ((date('Y-m-j') > date('Y-m-j',strtotime("$fechaCompra"))) && (date('Y-m-j') <= strtotime("$fechaVencimiento")) ){
+												$mirar = TRUE;
+											}
+										}
+									}
+									if($mirar == TRUE){
+										break;
+									}else{
+										header('Location: mensaje.php?mensaje=2');
+									}
+								}
+							}else{
+								header('Location: mensaje.php?mensaje=2');
+							}
+							break;
+						case 'ver_suscripcion.php':
+							break;
+						default:
+							header('Location: mensaje.php?mensaje=2');
+							break;
+					}
+				}
+			}
+		}
+		public function consultarPermisoAdministrativo($idUsuario,$seccion){
+			$seccionPublica = "index.php";
+			$seccionMensaje = "mensaje.php";
+			
+			if($seccion != $seccionPublica &&
+			   $seccion != $seccionMensaje	){
+				if (ISSET($idUsuario) && ISSET($seccion) && ISSET($_SESSION['idUsuario'])){
+					$bd = new BaseDatos();
+					
+					$strSql = "
+						SELECT 1
+						FROM (((usuarioAdministrativo UA JOIN tipoUsuarioAdministrativo TUA 
+														ON UA.idTipoUsuario = TUA.idTipoUsuarioAdmin)
+													  JOIN permisoUsuario PU 
+														ON TUA.idTipoUsuarioAdmin = PU.idTipoUsuarioAdmin)
+													  JOIN seccionSistema SS 
+														ON PU.idSeccionSistema = SS.idSeccionSistema)
+						WHERE UA.idUsuarioAdmin = ".$_SESSION['idUsuario']." 
+						  AND SS.nombre = '".$seccion."'
+					";
+					$consulta = mysqli_query($bd->getEnlace(), $strSql);
+				
+					if(!($resultado = mysqli_fetch_assoc($consulta))){
+						header('Location: mensaje.php?mensaje=2');
+					}
+				}else {
+					header('Location: mensaje.php?mensaje=2');
+				}
+			}
+		}
+		public function consultarPermisoPublico($seccion){
+			$seccionPublica = "index.php";
+			$seccionMensaje = "mensaje.php";
+			$seccionBusqueda ="resultado_busqueda.php";
+			$seccionCrearUsuario = "perfil_modificacion.php";
+			if ($seccion != $seccionPublica && 
+				$seccion != $seccionBusqueda &&
+				$seccion != $seccionMensaje &&
+				$seccion != $seccionCrearUsuario){
+				header('Location: mensaje.php?mensaje=2');
+			}
+		}
+		public function consultarTipoUsuarioAdministrativo($idUsuario){
+			if (ISSET($idUsuario) && ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+				
+				$strSql = "
+					SELECT idTipoUsuario
+					FROM usuarioAdministrativo 
+					WHERE idUsuarioAdmin = ".$_SESSION['idUsuario'];
+				
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+				if($resultado = mysqli_fetch_assoc($consulta)){
+					return $resultado['idTipoUsuario'];
+				}else{
+					return 0;
+				}
+
+			}
 		}
 	}//fin class
 	

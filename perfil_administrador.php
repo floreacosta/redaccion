@@ -16,11 +16,10 @@
 			</div>
 			
 			<div class='perfil'>
-				<img class='fotoPerfil' src='#'/>
-				<div class='datosPerfil'>
-					<h2>Bienvenido/a</h2>
-					<h1>Carlos Alberto  <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php'>r</a></h1>
-				</div>
+				<?php 
+					$usuario = new Usuarios();
+					$usuario->encabezadoPerfil();
+				?>
 			</div>
 			
 			<div class='graficos' id="administradorGraficos">

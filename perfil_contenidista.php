@@ -25,8 +25,6 @@
 			<div class='tablasABM'>
 				<h2>Panel de control</h2>
 				<h3>Alta / Baja / Modificación</h3>
-				
-				
 
 				<div id='publicaciones' class='tablasABM'>
 					<h4>&nbsp;&nbsp;Publicaciones</h4>

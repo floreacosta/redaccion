@@ -9,6 +9,7 @@
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio
 				FROM edicion ED
+				WHERE ED.activo = 1
 				ORDER BY ED.idEdicion DESC LIMIT $topeId, 10
 			";
 
@@ -23,9 +24,13 @@
 						</div>
 						<figcaption>
 							<div class='titulo'>
-								<h4>".$resultado['fecha']."</h4>
-								<h3>".$resultado['tituloEdicion']."</h3>
-							</div>
+								<h4>".date("d-m-Y", strtotime ($resultado['fecha']))."</h4>";
+								if (strlen($resultado['tituloEdicion']) > 23){
+									echo "<h3>".substr($resultado['tituloEdicion'],0,19)."...</h3>";
+								}else{
+									echo "<h3>".$resultado['tituloEdicion']."</h3>";
+								}
+				echo"		</div>
 							<div class='infoPublicacion'>
 								<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
 								<div class='comprarPublicacion'>
@@ -58,8 +63,9 @@
 			
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio, PUB.nombre
-				FROM edicion ED JOIN publicacion PUB
-					ON PUB.idPublicacion = ED.idPublicacion
+				FROM (edicion ED JOIN publicacion PUB
+					ON PUB.idPublicacion = ED.idPublicacion)
+				WHERE ED.activo = 1
 				ORDER BY rand() LIMIT 1
 			";
 
@@ -76,7 +82,7 @@
 					<figcaption class='columna'>
 						<div>
 							<h1>".$edicion['nombre']."</h1>
-							<h5>Publicada: ".$edicion['fecha']."</h5>
+							<h5>Publicada: ".date("d-m-Y", strtotime ($edicion['fecha']))."</h5>
 							<p>".$edicion['tituloEdicion']."</p>
 						</div>
 						<div class='infoPublicacion'>
@@ -184,7 +190,7 @@
 
 			$strSql = "
 				SELECT SEC.idSeccion, SEC.nombre, SEC.descripcion 
-				FROM seccion SEC JOIN seccionporedicion SECE ON SECE.idSeccion = SEC.idSeccion
+				FROM (seccion SEC JOIN seccionporedicion SECE ON SECE.idSeccion = SEC.idSeccion)
 				WHERE SECE.idEdicion = $idEdicion  
 				ORDER BY SEC.nombre 
 				LIMIT $topeId, 10
@@ -227,7 +233,7 @@
 			$strSql = "
 				SELECT ED.idEdicion, ED.tituloEdicion, ED.imagenTapaEdicion, ED.fecha, ED.precio
 				FROM edicion ED
-				WHERE ED.tituloEdicion LIKE '%".$_GET['search']."%'
+				WHERE ED.activo = 1 AND ED.tituloEdicion LIKE '%".$_GET['search']."%'
 				ORDER BY ED.idEdicion LIMIT $topeId, 10
 			";
 
@@ -235,27 +241,33 @@
 			
 			$encontro = FALSE;
 			while($resultado = mysqli_fetch_assoc($consulta)){
-			$encontro = TRUE;
+			
+				$encontro = TRUE;
 				echo"
-				<figure class='col'>
-					<div class='imgPublicacion'>
-						<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
-					</div>
-					<figcaption>
-						<div class='titulo'>
-							<h4>".$resultado['fecha']."</h4>
-							<h3>".$resultado['tituloEdicion']."</h3>
+					<figure class='col'>
+						<div class='imgPublicacion'>
+							<img src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 						</div>
-						<div class='infoPublicacion'>
-							<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
-							<div class='comprarPublicacion'>
-				";
-								$this->mostrarBoton($resultado['idEdicion']);
+						<figcaption>
+							<div class='titulo'>
+								<h4>".date("d-m-Y", strtotime ($resultado['fecha']))."</h4>";
+								if (strlen($resultado['tituloEdicion']) > 23){
+									echo "<h3>".substr($resultado['tituloEdicion'],0,19)."...</h3>";
+								}else{
+									echo "<h3>".$resultado['tituloEdicion']."</h3>";
+								}
 				echo"		</div>
-						</div>
-					</figcaption>
-				</figure>
-				";					
+							<div class='infoPublicacion'>
+								<div class='precioPublicacion'>$".sprintf("%.2f", $resultado['precio'])."</div>
+								<div class='comprarPublicacion'>
+				";
+									$this->mostrarBoton($resultado['idEdicion']);
+									
+				echo"			</div>
+							</div>
+						</figcaption>
+					</figure>
+				";				
 			}
 			
 			if(!$encontro){
@@ -271,8 +283,9 @@
 			
 				$strSql = "
 					SELECT CO.idCompra,CO.fecha fechaCompra,ED.idEdicion,ED.imagenTapaEdicion,ED.fecha fechaEdicion,ED.tituloEdicion,ED.precio
-					FROM Compras CO JOIN Edicion ED ON CO.idEdicion = ED.idEdicion
-					WHERE CO.idUsuarioLector = ".$_SESSION['idUsuario']." 
+					FROM (Compras CO JOIN Edicion ED ON CO.idEdicion = ED.idEdicion)
+					WHERE ED.activo = 1 
+					  AND CO.idUsuarioLector = ".$_SESSION['idUsuario']." 
 					ORDER BY CO.idCompra DESC
 				";
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
@@ -284,9 +297,13 @@
 							<div class='informacion'>
 								<img class='tapaRevista' src='img/thumbs-publicacion/".$resultado['imagenTapaEdicion']."'/>
 								<div class='informacionEdicion'>
-									<p class='fechaEdicion'>".date("d-m-Y", strtotime($resultado['fechaEdicion']))."</p>
-									<h3>".$resultado['tituloEdicion']."</h3>
-									<a class='verEdicionComprada' href='edicion.php?edicion=".$resultado['idEdicion']."'>Ver edición</a>									
+									<p class='fechaEdicion'>".date("d-m-Y", strtotime($resultado['fechaEdicion']))."</p>";
+									if (strlen($resultado['tituloEdicion']) > 23){
+										echo "<h3>".substr($resultado['tituloEdicion'],0,19)."...</h3>";
+									}else{
+										echo "<h3>".$resultado['tituloEdicion']."</h3>";
+									}
+					echo "			<a class='verEdicionComprada' href='edicion.php?edicion=".$resultado['idEdicion']."'>Ver edición</a>									
 								</div>
 							</div>
 							<p class='fechaCompra'>Fecha de compra: ".date("d-m-Y", strtotime($resultado['fechaCompra']))."</p>
@@ -303,7 +320,8 @@
 				SELECT ED.idEdicion, ED.tituloEdicion, Ed.imagenTapaEdicion, ED.fecha, ED.precio, PUB.nombre nombrePublicacion
 				FROM edicion ED JOIN publicacion PUB
 					ON PUB.idPublicacion = ED.idPublicacion
-				WHERE ED.idEdicion=".$idEdicion;
+				WHERE ED.idEdicion=".$idEdicion."
+				  AND ED.activo = 1";
 
 			$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
@@ -314,9 +332,13 @@
 						<figcaption class='columna'>
 							<div>
 								<h1>".$edicion['nombrePublicacion']."</h1>
-								<h5>Publicada: ".$edicion['fecha']."</h5>
-								<h2>".$edicion['tituloEdicion']."</h2>
-							</div>
+								<h5>Publicada: ".date("d-m-Y", strtotime ($edicion['fecha']))."</h5>";
+								if (strlen($edicion['tituloEdicion']) > 40){
+									echo "<h2>".substr($edicion['tituloEdicion'],0,35)."...</h2>";
+								}else{
+									echo "<h2>".$edicion['tituloEdicion']."</h2>";
+								}
+				echo"		</div>
 				";
 				$strSql = "
 				SELECT SE.nombre,SPE.idSeccionPorEdicion,SPE.idSeccion
@@ -351,8 +373,8 @@
 		
 				$strSql = "
 					SELECT SU.idSuscripcion,SU.fecha,PU.nombre,TS.tiempoEnMeses,SU.precio
-					FROM Suscripcion SU JOIN Publicacion PU ON SU.idPublicacion = PU.idPublicacion
-										JOIN TiempoSuscripcion TS ON SU.idTiempoSuscripcion = TS.idTiempoSuscripcion
+					FROM ((Suscripcion SU JOIN Publicacion PU ON SU.idPublicacion = PU.idPublicacion)
+										JOIN TiempoSuscripcion TS ON SU.idTiempoSuscripcion = TS.idTiempoSuscripcion)
 					WHERE SU.idUsuarioLector = ".$_SESSION['idUsuario']." 
 					ORDER BY SU.idSuscripcion DESC
 				";
@@ -366,7 +388,7 @@
 							<div class='informacion'>
 								<div class='informacionEdicion'>
 									<h3>".$resultado['nombre']."</h3>
-									<a class='verEdicionComprada' href=''>Ver suscripción</a>									
+									<a class='verEdicionComprada' href='ver_suscripcion.php?suscripcion=".$resultado['idSuscripcion']."'>Ver suscripción</a>									
 								</div>
 							</div>
 							<p class='fechaCompra'>Fecha de inicio: ".date("d-m-Y", strtotime($resultado['fecha']))."</p>
@@ -483,9 +505,9 @@
 				$bd = new BaseDatos();
 			
 				$strSql = "
-					SELECT NO.titulo, NO.volanta, NO.copete, NO.texto, NO.latitud, 
+					SELECT NO.titulo, NO.autor, NO.pieNota, NO.volanta, NO.copete, NO.texto, NO.latitud, 
 						   NO.longitud,INO.descripcion imagen,INO.detalleImagen
-					FROM nota NO JOIN imagenNota INO ON NO.idNota=INO.idNota
+					FROM (nota NO JOIN imagenNota INO ON NO.idNota=INO.idNota)
 					WHERE NO.idNota = ".$idNota."";
 
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
@@ -499,11 +521,85 @@
 					$datos['detalleImagen'] = $comprada['detalleImagen'];
 					$datos['latitud'] = $comprada['latitud'];
 					$datos['longitud'] = $comprada['longitud'];
-					$datos['pieNota'] = "Pie de la nota";
-					$datos['autor'] = "Autor de Prueba";
+					$datos['pieNota'] = $comprada['pieNota'];
+					$datos['autor'] = $comprada['autor'];
 					return $datos;
 				}
 			}
+		}
+		
+		public function buscarSuscripcion($idSuscripcion){
+			if (ISSET($idSuscripcion) && ISSET($_SESSION['idUsuario'])){
+				$bd = new BaseDatos();
+				$strSql = "
+						SELECT SU.fecha fechaSuscripcion, TS.tiempoEnMeses, SU.idPublicacion
+						FROM (suscripcion SU JOIN tiempoSuscripcion TS ON SU.idTiempoSuscripcion=TS.idTiempoSuscripcion)
+						WHERE SU.idSuscripcion = ".$idSuscripcion."
+						  AND su.idUsuarioLector = ".$_SESSION['idUsuario']."
+				";
+				
+				$consulta = mysqli_query($bd->getEnlace(), $strSql);
+						
+				if($comprada = mysqli_fetch_assoc($consulta)){
+					$fechaCompra = $comprada['fechaSuscripcion'];
+					$fechaVencimiento = strtotime ( "+".$comprada['tiempoEnMeses']." month" , strtotime ( $fechaCompra ) ) ;
+					$fechaVencimiento = date ( 'Y-m-j' , $fechaVencimiento );
+					$idPublicacion = $comprada['idPublicacion'];
+					$strSql = "
+							SELECT *
+							FROM publicacion
+							WHERE idPublicacion = ".$idPublicacion."
+					";
+					
+					$consulta = mysqli_query($bd->getEnlace(), $strSql);
+						
+					if($comprada = mysqli_fetch_assoc($consulta)){
+						echo"
+							<h2 class='numVerSuscripcion'>Suscripción N° ".$idSuscripcion."</h2>
+							<h2>Revista <i>".$comprada['nombre']."</i></h2>
+							<h3>Período ".date("d-m-Y", strtotime ( $fechaCompra ))." al ".date("d-m-Y", strtotime ( $fechaVencimiento ))."</h3>
+						";
+						
+						$strSql = "
+								SELECT ED.imagenTapaEdicion, ED.fecha,ED.tituloEdicion,ED.precio,ED.idEdicion
+								FROM edicion ED 
+								WHERE ED.idPublicacion = ".$idPublicacion."
+								  AND fecha BETWEEN '".$fechaCompra."' AND '".$fechaVencimiento."'
+						";
+						
+						$consulta = mysqli_query($bd->getEnlace(), $strSql);
+							
+						while($comprada = mysqli_fetch_assoc($consulta)){
+							
+							echo"
+								<figure class='col'>
+									<div class='imgPublicacion'>
+										<img src='img/thumbs-publicacion/".$comprada['imagenTapaEdicion']."'/>
+									</div>
+									<figcaption>
+										<div class='titulo'>
+											<h4>".date("d-m-Y", strtotime ($comprada['fecha']))."</h4>";
+											if (strlen($comprada['tituloEdicion']) > 23){
+												echo "<h3>".substr($comprada['tituloEdicion'],0,19)."...</h3>";
+											}else{
+												echo "<h3>".$comprada['tituloEdicion']."</h3>";
+											}
+							echo"		</div>
+										<div class='infoPublicacion'>
+											<div class='comprarPublicacion'>
+							";
+												$this->mostrarBoton($comprada['idEdicion']);
+												
+							echo"			</div>
+										</div>
+									</figcaption>
+								</figure>
+							";
+						}
+					}
+				}
+			}
+			
 		}
 		
 		public function mostrarBoton($idEdicion){
@@ -534,11 +630,11 @@
 						$fechaEdicion = $comprada['fechaEdicion'];
 						$strSql = "
 								SELECT SU.fecha fechaSuscripcion, TS.tiempoEnMeses
-								FROM suscripcion SU JOIN tiempoSuscripcion TS ON SU.idTiempoSuscripcion=TS.idTiempoSuscripcion
+								FROM (suscripcion SU JOIN tiempoSuscripcion TS ON SU.idTiempoSuscripcion=TS.idTiempoSuscripcion)
 								WHERE SU.idPublicacion = ".$comprada['idPublicacion']."
 								  AND su.idUsuarioLector = ".$_SESSION['idUsuario']."
 						";
-						
+							
 						$consulta = mysqli_query($bd->getEnlace(), $strSql);
 						
 						while($comprada = mysqli_fetch_assoc($consulta)){

@@ -15,9 +15,14 @@
 		<?php
 			include_once('include/header_body.php');
 			
-			if (ISSET($_GET['edit']) && ($_GET['edit'] == 1) && 
-				ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])){
-				$datos = $usuario->cargarDatosUsuario($_SESSION['idUsuario']);
+			if (ISSET($_GET['edit']) && ($_GET['edit'] == 1)){
+				IF(ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])){
+					$datos = $usuario->cargarDatosUsuario($_SESSION['idUsuario']);
+				}else IF(ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuarioadministrativo'])){
+					$datos = $usuario->cargarDatosUsuarioAdmin($_SESSION['idUsuario']);	
+				}else{
+					$datos =$usuario->limpiarDatos();
+				}
 				
 			}else{
 				$datos =$usuario->limpiarDatos();
@@ -29,7 +34,8 @@
 				<p><a href='index.php'>Home</a><span class='separacion'>></span><a class='here' href='perfil_lector.php'>Perfil de usuario</a>
 				<?php
 					if (ISSET($_GET['edit']) && ($_GET['edit'] == 1) && 
-						ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])){
+						((ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])) ||
+						  ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuarioadministrativo']))){
 						echo"<span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Modificacion de usuario</a></p>";
 					}else{
 						echo"<span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Alta de usuario</a></p>";

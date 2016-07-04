@@ -1201,6 +1201,56 @@ footer{
 }
 /*FIN Footer*/
 
+/*MENSAJE*/
+.error{
+	color: #656565;
+}
+
+.error h2 {
+    color: #e5273d;
+    font-size: 2.5em;
+}
+
+.error a {
+    margin-top: 1.5em;
+    display: inline-block;
+}
+/*Fin MENSAJE*/
+
+/*VER SUSCRIPCION*/
+.verSuscripcion{
+	color: #656565;
+}
+
+.verSuscripcion .numVerSuscripcion{
+	margin-top: .5em;
+}
+
+.verSuscripcion i{
+	color: #00c853;
+}
+
+.verSuscripcion>h3{
+	font-size: 1em;
+	font-weight: 100;
+	margin: 1em 0em;
+}
+
+.verSuscripcion figure {
+    background: white;
+}
+
+.verSuscripcion figcaption {
+    background-color: #b2b2b2;
+    padding: .5em;
+    min-height: 8.5em;
+}
+
+.verSuscripcion figcaption .titulo {
+    min-height: 7em;
+}
+/*FIN VER SUSCRIPCION*/
+
 /*RESPONSIVE*/
 @media (min-width: 500px){
 	div.login form {
@@ -1420,4 +1470,11 @@ footer{
 		font-size: 2.5em;
 	}
 }
+
+@media (min-height: 600px){
+	.content{
+		min-height: 20em;
+	}
+}
+
 /*Fin RESPONSIVE*/

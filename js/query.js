@@ -253,6 +253,24 @@ function mostrarNotas(idSeccion) {
 		}
 }
 
+function editarPublicacion(idPublicacion) {
+    var strURL="editarContenidoTablas.php?idPublicacion="+idPublicacion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('modificacarPublicacion').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
 
 function modificarPublicacion(idPublicacion) {
 	$("#modificarPublicacion").show();

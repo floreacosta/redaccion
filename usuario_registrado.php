@@ -51,7 +51,7 @@
 							echo"
 								<section class='introduccion content'>
 									<h1>El usuario '$usuario' se ha creado satisfactoriamente!</h1><br></br><br></br>				
-									<a href='/redaccion/index.php'>Volver al inicio</a><br></br>
+									<a href='index.php'>Volver al inicio</a><br></br>
 								</section>
 							";	
 						}
@@ -59,7 +59,7 @@
 							echo "
 								<section class='introduccion content'>
 									<h1>ERROR: No pudo registrarse</h1><br></br><br></br>
-									<a href='/redaccion/index.php'>Volver al inicio</a><br></br>
+									<a href='index.php'>Volver al inicio</a><br></br>
 								</section>
 							";		
 						}
@@ -67,7 +67,7 @@
 						echo "
 							<section class='introduccion content'>
 								<h1>ERROR: El usuario ya existe</h1><br></br><br></br>		
-								<a href='/redaccion/index.php'>Volver al inicio</a><br></br>
+								<a href='index.php'>Volver al inicio</a><br></br>
 							</section>
 						";
 					}
@@ -96,21 +96,21 @@
 						echo"
 							<section class='introduccion content'>
 								<h1>El usuario '$usuario' se ha Modificado satisfactoriamente! debe volver a iniciar sesion</h1><br></br><br></br>				
-								<a href='/redaccion/index.php'>Volver al inicio</a><br></br>
+								<a href='index.php'>Volver al inicio</a><br></br>
 							</section>
 						";	
 					}else{
 						echo "
 							<section class='introduccion content'>
 								<h1>ERROR: No pudo modificarse</h1><br></br><br></br>
-								<a href='/redaccion/index.php'>Volver al inicio</a><br></br>
+								<a href='index.php'>Volver al inicio</a><br></br>
 							</section>
 						";		
 					}
 				}
 			}else{
 				echo "<h1>ERROR: El formulario no se recibió correctamente</h1>";
-				header('location:/redaccion/perfil_modificacion.php');
+				header('location:perfil_modificacion.php');
 			}
 			include_once('include/footer.php');
 		?>
