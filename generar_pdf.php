@@ -11,7 +11,7 @@
 				
 					$bd = new BaseDatos();
 					
-					$strSql = 	"SELECT idCompra AS Id, UL.nombre AS Nombre, UL.apellido AS Apellido, ed.tituloEdicion as Titulo, CO.fecha AS Fecha, ED.precio AS Precio from compras CO
+					$strSql = 	"SELECT idCompra AS Id, UL.nombre AS Nombre, UL.apellido AS Apellido, ed.tituloEdicion as 'Edicion adquirida', CO.fecha AS Fecha, ED.precio AS Precio from compras CO
 								INNER JOIN usuariolector UL ON UL.idUsuarioLector = CO.idUsuarioLector
 								INNER JOIN edicion		 ED ON CO.idEdicion = ED.idEdicion";
 
@@ -20,10 +20,10 @@
 					
 					while($row= mysqli_fetch_row($resultado)){
 				   
-				   $data[]=array('Id'=>$row[0], 'Nombre'=>$row[1],'Apellido'=>$row[2],'Titulo'=>$row[3],'Fecha'=>$row[4],'Precio'=>$row[5]);
+				   $data[]=array('Id'=>$row[0], 'Nombre'=>$row[1],'Apellido'=>$row[2],'Edicion adquirida'=>$row[3],'Fecha'=>$row[4],'Precio'=>$row[5]);
 					}
 					
-					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Titulo'=>'Titulo','Fecha'=>'Fecha','Precio'=>'Precio');
+					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Edicion adquirida'=>'Edicion adquirida','Fecha'=>'Fecha','Precio'=>'Precio');
 					
 					$titulo = 'Lista de compras';
 					$pdf->ezText($titulo, 12);
