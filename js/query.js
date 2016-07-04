@@ -193,6 +193,7 @@ function buscarSeccion(idSeccion,idEdicion) {
 }
 
 function mostrarEdiciones(idPublicacion) {
+	$("#ediciones").show();
     var strURL="mostrarTablasContenidista.php?idPublicacion="+idPublicacion;
     var req = getXMLHTTP();
     if (req) {
@@ -212,9 +213,14 @@ function mostrarEdiciones(idPublicacion) {
 		
 	$( "#secciones" ).empty();
 	$( "#notas" ).empty();
+	$( "#mostrarNota" ).empty();
+	$( "#secciones" ).hide();
+	$( "#notas" ).hide();
+	$( "#mostrarNota" ).hide();
 }
 
 function mostrarSecciones(idEdicion) {
+	$("#secciones").show();
     var strURL="mostrarTablasContenidista.php?idEdicion="+idEdicion;
     var req = getXMLHTTP();
     if (req) {
@@ -232,9 +238,13 @@ function mostrarSecciones(idEdicion) {
 			req.send(null);
 		}
 	$( "#notas" ).empty();
+	$( "#mostrarNota" ).empty();
+	$( "#notas" ).hide();
+	$( "#mostrarNota" ).hide();
 }
 
 function mostrarNotas(idSeccion) {
+	$("#notas").show();
     var strURL="mostrarTablasContenidista.php?idSeccion="+idSeccion;
     var req = getXMLHTTP();
     if (req) {
@@ -251,17 +261,20 @@ function mostrarNotas(idSeccion) {
 			req.open("GET", strURL, true);
 			req.send(null);
 		}
+	$( "#mostrarNota" ).empty();
+	$( "#mostrarNota" ).hide();
 }
 
-function editarPublicacion(idPublicacion) {
-    var strURL="editarContenidoTablas.php?idPublicacion="+idPublicacion;
+function mostrarContenidoNota(idNota) {
+	$("#mostrarNota").show();
+    var strURL="mostrarTablasContenidista.php?idNota="+idNota;
     var req = getXMLHTTP();
     if (req) {
         req.onreadystatechange = function() {
             if (req.readyState == 4) {
                 // only if "OK"
                 if (req.status == 200) {
-                    document.getElementById('modificacarPublicacion').innerHTML =req.responseText ;
+                    document.getElementById('mostrarNota').innerHTML =req.responseText ;
                 } else {
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
@@ -271,6 +284,7 @@ function editarPublicacion(idPublicacion) {
 			req.send(null);
 		}
 }
+
 
 function modificarPublicacion(idPublicacion) {
 	$("#modificarPublicacion").show();
@@ -332,6 +346,26 @@ function modificarSeccion(idSeccion) {
 		}
 }
 
+function modificarNota(idNota) {
+	$("#mostrarNota").show();
+    var strURL="editarContenidoTablas.php?idNota="+idNota;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('mostrarNota').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
 function crearEdicion(idPublicacion) {
 	$("#crearEdicion").show();
     var strURL="crearContenidoTablas.php?idPublicacion="+idPublicacion;
@@ -373,6 +407,26 @@ function crearSeccion(idEdicion) {
 	$( "#notas" ).empty();
 }
 
+function crearNota(idSeccion, idEdicion ) {
+	$("#mostrarNota").show();
+    var strURL="crearContenidoTablas.php?idSeccion="+idSeccion+"&idEdicion="+idEdicion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('mostrarNota').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
 
 function ocultarModificarPublicacion(){
 	$("#modificarPublicacion").hide();
@@ -400,6 +454,10 @@ function ocultarCrearEdicion(){
 
 function ocultarCrearSeccion(){
 	$("#crearSeccion").hide();
+}
+
+function ocultarMostrarNota(){
+	$("#mostrarNota").hide();
 }
 	
 
