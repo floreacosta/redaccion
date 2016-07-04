@@ -124,7 +124,7 @@ if (isset($_GET["idEdicion"])){
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////EDITAR SECCION
 
 if (isset($_GET["idSeccion"])){
 	
@@ -179,6 +179,86 @@ if (isset($_GET["idSeccion"])){
 		</table>
 		</form>";
 
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////EDITAR NOTA
+
+if (isset($_GET["idNota"])){
+
+	$idNota = $_GET["idNota"];
+
+	$strSql = "
+			SELECT *
+			FROM nota NT 
+			JOIN imagennota IM ON NT.idNota=IM.idNota
+			WHERE NT.idNota=".$idNota;
+			
+		
+		$consulta = mysqli_query($bd->getEnlace(), $strSql);
+		
+		$nota=mysqli_fetch_assoc($consulta);
+			
+		$tituloNota = $nota['titulo'];
+		$volantaNota = $nota['volanta'];
+		$copeteNota = $nota['copete'];
+		$textoNota = $nota['texto'];
+		$autorNota = $nota['autor'];
+		$pieNota = $nota['pieNota'];
+		$latitudNota = $nota['latitud'];
+		$longitudNota = $nota['longitud'];
+		$imagenNota = 'img/imagenNota/'.$nota['descripcion'];
+		$detalleImgNota = $nota['detalleImagen'];
+		
+		echo 
+		"
+			Editar nota ".$tituloNota."
+			<form action='confirmarEdicionContenidista.php' method='post'>
+			    <table>
+					<input type='hidden' name='idNota' value='".$idNota."'>
+					<tr>
+						<td>Volanta:<input type='text' name='volanta' value='".$volantaNota."' /></td>
+					</tr>
+					<tr>
+						<td>Título:<input type='text' name='titulo' value='".$tituloNota."' /></td>
+					</tr>
+					<tr>
+						<td>Copete:<input type='text' name='copete' value='".$copeteNota."' /></td>
+					</tr>
+					<tr>
+						<td>Imagen de la nota: <input type='file' name='imagen' /></td>
+					</tr>
+					<tr>
+						<td>Descipción de la imagen de la nota: <input type='text' name='detalleImagen' value='".$detalleImgNota."' /></td>
+					</tr>
+					<tr>
+						<td>Autor de la nota: <input type='text' name='autor' value='".$autorNota."' /></td>
+					</tr>
+					<tr>
+						<td>contenido de la nota: <textarea type='text' name='texto'>".$textoNota."</textarea></td>
+					</tr>
+					<tr>
+						<td>Pie de nota: <input type='text' name='pie' value='".$pieNota."' /></td>
+					</tr>
+					<tr>
+						<td>Url del video: <input type='text' name='video' placeholder='Ingrese url del video' /></td>
+					</tr>
+					<tr>
+						<td>Latitud Nota: <input type='text' name='latitud' value='".$latitudNota."' /></td>
+					</tr>
+					<tr>
+						<td>Longitud Nota: <input type='text' name='longitud' value='".$longitudNota."' /></td>
+					</tr>
+					<tr></tr>
+					
+					<tr>
+						<td class='btnAccion-td'>
+							<button type='submit' id='confirmarNota' name='confirmarNota'>%</button>
+							<button type='button' id='cancelar' onClick='ocultarMostrarNota()'>x</button>
+						</td>
+					
+					</tr>
+				</table>
+		";
 }
 
 

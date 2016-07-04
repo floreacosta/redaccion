@@ -45,8 +45,8 @@
 									<th class='btnAccion' data-field='price'></th>
 								</tr>
 								<tr> 
-									<td><input type='text' name='nombre' placeholder='Nombre de la publicación'/></td>
-									<td><textarea type='text' name='descripcion' placeholder='Descipción de la publicación'></textarea></td>
+									<td><input title='Solo se admiten letras y números' type='text' name='nombre' placeholder='nombre de la publicación' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></td>
+									<td><textarea title='Solo se admiten letras y números' type='text' name='descripcion' placeholder='Descipción de la publicación' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,140}' required></textarea></td>
 									<td>
 										<select name='tipo'>
 											<option value='1'>Revista</option>
@@ -86,15 +86,19 @@
 					<a href='#' class='altaContenido'onClick='mostrarCrearPublicacion()'>+</a>
 				</div>
 				
-				<div id='ediciones' class='tablasABM'>
+				<div id='ediciones' class='tablasABM' style='display:none;'>
 			    
 				</div>
 				
-				<div id='secciones' class='tablasABM'>
+				<div id='secciones' class='tablasABM' style='display:none;'>
 			    
 				</div>
 				
-				<div id='notas' class='tablasABM'>
+				<div id='notas' class='tablasABM' style='display:none;'>
+			
+				</div>
+				
+				<div id='mostrarNota' class='tablasABM' style='display:none;'>
 			
 				</div>
 				

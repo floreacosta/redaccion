@@ -30,7 +30,7 @@ if (isset($_GET["idPublicacion"])){
 			SELECT *
 			FROM publicacion PB
 			JOIN edicion ED ON PB.idPublicacion=ED.idPublicacion 
-			WHERE ED.idPublicacion=".$idPublicacion;
+			WHERE ED.activo=1 AND ED.idPublicacion=".$idPublicacion;
 		
 		$consulta = mysqli_query($bd->getEnlace(), $strSql);
 		$nombre = mysqli_query($bd->getEnlace(), $strSql);
@@ -121,7 +121,7 @@ if (isset($_GET["idEdicion"])){
 						<td>$nombre</td>
 						<td>$descripcion</td>
 						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifEdicion' onclick='modificarSeccion($idEdicion)'>e</button></td>
-						<td class='btnAccion-td'><button type='submit' id='verPublicacion' class='verPublicacion' onclick='mostrarNotas($idEdicion)' >E</button></td>
+						<td class='btnAccion-td'><button type='submit' id='verNotas' class='verNotas' onclick='mostrarNotas($idEdicion)' >E</button></td>
 					</tr>
 				";
 		}
@@ -150,8 +150,9 @@ if (isset($_GET["idSeccion"])){
 					<th data-field='price'>Título</th>
 					<th data-field='price'>Volanta</th>
 					<th data-field='price'>Copete</th>
-					<th data-field='price'>Texto</th>
-					<th data-field='price'>Ubicación</th>
+					<th data-field='price'>Autor</th>
+					<th data-field='price'>Latitud</th>
+					<th data-field='price'>Longitud</th>
 					<th class='btnAccion' data-field='price'></th>
 					<th class='btnAccion' data-field='price'></th>
 				</tr>
@@ -176,15 +177,17 @@ if (isset($_GET["idSeccion"])){
 
 		echo "<tablebody>";
 		
-		while($edicion=mysqli_fetch_assoc($consulta)){
+		while($nota=mysqli_fetch_assoc($consulta)){
 			
-			$idNota = $edicion['idNota'];
-			$tituloNota = $edicion['titulo'];
-			$volantaNota = $edicion['volanta'];
-			$copeteNota = $edicion['copete'];
-			$textoNota = $edicion['texto'];
-			$latitudNota = $edicion['latitud'];
-			$longitudNota = $edicion['longitud'];
+			$idEdicion= $nota['idEdicion'];
+			$idSeccion= $nota['idSeccion'];
+			$idNota = $nota['idNota'];
+			$tituloNota = $nota['titulo'];
+			$volantaNota = $nota['volanta'];
+			$copeteNota = $nota['copete'];
+			$autorNota = $nota['autor'];
+			$latitudNota = $nota['latitud'];
+			$longitudNota = $nota['longitud'];
 			
 			
 
@@ -195,11 +198,11 @@ if (isset($_GET["idSeccion"])){
 						<td>$tituloNota</td>
 						<td>$volantaNota</td>
 						<td>$copeteNota</td>
-						<td>$textoNota</td>
+						<td>$autorNota</td>
 						<td>$latitudNota</td>
 						<td>$longitudNota</td>
-						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifPublicacion'>e</button></td>
-						<td class='btnAccion-td'><button type='submit' id='verPublicacion' class='verPublicacion' onclick='mostrarSecciones($idEdicion)'>E</button></td>
+						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifNota'onclick='modificarNota($idNota)' >e</button></td>
+						<td class='btnAccion-td'><button type='submit' id='verNota' class='verNota' onclick='mostrarContenidoNota($idNota)'>E</button></td>
 					</tr>
 				";
 		}
@@ -208,9 +211,67 @@ if (isset($_GET["idSeccion"])){
 			"
 			</tablebody>
 			</table>";
-			
-			//mostrar tabla (que tenga boton ver, borrar y modificar)
-		echo "<a href='#' class='altaContenido'>+</a>";
+
+		echo "<a href='#' class='altaContenido' onclick='crearNota($idSeccion,$idEdicion)'>+</a>";
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////MUESTRA CONTENIDO NOTAS
+
+if (isset($_GET["idNota"])){
+
+	$idNota = $_GET["idNota"];
+
+	$strSql = "
+			SELECT *
+			FROM nota NT 
+			JOIN imagennota IM ON NT.idNota=IM.idNota
+			WHERE NT.idNota=".$idNota;
+			
+		
+		$consulta = mysqli_query($bd->getEnlace(), $strSql);
+		
+		$nota=mysqli_fetch_assoc($consulta);
+			
+		$tituloNota = $nota['titulo'];
+		$volantaNota = $nota['volanta'];
+		$copeteNota = $nota['copete'];
+		$textoNota = $nota['texto'];
+		$autorNota = $nota['autor'];
+		$pieNota = $nota['pieNota'];
+		$latitudNota = $nota['latitud'];
+		$longitudNota = $nota['longitud'];
+		$imagenNota = 'img/imagenNota/'.$nota['descripcion'];
+		$detalleImgNota = $nota['detalleImagen'];
+		
+		echo 
+		"
+			<h3>".$volantaNota."</h3>
+			<h1>".$tituloNota."</h1>
+			<h2>".$copeteNota."</h2>
+			
+			<figure class='imagenNota'>
+				<img src=".$imagenNota."></img>
+				<figcaption>".$detalleImgNota."</figcaption>
+			</figure>
+			
+			<span class='autor'>Por <i>".$autorNota."</i></span>
+			<div class='textoNota'>
+				".$textoNota."
+			</div>
+			
+			<figure class='videoNota'>
+				<video></video>
+				<figcaption>".$pieNota."</figcaption>
+			</figure>
+			
+			<div class='ubicacionNota'>
+				<h3>Ubicación</h3>
+				<span>Latitud: ".$latitudNota." Longitud: ".$longitudNota."</span>
+				<div class='googleMap'></div>
+			</div>
+		";
+}
+				
+
 			 
 ?>

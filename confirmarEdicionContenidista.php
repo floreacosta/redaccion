@@ -83,7 +83,36 @@
 				}
 			}
 			
-			else if(isset($_POST['crearPublicacion'])){
+			else if(isset($_POST['confirmarNota'])){
+				
+				$idNota = $_POST['idNota'];
+				$tituloNota = $_POST['titulo'];
+				$volantaNota = $_POST['volanta'];
+				$copeteNota = $_POST['copete'];
+				$textoNota = $_POST['texto'];
+				$autorNota = $_POST['autor'];
+				$pieNota = $_POST['pie'];
+				$latitudNota = $_POST['latitud'];
+				$longitudNota = $_POST['longitud'];
+				$imagenNota = $_POST['imagen'];
+				$detalleImgNota = $_POST['detalleImagen'];
+				
+				$sql="
+				UPDATE nota
+				SET titulo='$tituloNota', volanta='$volantaNota', copete='$copeteNota', texto='$textoNota', autor='$autorNota', pieNota='$pieNota', latitud='$latitudNota', longitud='$longitudNota'
+				WHERE idNota=".$idNota;
+			    
+				$consulta=mysqli_query($bd->getEnlace(), $sql);
+				
+				if($consulta==false){
+					echo"No se pudieron actualizar los datos, vuelva a intentarlo </br></br>";
+				}
+				else{
+					echo"Datos actualizados satisfactoriamente</br></br>";
+				}
+			}
+			
+			if(isset($_POST['crearPublicacion'])){
 
 				$nombre=$_POST['nombre'];
 				$descripcion=$_POST['descripcion'];
@@ -92,8 +121,8 @@
 				
 				
 				$sql="
-				INSERT INTO publicacion (nombre,descripcion,idTipoPublicacion,cantidadEmisionPorMes)
-				VALUES ('$nombre', '$descripcion', '$tipo', '$emisiones')";
+				INSERT INTO publicacion (nombre,descripcion,idTipoPublicacion,cantidadEmisionPorMes, activo)
+				VALUES ('$nombre', '$descripcion', '$tipo', '$emisiones', '1')";
 			    
 				$consulta=mysqli_query($bd->getEnlace(), $sql);
 				
@@ -105,18 +134,23 @@
 				}
 			}
 			
-			if(isset($_POST['crearEdicion'])){
+			else if(isset($_POST['crearEdicion'])){
 				
 				$idPublicacion=$_POST['idPublicacion'];
 				$titulo=$_POST['titulo'];
 				$fecha=$_POST['fecha'];
-				$imagen=$_POST['imagen'];
+				if(ISSET($_FILES['imagen'])){
+					move_uploaded_file($_FILES['imagen']['tmp_name'],'img/thumbs-publicacion/'.$_FILES['imagen']['name'].".jpg");
+					$imagen = $_FILES['imagen']['name'].".jpg";
+				}else{
+					$imagen = "";
+				}
 				$precio=$_POST['precio'];
 				
 				
 				$sql="
-				INSERT INTO edicion (idPublicacion,tituloEdicion,imagenTapaEdicion,fecha,precio)
-				VALUES ('$idPublicacion','$titulo','$imagen','$fecha','$precio')";
+				INSERT INTO edicion (idPublicacion,tituloEdicion,imagenTapaEdicion,fecha,precio, activo)
+				VALUES ('$idPublicacion','$titulo','$imagen','$fecha','$precio','1')";
 			    
 				$consulta=mysqli_query($bd->getEnlace(), $sql);
 				
@@ -128,7 +162,7 @@
 				}
 			}
 			
-			else if(isset($_POST['crearSeccion'])){
+			if(isset($_POST['crearSeccion'])){
 				
 				$idEdicion=$_POST['idEdicion'];
 				$nombre=$_POST['nombre'];
@@ -148,6 +182,48 @@
 				
 				$consulta2=mysqli_query($bd->getEnlace(), $sql2);
 	
+				if($consulta==false){
+					echo"No se pudieron actualizar los datos, vuelva a intentarlo </br></br>";
+				}
+				else{
+					echo"Datos actualizados satisfactoriamente</br></br>";
+				}
+			}
+			
+			else if(isset($_POST['crearNota'])){
+				
+				$idEdicion = $_POST['idEdicion'];
+				$idSeccion = $_POST['idSeccion'];
+				$tituloNota = $_POST['titulo'];
+				$volantaNota = $_POST['volanta'];
+				$copeteNota = $_POST['copete'];
+				$textoNota = $_POST['texto'];
+				$autorNota = $_POST['autor'];
+				$pieNota = $_POST['pie'];
+				$latitudNota = $_POST['latitud'];
+				$longitudNota = $_POST['longitud'];
+				$imagenNota = $_POST['imagen'];
+				$detalleImgNota = $_POST['detalleImagen'];
+				
+
+				$sqlSC="
+				SELECT idSeccionPorEdicion
+				FROM seccionPorEdicion
+				WHERE idEdicion=".$idEdicion." AND idSeccion=".$idSeccion.";
+				";
+				
+				$consulta=mysqli_query($bd->getEnlace(), $sqlSC);
+				$respuesta=mysqli_fetch_assoc($consulta);
+				
+				$idSeccionPorEdicion=$respuesta['idSeccionPorEdicion'];
+				
+				
+				$sql="
+				INSERT INTO nota (idSeccionPorEdicion, titulo, volanta, copete, texto, autor, pieNota, latitud, longitud)
+				VALUES ('$idSeccionPorEdicion','$tituloNota','$volantaNota','$copeteNota','$textoNota','$autorNota','$pieNota','$latitudNota','$longitudNota')";
+			    
+				$consulta=mysqli_query($bd->getEnlace(), $sql);
+				
 				if($consulta==false){
 					echo"No se pudieron actualizar los datos, vuelva a intentarlo </br></br>";
 				}
