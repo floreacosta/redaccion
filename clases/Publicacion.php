@@ -122,6 +122,7 @@
 			$strSql = "
 				SELECT PUB.idPublicacion, PUB.nombre, PUB.descripcion
 				FROM publicacion PUB 
+				WHERE PUB.activo=1
 				ORDER BY PUB.idPublicacion
 				LIMIT $inicio,$tamanoPagina";
 			
