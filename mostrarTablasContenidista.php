@@ -10,7 +10,10 @@ if (isset($_GET["idPublicacion"])){
 	$idPublicacion = $_GET["idPublicacion"];
 	
 		echo 
-		"<table>
+		"
+		<div id='modificarEdicion' style='display:none; margin:0.5em;'></div>
+		<div id='crearEdicion' style='display:none; margin:0.5em;'></div>
+		<table>
 			<thead>
 				<tr>
 					<th data-field='id'>Id Edición</th>
@@ -51,8 +54,8 @@ if (isset($_GET["idPublicacion"])){
 						<td>$tituloEdicion</td>
 						<td>$fecha</td>
 						<td>$precio</td>
-						<td class='btnAccion-td'><button type='submit' name='modifPublicacion' class='modifPublicacion' onclick='modificarSecciones($idEdicion)'>e</button></td>
-						<td class='btnAccion-td'><button type='submit' name='verPublicacion' class='verPublicacion' onclick='mostrarSecciones($idEdicion)' >E</button></td>
+						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifEdicion' onclick='modificarEdicion($idEdicion)'>e</button></td>
+						<td class='btnAccion-td'><button type='submit' id='verPublicacion' class='verPublicacion' onclick='mostrarSecciones($idEdicion)' >E</button></td>
 					</tr>
 				";
 		}
@@ -63,7 +66,7 @@ if (isset($_GET["idPublicacion"])){
 			</table>";
 			
 			//mostrar tabla (que tenga boton ver, borrar y modificar)
-		echo "<a href='#' class='altaContenido'>+</a>";
+		echo "<a href='#' class='altaContenido' onclick='crearEdicion($idPublicacion)'>+</a>";
 }
 	
 ///////////////////////////////////////////////////////////////////////////////////////////MUESTRA SECCIONES
@@ -73,7 +76,10 @@ if (isset($_GET["idEdicion"])){
 	$idEdicion = $_GET["idEdicion"];
 
 		echo 
-		"<table>
+		"
+		<div id='modificarSeccion' style='display:none; margin:0.5em;'></div>
+		<div id='crearSeccion' style='display:none; margin:0.5em;'></div>
+		<table>
 			<thead>
 				<tr>
 					<th data-field='id'>Id Sección</th>
@@ -89,9 +95,8 @@ if (isset($_GET["idEdicion"])){
 			SELECT *
 			FROM publicacion PB
 			JOIN edicion ED ON PB.idPublicacion=ED.idPublicacion 
-			LEFT JOIN seccionporedicion SE ON ED.idEdicion=SE.idEdicion
+			JOIN seccionporedicion SE ON ED.idEdicion=SE.idEdicion
 			JOIN seccion SC ON SE.idSeccion=SC.idSeccion
-			JOIN nota NT ON SE.idSeccionPorEdicion=NT.idSeccionPorEdicion
 			WHERE ED.idEdicion=".$idEdicion;
 			
 		
@@ -115,8 +120,8 @@ if (isset($_GET["idEdicion"])){
 						<td>$idSeccion</td>
 						<td>$nombre</td>
 						<td>$descripcion</td>
-						<td class='btnAccion-td'><button type='submit' name='modifPublicacion' class='modifPublicacion'>e</button></td>
-						<td class='btnAccion-td'><button type='submit' name='verPublicacion' class='verPublicacion' onclick='mostrarNotas($idSeccion)'>E</button></td>
+						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifEdicion' onclick='modificarSeccion($idEdicion)'>e</button></td>
+						<td class='btnAccion-td'><button type='submit' id='verPublicacion' class='verPublicacion' onclick='mostrarNotas($idEdicion)' >E</button></td>
 					</tr>
 				";
 		}
@@ -127,7 +132,7 @@ if (isset($_GET["idEdicion"])){
 			</table>";
 			
 			//mostrar tabla (que tenga boton ver, borrar y modificar)
-		echo "<a href='#' class='altaContenido'>+</a>";
+		echo "<a href='#' class='altaContenido' onclick='crearSeccion($idEdicion)'>+</a>";
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////MUESTRA NOTAS
@@ -193,8 +198,8 @@ if (isset($_GET["idSeccion"])){
 						<td>$textoNota</td>
 						<td>$latitudNota</td>
 						<td>$longitudNota</td>
-						<td class='btnAccion-td'><button type='submit' name='modifPublicacion' class='modifPublicacion'>e</button></td>
-						<td class='btnAccion-td'><button type='submit' name='verPublicacion' class='verPublicacion' onclick='mostrarSecciones($idEdicion)'>E</button></td>
+						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifPublicacion'>e</button></td>
+						<td class='btnAccion-td'><button type='submit' id='verPublicacion' class='verPublicacion' onclick='mostrarSecciones($idEdicion)'>E</button></td>
 					</tr>
 				";
 		}
