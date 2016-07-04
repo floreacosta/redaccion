@@ -1,5 +1,4 @@
 <?php
-
 	class Administrador{	
 		
 		public function listarUsuariosAdministrativos(){

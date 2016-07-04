@@ -20,17 +20,18 @@
 					
 					while($row= mysqli_fetch_row($resultado)){
 				   
-				   $data[]=array('Id'=>$row[0], 'Nombre'=>$row[1],'Apellido'=>$row[2],'Titulo'=>$row[3],'Fecha'=>$row[4],,'Precio'=>$row[5]);
+				   $data[]=array('Id'=>$row[0], 'Nombre'=>$row[1],'Apellido'=>$row[2],'Titulo'=>$row[3],'Fecha'=>$row[4],'Precio'=>$row[5]);
 					}
 					
 					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Titulo'=>'Titulo','Fecha'=>'Fecha','Precio'=>'Precio');
 					
-					$titulo = “Lista de compras\n”;
+					$titulo = 'Lista de compras';
 					$pdf->ezText($titulo, 12);
+					$pdf->ezText('\n', 10);
 					$pdf->ezTable($data, $titles);
-					$pdf->ezText(“\n\n\n”, 10);
-					$pdf->ezText(“Fecha: “.date(“d/m/Y”), 10);
-					$pdf->ezText(“Hora: “.date(“H:i:s”).”\n\n”, 10);
+					$pdf->ezText('\n\n\n', 10);
+					$pdf->ezText('Fecha: '.date('d/m/Y'), 10);
+					$pdf->ezText('Hora: '.date('H:i:s').'\n\n', 10);
 					$pdf->ezStream();
 				}
 	////////////////////////////////////////
@@ -53,12 +54,13 @@
 					
 					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Tiempo de suscrip'=>'Tiempo de suscrip','Nombre publicacion'=>'Nombre publicacion','Fecha'=>'Fecha','Precio'=>'Precio');
 					
-					$titulo = “Lista de compras\n”;
+					$titulo = 'Lista de suscripciones';
 					$pdf->ezText($titulo, 12);
+					$pdf->ezText('\n', 10);
 					$pdf->ezTable($data, $titles);
-					$pdf->ezText(“\n\n\n”, 10);
-					$pdf->ezText(“Fecha: “.date(“d/m/Y”), 10);
-					$pdf->ezText(“Hora: “.date(“H:i:s”).”\n\n”, 10);
+					$pdf->ezText('\n\n\n', 10);
+					$pdf->ezText('Fecha: '.date('d/m/Y'), 10);
+					$pdf->ezText('Hora: '.date('H:i:s').'\n\n', 10);
 					$pdf->ezStream();
 				}
 	////////////////////////////////////////
@@ -80,12 +82,13 @@
 					
 					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Fecha de nacimiento'=>'Fecha de nacimiento','Calle'=>'Calle','Numero'=>'Numero','Tel'=>'Tel','Mail'=>'Mail','Usuario'=>'Usuario','Clave'=>'Clave');
 					
-					$titulo = “Lista de compras\n”;
+					$titulo = 'Lista de redactores';
 					$pdf->ezText($titulo, 12);
+					$pdf->ezText('\n', 10);
 					$pdf->ezTable($data, $titles);
-					$pdf->ezText(“\n\n\n”, 10);
-					$pdf->ezText(“Fecha: “.date(“d/m/Y”), 10);
-					$pdf->ezText(“Hora: “.date(“H:i:s”).”\n\n”, 10);
+					$pdf->ezText('\n\n\n', 10);
+					$pdf->ezText('Fecha: '.date('d/m/Y'), 10);
+					$pdf->ezText('Hora: '.date('H:i:s').'\n\n', 10);
 					$pdf->ezStream();
 				}		
 		}
