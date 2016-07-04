@@ -63,7 +63,7 @@
 
 		<section class='perfil tablasABM content'>
 				<h2>Alta de ediciones</h2>
-				<div class='publicacionABM'>
+				<div id='publicaciones' class='publicacionABM'>
 					<h4>Publicaciones</h4>
 					<table>
 						<thead>
@@ -76,12 +76,12 @@
 							</tr>
 						</thead>
 
-	
+						<tbody>
 						<?php
-							$admin =new Administrador();
+							$admin = new Administrador();
 							$admin->ABMpublicaciones();
 						?>
-						
+						<tbody>
 					</table>
 				</div>
 				
@@ -89,13 +89,14 @@
 				</div>
 		</section>
 
-		<section class='modifEmpleadosAdmin tablasABM content'>
+		<section id='usuarios_administrativos' class='modifEmpleadosAdmin tablasABM content'>
 				<h2>Listado de empleados</h2>
-				<div class='publicacionABM'>
+				<div id="publis_abm" class='publicacionABM'>
 					<h4>Empleados (Contenidistas y Administradores)</h4>
 					<table>
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Nombre</th>
 								<th>Apellido</th>
 								<th>Rol</th>
@@ -103,15 +104,16 @@
 								<th>Mail</th>
 								<th>Contraseña</th>
 								<th class='estadoUsuario'>Estado</th>
-								<th class='estadoUsuario'>Cambiar estado</th>
-								<th class='btnAccion'></th>
+								<th class='btnAccion' data-field="price"></th>
+								<th class='btnAccion' data-field="price"></th>
 							</tr>
 						</thead>
-
+						<tbody id="usuariosRecargados">
 						<?php
 							$admin=new Administrador();
 							$admin->listarUsuariosAdministrativos();
 						?>
+						</tbody>
 					</table>
 					<a href='/redaccion_preentrega/perfil_modificacion.php' class='altaUsuarioDesdeAdmin'>Alta de nuevo empleado <span>+</span></a>
 				</div>

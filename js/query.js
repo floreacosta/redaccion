@@ -272,6 +272,44 @@ function editarPublicacion(idPublicacion) {
 }
 //////////////////////////////
 //////////////////////////////
+
+////////////Modificacion y eliminacion de publicacion
+function ABMModificarPublicacion(idPublicacion,modificacion) {
+    var strURL="ABM.php?idEdicion="+idPublicacion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('publicaciones').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+function ABMEliminarPublicacion(idPublicacion,baja) {
+    var strURL="ABM.php?idEdicion="+idEdicion;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+                if (req.status == 200) {
+                    document.getElementById('publicaciones').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
 ////Lista ediciones
 function ABMEdiciones(idPublicacion) {
     var strURL="ABM.php?idPublicacion="+idPublicacion;
@@ -291,45 +329,8 @@ function ABMEdiciones(idPublicacion) {
 			req.send(null);
 		}
 }
-////////////Modificacion y eliminacion de publicacion
-function ABMModificarPublicacion(idPublicacion) {
-    var strURL="ABM.php?idEdicion="+idPublicacion;
-    var req = getXMLHTTP();
-    if (req) {
-        req.onreadystatechange = function() {
-            if (req.readyState == 4) {
-                // only if "OK"
-                if (req.status == 200) {
-                    document.getElementById('ediciones').innerHTML =req.responseText ;
-                } else {
-                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-                }
-            }
-        }
-			req.open("GET", strURL, true);
-			req.send(null);
-		}
-}
-function ABMEliminarPublicacion(idPublicacion) {
-    var strURL="ABM.php?idEdicion="+idEdicion;
-    var req = getXMLHTTP();
-    if (req) {
-        req.onreadystatechange = function() {
-            if (req.readyState == 4) {
-                // only if "OK"
-                if (req.status == 200) {
-                    document.getElementById('ediciones').innerHTML =req.responseText ;
-                } else {
-                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-                }
-            }
-        }
-			req.open("GET", strURL, true);
-			req.send(null);
-		}
-}
 ////////////Modificacion y eliminacion de edicion
-function ABMModificarEdicion(idEdicion) {
+function ABMModificarEdicion(idEdicion,modificacion) {
     var strURL="ABM.php?idEdicion="+idPublicacion;
     var req = getXMLHTTP();
     if (req) {
@@ -347,7 +348,7 @@ function ABMModificarEdicion(idEdicion) {
 			req.send(null);
 		}
 }
-function ABMEliminarEdicion(idEdicion) {
+function ABMEliminarEdicion(idEdicion,baja) {
     var strURL="ABM.php?idEdicion="+idEdicion;
     var req = getXMLHTTP();
     if (req) {
@@ -365,9 +366,10 @@ function ABMEliminarEdicion(idEdicion) {
 			req.send(null);
 		}
 }
+//////////LISTA EMPLEADOS
 
-function cambiarEstado(id_administrativo,id_estado) {
-    var strURL="ABM.php?id_administrativo="+id_administrativo+"&?id_estado="+id_estado;
+function ABMEliminarUsuario(id_administrativo,baja) {
+    var strURL="ABM_usuarios.php?id_administrativo="+id_administrativo+"&funcion="+baja;
     var req = getXMLHTTP();
     if (req) {
         req.onreadystatechange = function() {
@@ -375,7 +377,27 @@ function cambiarEstado(id_administrativo,id_estado) {
                 // only if "OK"
 
                 if (req.status == 200) {
-                    document.getElementById('modifEstado').innerHTML =req.responseText ;
+                    document.getElementById('usuariosRecargados').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
+function ABMCambiarEstado(id_administrativo,id_estado) {
+    var strURL="ABM_usuarios.php?id_administrativo="+id_administrativo+"&id_estado="+id_estado;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+
+                if (req.status == 200) {
+                    document.getElementById('estado_'+id_administrativo).innerHTML =req.responseText ;
                 } else {
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
