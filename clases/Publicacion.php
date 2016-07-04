@@ -134,7 +134,7 @@
 						<td id='idPublicacion'>$idPublicacion</td>
 						<td>$nombrePublicacion</td>
 						<td>$descripcionPublicacion</td>
-						<td class='btnAccion-td'><button type='submit' name='modifPublicacion' class='modifPublicacion' onClick=''>e</button></td>
+						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifPublicacion' onClick='modificarPublicacion($idPublicacion)'>e</button></td>
 						<td class='btnAccion-td'><button type='submit' id='verEdiciones' name='verEdiciones' class='verPublicacion' onClick='mostrarEdiciones($idPublicacion)'>E</button></td>
 					</tr>";
 			}
