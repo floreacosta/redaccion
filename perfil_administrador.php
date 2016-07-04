@@ -50,11 +50,12 @@
 		
 		<section class='content generarListados'>
 			<h2>Listados</h2>
-			<form action='generar_pdf.php' enctype='' method='POST'>
+			<form action='generar_pdf.php' method='POST'>
 				<select name='tipoListado'>
 					<option value='' selected>Seleccione el tipo</option>
 					<option value='1'>Compras</option>
 					<option value='2'>Suscripciones</option>
+					<option value='3'>Redactores</option>
 				</select>
 				<input type='submit' id='generarPdf' name='generarPdf'/>
 			</form>
