@@ -1,14 +1,16 @@
 <?php 	
 		include_once('clases/BaseDatos.php');
 		require_once('class.ezpdf.php');
-		$pdf = new Cezpdf('A4');
-		$pdf->selectFont('font/Helvetica.afm');
-		$pdf->ezSetCmMargins(1.5,1.5,1.5,1.5);
+
 		
 		if(isset($_POST['tipoListado'])){
 		
 				if($_POST['tipoListado'] == 1){
 				
+					$pdf = new Cezpdf('A4', 'portrait');
+					$pdf->selectFont('font/Helvetica.afm');
+					$pdf->ezSetCmMargins(1.5,1.5,1.5,1.5);
+
 					$bd = new BaseDatos();
 					
 					$strSql = 	"SELECT idCompra AS Id, UL.nombre AS Nombre, UL.apellido AS Apellido, ed.tituloEdicion as 'Edicion adquirida', CO.fecha AS Fecha, ED.precio AS Precio from compras CO
@@ -27,19 +29,25 @@
 					
 					$titulo = 'Lista de compras';
 					$pdf->ezText($titulo, 12);
-					$pdf->ezText('\n', 10);
+					$pdf->ezText(' ', 10);
+					$pdf->ezText('  ', 10);
 					$pdf->ezTable($data, $titles);
-					$pdf->ezText('\n\n\n', 10);
+					$pdf->ezText('  ', 10);
+					$pdf->ezText('  ', 10);
 					$pdf->ezText('Fecha: '.date('d/m/Y'), 10);
-					$pdf->ezText('Hora: '.date('H:i:s').'\n\n', 10);
+					$pdf->ezText('Hora: '.date('H:i:s'), 10);
 					$pdf->ezStream();
 				}
 	////////////////////////////////////////
 				if($_POST['tipoListado'] == 2){
+					
+					$pdf = new Cezpdf('A4', 'portrait');
+					$pdf->selectFont('font/Helvetica.afm');
+					$pdf->ezSetCmMargins(1.5,1.5,1.5,1.5);
 
 					$bd = new BaseDatos();
 					
-					$strSql = 	"SELECT SU.idSuscripcion as Id, UL.nombre AS Nombre, UL.apellido AS Apellido, SU.idTiempoSuscripcion AS 'Tiempo de suscrip', PU.nombre AS 'Nombre publicacion', SU.fecha AS Fecha, SU.precio AS Precio
+					$strSql = 	"SELECT SU.idSuscripcion as Id, UL.nombre AS Nombre, UL.apellido AS Apellido, SU.idTiempoSuscripcion AS 'Tiempo de suscripcion (meses)', PU.nombre AS 'Nombre publicacion', SU.fecha AS Fecha, SU.precio AS Precio
 								FROM suscripcion SU
 								INNER JOIN usuariolector UL on UL.idUsuarioLector = SU.idUsuarioLector
 								INNER JOIN publicacion	 PU on PU.idPublicacion	  = SU.idPublicacion";
@@ -49,23 +57,29 @@
 					
 					while($row= mysqli_fetch_row($resultado)){
 				   
-				   $data[]=array('Id'=>$row[0], 'Nombre'=>$row[1],'Apellido'=>$row[2],'Tiempo de suscrip'=>$row[3],'Nombre publicacion'=>$row[4],'Fecha'=>$row[5],'Precio'=>$row[6]);
+				   $data[]=array('Id'=>$row[0], 'Nombre'=>utf8_decode($row[1]),'Apellido'=>utf8_decode($row[2]),'Tiempo de suscripcion (meses)'=>$row[3],'Nombre publicacion'=>$row[4],'Fecha'=>$row[5],'Precio'=>$row[6]);
 					}
 					
-					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Tiempo de suscrip'=>'Tiempo de suscrip','Nombre publicacion'=>'Nombre publicacion','Fecha'=>'Fecha','Precio'=>'Precio');
-					
+					$titles=array('Id'=>'Id', 'Nombre'=>'Nombre','Apellido'=>'Apellido','Tiempo de suscripcion (meses)'=>'Tiempo de suscripcion (meses)','Nombre publicacion'=>'Nombre publicacion','Fecha'=>'Fecha','Precio'=>'Precio');
+
 					$titulo = 'Lista de suscripciones';
 					$pdf->ezText($titulo, 12);
-					$pdf->ezText('\n', 10);
+					$pdf->ezText(' ', 10);
+					$pdf->ezText('  ', 10);
 					$pdf->ezTable($data, $titles);
-					$pdf->ezText('\n\n\n', 10);
+					$pdf->ezText(' ', 10);
+					$pdf->ezText('  ', 10);
 					$pdf->ezText('Fecha: '.date('d/m/Y'), 10);
-					$pdf->ezText('Hora: '.date('H:i:s').'\n\n', 10);
+					$pdf->ezText('Hora: '.date('H:i:s'), 10);
 					$pdf->ezStream();
 				}
 	////////////////////////////////////////
 				if($_POST['tipoListado'] == 3){
 
+					$pdf = new Cezpdf('A4', 'landscape');
+					$pdf->selectFont('font/Helvetica.afm');
+					$pdf->ezSetCmMargins(1.5,1.5,1.5,1.5);
+									
 					$bd = new BaseDatos();
 					
 					$strSql = 	"SELECT idUsuarioAdmin as Id,nombre as Nombre,apellido as Apellido,fechaNacimiento AS 'Fecha de nacimiento',calle AS Calle,numero AS Numero,telefono AS Tel,mail AS Mail,usuario AS Usuario,clave AS Clave
@@ -84,11 +98,13 @@
 					
 					$titulo = 'Lista de redactores';
 					$pdf->ezText($titulo, 12);
-					$pdf->ezText('\n', 10);
+					$pdf->ezText(' ', 10);
+					$pdf->ezText('  ', 10);
 					$pdf->ezTable($data, $titles);
-					$pdf->ezText('\n\n\n', 10);
+					$pdf->ezText(' ', 10);
+					$pdf->ezText('  ', 10);
 					$pdf->ezText('Fecha: '.date('d/m/Y'), 10);
-					$pdf->ezText('Hora: '.date('H:i:s').'\n\n', 10);
+					$pdf->ezText('Hora: '.date('H:i:s'), 10);
 					$pdf->ezStream();
 				}		
 		}
