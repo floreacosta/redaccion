@@ -3,9 +3,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <?php
-		include_once('include/head.php');
 		include_once('clases/Publicacion.php');
 		include_once('clases/Administrador.php');
+		include_once('ver_graficos.php');
 	?>
 	<body>
 		<?php include_once('include/header_body.php'); ?>
@@ -15,7 +15,7 @@
 				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a class='here' href='perfil_lector.php'>Perfil de usuario</a></p>
 			</div>
 			
-			<div class='perfil'>
+			<div class='perfil'><a name="salida_graficos"></a>
 				<?php 
 					$usuario = new Usuarios();
 					$usuario->encabezadoPerfil();
@@ -26,23 +26,27 @@
 				<div class='contenedorGrafico' id="graficos_izquierda">
 					<h2>Productos vendidos</h2>	
 					<div id='grafico_compras'>	
-							<form name="formulario" method="post" action="ver_graficos_compras.php">
+							<form name="formulario" method="post" action="perfil_administrador.php#salida_graficos">
 								
 								<div class='graficos_compras_izq'><h3>Fecha de inicio</h3><input class='graficosInputs' type="date" name="fecha1" value="fecha1" /></div>
 								<div class='graficos_compras_der'><h3>Fecha de fin</h3><input class='graficosInputs' type="date" name="fecha2" value="fecha2" /></div>
 								<input class='verGraficos' type='submit' name="form_compras" value="Enviar"/>
-							</form>	
+								<br></br>
+							</form>
+							<div id='grafico1'></div>
 					</div>
 				</div>
 				<div  class='contenedorGrafico' id="graficos_derecha">
 					<h2>Suscripciones realizadas</h2>	
 					<div id='grafico_suscripciones'>
-						<form name="formulario" method="post" action="ver_graficos_suscripciones.php">
+							<form name="formulario" method="post" action="perfil_administrador.php#salida_graficos">
 								
 								<div class='graficos_compras_izq'><h3>Fecha de inicio</h3><input class='graficosInputs' type="date" name="fecha1" value="fecha1" /></div>
 								<div class='graficos_compras_der'><h3>Fecha de fin</h3><input class='graficosInputs' type="date" name="fecha2" value="fecha2" /></div>
 								<input class='verGraficos' type='submit' name="form_suscripciones" value="Enviar"/>
+								<br></br>
 							</form>	
+							<div id='grafico2'></div>
 					</div>
 				</div>
 			</div>

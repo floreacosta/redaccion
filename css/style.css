@@ -922,15 +922,15 @@ td>button:hover {
 	opacity: .7;
 }
 
-a.altaUsuarioDesdeAdmin {
+button.altaUsuarioDesdeAdmin {
     color: #e08200;
 }
 
-a.altaUsuarioDesdeAdmin:hover{
+button.altaUsuarioDesdeAdmin:hover{
 	opacity: .7;
 }
 
-a.altaUsuarioDesdeAdmin span{
+button.altaUsuarioDesdeAdmin span{
 	font-family: 'modern_pictogramsnormal';
 	font-size: 1.5em;
 	line-height: 1;
