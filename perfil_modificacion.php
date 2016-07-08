@@ -114,6 +114,12 @@
 					<label>Número</label>
 					<input value='<?php echo $datos['numero'];?>' type='text' id='nro' name='nro' placeholder='numero' size='21' pattern='[0-9]{1,5}' required/>
 					
+					<?php if(isset($_POST['registro_admin'])){
+					echo "<label>Tipo de usuario administrativo </label>";
+					echo "<input placeholder='1 redactor / 2 administrador' type='text' id='tipo_usuario' name='tipo_usuario' maxlength='1' pattern='[1-2]{1,5}' required/>";
+					}
+					?>
+					
 					<input type='submit' id='enviar' name='enviar'></input>
 					
 					<?php

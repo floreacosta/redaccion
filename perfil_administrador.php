@@ -116,7 +116,9 @@
 						?>
 						</tbody>
 					</table>
-					<a href='/redaccion_preentrega/perfil_modificacion.php' class='altaUsuarioDesdeAdmin'>Alta de nuevo empleado <span>+</span></a>
+					<form method='POST' action='/redaccion/perfil_modificacion.php'>
+					<button  type='submit' class='altaUsuarioDesdeAdmin' name='registro_admin'>Alta de nuevo empleado <span>+</span></button>
+					</form>
 				</div>
 		</section>
 
