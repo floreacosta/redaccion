@@ -405,18 +405,20 @@ function crearSeccion(idEdicion) {
 			req.send(null);
 		}
 	$( "#notas" ).empty();
+	$( "#notas" ).hide();
+	$("#mostrarNota").hide();
 }
 
 function crearNota(idSeccion, idEdicion ) {
-	$("#mostrarNota").show();
-    var strURL="crearContenidoTablas.php?idSeccion="+idSeccion+"&idEdicion="+idEdicion;
+	
+    var strURL="crearNota.php?idSeccion="+idSeccion+"&idEdicion="+idEdicion;
     var req = getXMLHTTP();
     if (req) {
         req.onreadystatechange = function() {
             if (req.readyState == 4) {
                 // only if "OK"
                 if (req.status == 200) {
-                    document.getElementById('mostrarNota').innerHTML =req.responseText ;
+                    document.getElementById('crearNota').innerHTML =req.responseText ;
                 } else {
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
@@ -425,6 +427,7 @@ function crearNota(idSeccion, idEdicion ) {
 			req.open("GET", strURL, true);
 			req.send(null);
 		}
+
 }
 
 
@@ -456,10 +459,6 @@ function ocultarCrearSeccion(){
 	$("#crearSeccion").hide();
 }
 
-function ocultarMostrarNota(){
-	$("#mostrarNota").hide();
-}
-	
 
 //////////////////////////////
 ////////////Modificacion y eliminacion de publicacion
