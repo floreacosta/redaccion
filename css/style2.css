@@ -661,12 +661,11 @@ a.cancelarSuscripcion {
     background: white;
     padding: 1em;
     border-radius: 1em;
-    display: inline-block;
     width: 100%;
-	clear: both;
 }
 
 .tablasABM table {
+
     width: 100%;
     text-align: left;
     margin-top: 1em;
@@ -704,6 +703,7 @@ td>button {
     line-height: 1;
 	cursor: pointer;
 }
+
 
 td>button:hover {
 	opacity: .6;
@@ -764,8 +764,9 @@ width: 50%;
 }
 
 .formularioUsuario input[type="submit"] {
-    margin-top: 1.5em;
+    margin-top: 1.5em auto;
     background: #00c853;
+	width: 20em;
     color: white;
 	cursor: pointer;
 	font-size: 1.2em;
@@ -774,6 +775,19 @@ width: 50%;
 .formularioUsuario input[type="submit"]:hover{
 	opacity: .7;
 }
+
+.formularioUsuario input[type="button"] {
+    margin-top: 1.5em auto;
+    background: #e5273d;
+    color: white;
+	cursor: pointer;
+	font-size: 1.2em;
+}
+
+.formularioUsuario input[type="button"]:hover{
+	opacity: .7;
+}
+
 /*FIN Alta usuarios*/
 
 /*footer*/
@@ -904,7 +918,7 @@ footer{
 		padding-left: .35em;
 	}
 	
-	/*SECTION introduccion*/
+/*SECTION introduccion*/
 	.loginEscritorio {
 		width: 40%;
 		display: inline-block;
@@ -956,3 +970,4 @@ footer{
 
 }
 /*Fin RESPONSIVE*/
+
