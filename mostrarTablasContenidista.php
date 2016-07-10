@@ -66,7 +66,7 @@ if (isset($_GET["idPublicacion"])){
 			</table>";
 			
 			//mostrar tabla (que tenga boton ver, borrar y modificar)
-		echo "<a href='#' class='altaContenido' onclick='crearEdicion($idPublicacion)'>+</a>";
+		echo "<a href='#crearEdicionAncla' class='altaContenido' onclick='crearEdicion($idPublicacion)'>+</a>";
 }
 	
 ///////////////////////////////////////////////////////////////////////////////////////////MUESTRA SECCIONES
@@ -131,8 +131,8 @@ if (isset($_GET["idEdicion"])){
 			</tablebody>
 			</table>";
 			
-			//mostrar tabla (que tenga boton ver, borrar y modificar)
-		echo "<a href='#' class='altaContenido' onclick='crearSeccion($idEdicion)'>+</a>";
+
+		echo "<a href='#crearSeccionAncla' class='altaContenido' onclick='crearSeccion($idEdicion)'>+</a>";
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////MUESTRA NOTAS
@@ -140,7 +140,6 @@ if (isset($_GET["idEdicion"])){
 if (isset($_GET["idSeccion"])){
 
 	$idEdicion = $_GET["idSeccion"];
-	//var geocoder = new google.maps.Geocoder();
 
 		echo 
 		"<table>
@@ -189,7 +188,6 @@ if (isset($_GET["idSeccion"])){
 			$latitudNota = $nota['latitud'];
 			$longitudNota = $nota['longitud'];
 			
-			
 
 			echo 
 				"
@@ -201,77 +199,32 @@ if (isset($_GET["idSeccion"])){
 						<td>$autorNota</td>
 						<td>$latitudNota</td>
 						<td>$longitudNota</td>
-						<td class='btnAccion-td'><button type='submit' id='modificar' class='modifNota'onclick='modificarNota($idNota)' >e</button></td>
-						<td class='btnAccion-td'><button type='submit' id='verNota' class='verNota' onclick='mostrarContenidoNota($idNota)'>E</button></td>
+						<td class='btnAccion-td'>
+							<form action='modificarNota.php' method='post'>
+								<input type='hidden' name='idNota' value='".$idNota."'/>
+								<input class='altaContenido' value='e' type='submit' id='modificar' style='background:transparent; border:0px;'/>
+							</form>
+						</td>
+						<td class='btnAccion-td'>
+							<form action='mostrarNota.php' method='post'>
+								<input type='hidden' name='idNota' value='".$idNota."'/>
+								<input class='altaContenido' value='E' type='submit' id='modificar' style='background:transparent; border:0px;'/>
+							</form>
+						</td>
 					</tr>
 				";
 		}
 				
-			echo 
-			"
-			</tablebody>
-			</table>";
-
-		echo "<a href='#' class='altaContenido' onclick='crearNota($idSeccion,$idEdicion)'>+</a>";
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////MUESTRA CONTENIDO NOTAS
-
-if (isset($_GET["idNota"])){
-
-	$idNota = $_GET["idNota"];
-
-	$strSql = "
-			SELECT *
-			FROM nota NT 
-			JOIN imagennota IM ON NT.idNota=IM.idNota
-			WHERE NT.idNota=".$idNota;
-			
-		
-		$consulta = mysqli_query($bd->getEnlace(), $strSql);
-		
-		$nota=mysqli_fetch_assoc($consulta);
-			
-		$tituloNota = $nota['titulo'];
-		$volantaNota = $nota['volanta'];
-		$copeteNota = $nota['copete'];
-		$textoNota = $nota['texto'];
-		$autorNota = $nota['autor'];
-		$pieNota = $nota['pieNota'];
-		$latitudNota = $nota['latitud'];
-		$longitudNota = $nota['longitud'];
-		$imagenNota = 'img/imagenNota/'.$nota['descripcion'];
-		$detalleImgNota = $nota['detalleImagen'];
-		
 		echo 
 		"
-			<h3>".$volantaNota."</h3>
-			<h1>".$tituloNota."</h1>
-			<h2>".$copeteNota."</h2>
-			
-			<figure class='imagenNota'>
-				<img src=".$imagenNota."></img>
-				<figcaption>".$detalleImgNota."</figcaption>
-			</figure>
-			
-			<span class='autor'>Por <i>".$autorNota."</i></span>
-			<div class='textoNota'>
-				".$textoNota."
-			</div>
-			
-			<figure class='videoNota'>
-				<video></video>
-				<figcaption>".$pieNota."</figcaption>
-			</figure>
-			
-			<div class='ubicacionNota'>
-				<h3>Ubicación</h3>
-				<span>Latitud: ".$latitudNota." Longitud: ".$longitudNota."</span>
-				<div class='googleMap'></div>
-			</div>
-		";
-}
-				
+		</tablebody>
+		</table>";
 
-			 
+		echo "<form action='crearNota.php' method='post'>
+					<input type='hidden' name='idEdicion' value='".$idEdicion."'/>
+					<input type='hidden' name='idSeccion' value='".$idSeccion."'/>
+					<input class='altaContenido' value='+' type='submit' style='background:white; border:0px;' />
+					</form>";
+}
+		 
 ?>

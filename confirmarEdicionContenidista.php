@@ -94,7 +94,6 @@
 				$pieNota = $_POST['pie'];
 				$latitudNota = $_POST['latitud'];
 				$longitudNota = $_POST['longitud'];
-				$imagenNota = $_POST['imagen'];
 				$detalleImgNota = $_POST['detalleImagen'];
 				
 				$sql="
@@ -139,12 +138,10 @@
 				$idPublicacion=$_POST['idPublicacion'];
 				$titulo=$_POST['titulo'];
 				$fecha=$_POST['fecha'];
-				if(ISSET($_FILES['imagen'])){
-					move_uploaded_file($_FILES['imagen']['tmp_name'],'img/thumbs-publicacion/'.$_FILES['imagen']['name'].".jpg");
-					$imagen = $_FILES['imagen']['name'].".jpg";
-				}else{
-					$imagen = "";
-				}
+				$dir_subida = 'img/thumbs-publicacion/';
+				$fichero_subido = $dir_subida . basename($_FILES['imagen']['name']);
+				move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido);
+				$imagen= basename($_FILES['imagen']['name']);
 				$precio=$_POST['precio'];
 				
 				
@@ -202,8 +199,12 @@
 				$pieNota = $_POST['pie'];
 				$latitudNota = $_POST['latitud'];
 				$longitudNota = $_POST['longitud'];
-				$imagenNota = $_POST['imagen'];
+				$dir_subida = 'img/imagenNota/';
+				$fichero_subido = $dir_subida . basename($_FILES['imagen']['name']);
+				move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido);
+				$imagenNota= basename($_FILES['imagen']['name']);
 				$detalleImgNota = $_POST['detalleImagen'];
+				$videoNota = $_POST['video'];
 				
 
 				$sqlSC="
@@ -218,11 +219,25 @@
 				$idSeccionPorEdicion=$respuesta['idSeccionPorEdicion'];
 				
 				
-				$sql="
+				$sql1="
 				INSERT INTO nota (idSeccionPorEdicion, titulo, volanta, copete, texto, autor, pieNota, latitud, longitud)
 				VALUES ('$idSeccionPorEdicion','$tituloNota','$volantaNota','$copeteNota','$textoNota','$autorNota','$pieNota','$latitudNota','$longitudNota')";
 			    
-				$consulta=mysqli_query($bd->getEnlace(), $sql);
+				$consulta1=mysqli_query($bd->getEnlace(), $sql1);
+				
+				$idNota=mysqli_insert_id($bd->getEnlace());
+				
+				$sql2="
+				INSERT INTO imagennota (IdNota, descripcion, detalleImagen)
+				VALUES ('$idNota','$imagenNota','$detalleImgNota')";
+			    
+				$consulta2=mysqli_query($bd->getEnlace(), $sql2);
+				
+				$sql3="
+				INSERT INTO videonota (IdNota, descripcion)
+				VALUES ('$idNota','$videoNota')";
+			    
+				$consulta3=mysqli_query($bd->getEnlace(), $sql3);
 				
 				if($consulta==false){
 					echo"No se pudieron actualizar los datos, vuelva a intentarlo </br></br>";

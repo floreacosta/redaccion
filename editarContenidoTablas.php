@@ -44,8 +44,8 @@ if (isset($_GET["idPublicacion"])){
 				"
 					<tr>
 						<td><input type='text' name='idPublicacion' value='".$publicacion['idPublicacion']."' readonly/></td>
-						<td><input type='text' name='nombre' value='".$publicacion['nombre']."'/></td>
-						<td><textarea type='text' name='descripcion'>".$publicacion['descripcion']." </textarea></td>
+						<td><input title='Solo se admiten letras y números' type='text' name='nombre' value='".$publicacion['nombre']."' pattern='[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></td>
+						<td><textarea title='Solo se admiten letras y números' type='text' name='descripcion' pattern='[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,140}' required>".$publicacion['descripcion']."</textarea></td>
 						<td class='btnAccion-td'><button type='submit' id='confirmarPublicacion' name='confirmarPublicacion'>%</button></td>
 						<td class='btnAccion-td'><button type='button' id='cancelar' onClick='ocultarModificarPublicacion()'>x</button></td>
 					</tr>
@@ -68,7 +68,7 @@ if (isset($_GET["idEdicion"])){
 	
 	echo 
 		"
-		<form action='confirmarEdicionContenidista.php' method='post'>
+		<form enctype='multipart/form-data' action='confirmarEdicionContenidista.php' method='post'>
 			<table>
 				<thead>
 					<tr>
@@ -105,10 +105,10 @@ if (isset($_GET["idEdicion"])){
 				"
 					<tr>
 						<td><input type='text' name='idEdicion' value='".$edicion['idEdicion']."' readonly/></td>
-						<td><input type='text' name='titulo' value='".$edicion['tituloEdicion']."'/></td>
-						<td><input type='text' name='fecha' value=".$edicion['fecha']." /></td>
-						<td><input type='text' name='imagen' value=".$edicion['imagenTapaEdicion']." /></td>
-						<td><input type='text' name='precio' value=".$edicion['precio']." /></td>
+						<td><input title='Solo se admiten letras y números' type='text' name='titulo' value='".$edicion['tituloEdicion']."' pattern='[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required/></td>
+						<td><input type='date' name='fecha' value=".$edicion['fecha']." required/></td>
+						<td><input type='file' name='imagen'/></td>
+						<td><input type='number' name='precio' value=".$edicion['precio']." required/></td>
 						<td class='btnAccion-td'><button type='submit' id='confirmarEdicion' name='confirmarEdicion'>%</button></td>
 						<td class='btnAccion-td'><button type='button' id='cancelar' onClick='ocultarModificarEdicion()'>x</button></td>
 					</tr>
@@ -165,8 +165,8 @@ if (isset($_GET["idSeccion"])){
 				"
 					<tr>
 						<td><input type='text' name='idSeccion' value='".$seccion['idSeccion']."' readonly/></td>
-						<td><input type='text' name='nombre' value='".$seccion['nombre']."'/></td>
-						<td><textarea type='text' name='descripcion'>".$seccion['descripcion']."</textarea></td>
+						<td><input title='Solo se admiten letras y números' type='text' name='nombre' value='".$seccion['nombre']."' pattern='[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,60}' required /></td>
+						<td><textarea title='Solo se admiten letras y números' type='text' name='descripcion' value='".$seccion['descripcion']."' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,140}' required ></textarea></td>
 						<td class='btnAccion-td'><button type='submit' id='confirmarSeccion' name='confirmarSeccion'>%</button></td>
 						<td class='btnAccion-td'><button type='button' id='cancelar' onClick='ocultarModificarSeccion()'>x</button></td>
 					</tr>
@@ -179,86 +179,6 @@ if (isset($_GET["idSeccion"])){
 		</table>
 		</form>";
 
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////EDITAR NOTA
-
-if (isset($_GET["idNota"])){
-
-	$idNota = $_GET["idNota"];
-
-	$strSql = "
-			SELECT *
-			FROM nota NT 
-			JOIN imagennota IM ON NT.idNota=IM.idNota
-			WHERE NT.idNota=".$idNota;
-			
-		
-		$consulta = mysqli_query($bd->getEnlace(), $strSql);
-		
-		$nota=mysqli_fetch_assoc($consulta);
-			
-		$tituloNota = $nota['titulo'];
-		$volantaNota = $nota['volanta'];
-		$copeteNota = $nota['copete'];
-		$textoNota = $nota['texto'];
-		$autorNota = $nota['autor'];
-		$pieNota = $nota['pieNota'];
-		$latitudNota = $nota['latitud'];
-		$longitudNota = $nota['longitud'];
-		$imagenNota = 'img/imagenNota/'.$nota['descripcion'];
-		$detalleImgNota = $nota['detalleImagen'];
-		
-		echo 
-		"
-			Editar nota ".$tituloNota."
-			<form action='confirmarEdicionContenidista.php' method='post'>
-			    <table>
-					<input type='hidden' name='idNota' value='".$idNota."'>
-					<tr>
-						<td>Volanta:<input type='text' name='volanta' value='".$volantaNota."' /></td>
-					</tr>
-					<tr>
-						<td>Título:<input type='text' name='titulo' value='".$tituloNota."' /></td>
-					</tr>
-					<tr>
-						<td>Copete:<input type='text' name='copete' value='".$copeteNota."' /></td>
-					</tr>
-					<tr>
-						<td>Imagen de la nota: <input type='file' name='imagen' /></td>
-					</tr>
-					<tr>
-						<td>Descipción de la imagen de la nota: <input type='text' name='detalleImagen' value='".$detalleImgNota."' /></td>
-					</tr>
-					<tr>
-						<td>Autor de la nota: <input type='text' name='autor' value='".$autorNota."' /></td>
-					</tr>
-					<tr>
-						<td>contenido de la nota: <textarea type='text' name='texto'>".$textoNota."</textarea></td>
-					</tr>
-					<tr>
-						<td>Pie de nota: <input type='text' name='pie' value='".$pieNota."' /></td>
-					</tr>
-					<tr>
-						<td>Url del video: <input type='text' name='video' placeholder='Ingrese url del video' /></td>
-					</tr>
-					<tr>
-						<td>Latitud Nota: <input type='text' name='latitud' value='".$latitudNota."' /></td>
-					</tr>
-					<tr>
-						<td>Longitud Nota: <input type='text' name='longitud' value='".$longitudNota."' /></td>
-					</tr>
-					<tr></tr>
-					
-					<tr>
-						<td class='btnAccion-td'>
-							<button type='submit' id='confirmarNota' name='confirmarNota'>%</button>
-							<button type='button' id='cancelar' onClick='ocultarMostrarNota()'>x</button>
-						</td>
-					
-					</tr>
-				</table>
-		";
 }
 
 

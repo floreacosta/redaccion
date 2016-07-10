@@ -7,19 +7,13 @@
 		include_once('clases/Publicacion.php');
 		include_once('clases/Usuarios.php');
 	?>
+	
 	<body>
 		<?php include_once('include/header_body.php'); ?>
 		
 		<section class='perfil content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a class='here' href='perfil_lector.php'>Perfil de usuario</a></p>
-			</div>
-			
-			<div class='perfil'>
-				<?php 
-					$usuario = new Usuarios();
-					$usuario->encabezadoPerfil();
-				?>
+				<p><a href='perfil_contenidista.php'>Volver a mi perfil</a> 
 			</div>
 			
 			<div class='tablasABM'>
@@ -32,6 +26,7 @@
 					
 					<div id="crearPublicacion" style='display:none; margin:0.5em;'>
 					Crear nueva publicación
+					<a id='crearPublicacionAncla' name='crearNotaAncla'></a>
 					<form action='confirmarEdicionContenidista.php' method='post'>
 					
 						<table>
@@ -99,7 +94,7 @@
 				</div>
 				
 				<div id='mostrarNota' class='tablasABM' style='display:none;'>
-			
+				
 				</div>
 				
 			</div>
