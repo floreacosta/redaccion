@@ -122,12 +122,6 @@
 					
 					<input type='submit' id='enviar' name='enviar'></input>
 					
-					<?php
-						if(isset($_POST['enviar'])){
-							//$registro= new Usuarios();
-							//$registro->altaUsuarioLecto($_POST['apellido'],$_POST['nombre'],$_POST['fechaNacimiento'],$_POST['calle'],$_POST['numero'],$_POST['telefono'],$_POST['mail'],$_POST['localidad'],$_POST['provincia'],$_POST['pais'],$_POST['usuario'],$_POST['clave']);
-						}
-					?>
 					<script type='text/javascript'>
 						var clave = document.getElementById("clave")
 						, reClave = document.getElementById("reClave");

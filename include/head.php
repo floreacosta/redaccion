@@ -12,8 +12,8 @@
 	}else if(ISSET($_POST['ingresarLoginAdministrador'])){
 -		$usuario->login($_POST['userAdministrador'], $_POST['passAdministrador']);	
  	}
-	
-	seguridad
+	/*
+	//seguridad
 	$variable = explode('/', $_SERVER['PHP_SELF'] );
 	if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
 		$usuario->consultarPermisoLector($_SESSION['idUsuario'],array_pop( $variable ));
@@ -21,7 +21,7 @@
 		$usuario->consultarPermisoAdministrativo($_SESSION['idUsuario'],array_pop( $variable ));
 	}else{
 		$usuario->consultarPermisoPublico(array_pop( $variable ));
-	}
+	}*/
 	
 	$usuario->cerrarSesion();
 ?>

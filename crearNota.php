@@ -16,15 +16,17 @@
 		<?php 
 		
 			include_once('include/header_body.php'); 
-			$idSeccion = $_POST["idSeccion"];
-			$idEdicion = $_POST["idEdicion"];
+			if (ISSET($_POST['idSeccion']) && ISSET($_POST['idEdicion'])){
+				$idSeccion = $_POST["idSeccion"];
+				$idEdicion = $_POST["idEdicion"];
+			}
 		?>
 		
 		<section id='crearNota' class='perfil content'>
 		
 		
 			<div class='ubicacion'>
-				<p><a href='perfil_contenidista.php'>Volver a mi perfil</a> 
+				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a href='perfil_contenidista.php'>perfil de Usuario</a> <span class='separacion'>></span> <a class='here' href='crearNota.php'>Crear Nota</a> </p> 
 			</div>
 			
 			<div id='crearNota' class='formularioUsuario'>

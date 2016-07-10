@@ -12,7 +12,7 @@
 
 		<section class='perfil content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a class='here' href='perfil_lector.php'>Perfil de usuario</a></p>
+				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a class='here' href='perfil_administrador.php'>Perfil de usuario</a></p>
 			</div>
 			
 			<div class='perfil'><a name="salida_graficos"></a>
@@ -120,7 +120,7 @@
 						?>
 						</tbody>
 					</table>
-					<form method='POST' action='/redaccion/perfil_modificacion.php'>
+					<form method='POST' action='perfil_modificacion.php'>
 					<button  type='submit' class='altaUsuarioDesdeAdmin' name='registro_admin'>Alta de nuevo empleado <span>+</span></button>
 					</form>
 				</div>

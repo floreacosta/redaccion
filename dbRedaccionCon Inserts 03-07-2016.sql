@@ -2958,18 +2958,16 @@ CREATE TABLE usuarioLector(
     idPais INT UNSIGNED,
     idEstado INT UNSIGNED,
     usuario VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    clave VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    clave VARCHAR(100)CHARACTER SET 'utf8' NULL DEFAULT NULL,
     imagenPerfil varchar(30)CHARACTER SET 'utf8' NULL DEFAULT 'Default.png'	
 )CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
 
 INSERT INTO usuarioLector (idUsuarioLector, apellido, nombre, documento, fechaNacimiento, calle, numero, telefono, mail, idLocalidad, idProvincia, idPais, idEstado, usuario, clave, imagenPerfil) VALUES
-(1, 'Garcia', 'Carlos', '32545875', '1970-11-07', 'Zañartú', 412, '46531234', 'charly_garcia@hotmail.com', 1, 1, 5, 1, 'carlosalberto22', '123456', 'carlosalberto22.jpg'),
-(2, 'Calamaro', 'Andrés', '24565123', '1978-05-21', 'Carabobo', 5123, '46946312', 'elsalmon22@hotmail.com', 1, 1, 5, 2, 'ac_rock', 'salmonela', 'Default.png'),
-(3, 'Páez', 'Rodolfo', '35462455', '1981-08-13', 'Santo Dumont', 332, '44412409', 'rodolfo_paez@hotmail.com', 3, 1, 5, 2, 'rodolfo13', 'rodolfo123', 'Default.png'),
-(7, 'muñoz', 'fernando', '30743985', '1983-12-19', 'virreyes', 5660, '2202425765', 'fernandomatiasm@hotmail.com', 1, 5, 1, 2, 'Matufe', '123123', 'Default.png'),
-(10, 'muñoz', 'fernando', '30743985', '1983-12-19', 'peribebuy', 1361, '20639236', 'fernandomatiasm@hotmail.com', 2, 5, 1, 2, 'fernando', '123456', 'Default.png'),
-(11, 'saldivars', 'fernandas', '36188861', '1999-12-08', 'virreyess', 56605, '20639234', 'fernandomatiasm@hotmail.coms', 3, 1, 5, 1, 'fernanda2', '654321', 'Default.png'),
-(12, 'Torcazzo', 'Gabriel', '32166594', '1986-04-16', 'peribebuy', 1365, '1558898102', 'yoni_melacomo@hotmail.com', 2, 1, 5, 1, 'Yony', '123456', 'Yony.jpg');
+(1, 'Garcia', 'Carlos', '32545875', '1970-11-07', 'Zañartú', 412, '46531234', 'charly_garcia@hotmail.com', 1, 1, 5, 1, 'carlosalberto22', 'e10adc3949ba59abbe56e057f20f883e', 'carlosalberto22.jpg'),
+(2, 'Calamaro', 'Andrés', '24565123', '1978-05-21', 'Carabobo', 5123, '46946312', 'elsalmon22@hotmail.com', 1, 1, 5, 2, 'ac_rock', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
+(3, 'Páez', 'Rodolfo', '35462455', '1981-08-13', 'Santo Dumont', 332, '44412409', 'rodolfo_paez@hotmail.com', 3, 1, 5, 2, 'rodolfo13', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
+(11, 'saldivar', 'fernanda', '36188861', '1999-12-08', 'virreyes', 56605, '20639234', 'fernandomatiasm@hotmail.com', 3, 1, 5, 1, 'fernanda', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
+(12, 'Torcazzo', 'Gabriel', '32166594', '1986-04-16', 'peribebuy', 1365, '1558898102', 'yoni_melacomo@hotmail.com', 2, 1, 5, 1, 'Yony', 'e10adc3949ba59abbe56e057f20f883e', 'Yony.jpg');
 
 CREATE TABLE usuarioAdministrativo(
 	idUsuarioAdmin INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -2987,13 +2985,13 @@ CREATE TABLE usuarioAdministrativo(
     idPais INT UNSIGNED,
     idEstado INT UNSIGNED,
     usuario VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    clave VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
+    clave VARCHAR(100)CHARACTER SET 'utf8' NULL DEFAULT NULL,
     imagenPerfil varchar(30)CHARACTER SET 'utf8' NULL DEFAULT 'Default.png'	
 )CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
 
 INSERT INTO usuarioAdministrativo (idUsuarioAdmin, idTipoUsuario, apellido, nombre, documento, fechaNacimiento, calle, numero, telefono, mail, idLocalidad, idProvincia, idPais, idEstado, usuario, clave, imagenPerfil) VALUES
-(1,1, 'Rojo', 'Marcos', '12345678', '1975-12-09', 'Entre Rios', 1040, '46531234', 'marquitos_rojo@hotmail.com', 1, 1, 5, 1, 'marcosrojo14', 'futbolplaya333', 'DefaultAdmin.png'),
-(2,2, 'Rozental', 'Nacho', '98765432', '1984-06-22', 'Pueyrredon', 331, '46946312', 'nacho_rozental@gmail.com', 1, 1, 5, 2, 'nacho_roz', 'nachito123456', 'DefaultAdmin.png');
+(1,1, 'Rojo', 'Marcos', '12345678', '1975-12-09', 'Entre Rios', 1040, '46531234', 'marquitos_rojo@hotmail.com', 1, 1, 5, 1, 'marcosrojo14', 'e10adc3949ba59abbe56e057f20f883e', 'DefaultAdmin.png'),
+(2,2, 'Rozental', 'Nacho', '98765432', '1984-06-22', 'Pueyrredon', 331, '46946312', 'nacho_rozental@gmail.com', 1, 1, 5, 2, 'nacho_roz', 'e10adc3949ba59abbe56e057f20f883e', 'DefaultAdmin.png');
 
 CREATE TABLE videoNota(
 	idVideoNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -3002,6 +3000,6 @@ CREATE TABLE videoNota(
 )CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
 
 INSERT INTO videoNota (idVideoNota, idNota, descripcion) VALUES
-(1, 1, 'www.youtube.com/watch?v=391jf9ak'),
-(2, 3, 'www.youtube.com/watch?v=asf1341s'),
-(3, 4, 'www.youtube.com/watch?v=8138ajsj');
+(1, 1, 'https://www.youtube.com/embed/85MppyLJHz0?loop=1'),
+(2, 3, 'https://www.youtube.com/embed/85MppyLJHz0?loop=1'),
+(3, 4, 'https://www.youtube.com/embed/85MppyLJHz0?loop=1');

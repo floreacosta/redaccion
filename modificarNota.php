@@ -59,7 +59,14 @@
 		<section class='perfil content'>
 		
 			<div class='ubicacion'>
-				<p><a href='perfil_contenidista.php'>Volver a mi perfil</a> 
+				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a href='perfil_contenidista.php'>perfil de Usuario</a> <span class='separacion'>></span> <a class='here' href='modificarNota.php'>Editar Nota</a> </p> 
+			</div>
+			
+			<div class='perfil'><a name="salida_graficos"></a>
+				<?php 
+					$usuario = new Usuarios();
+					$usuario->encabezadoPerfil();
+				?>
 			</div>
 			
 			<div id='crearNota' class='formularioUsuario'>

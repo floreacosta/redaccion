@@ -34,7 +34,7 @@
 		<a href='#' onClick='modalCloseLector();'>x</a>
 		<div class='in'>
 			<input type='text' id='userLector' name='userLector' placeholder='Usuario' value=''></input>
-			<input type='text' id='passLector' name='passLector' placeholder='Contraseña' value=''></input>
+			<input type='password' id='passLector' name='passLector' placeholder='Contraseña' value=''></input>
 			<input type='submit' id='ingresarLoginLector' name='ingresarLoginLector' value='LogIn'></input><!--BOTON LECTOR -->
 		</div>
 		<ul class='aclaracion'>
@@ -49,7 +49,7 @@
 		<a href='#' onClick='modalCloseRedactor();'>x</a>
 		<div class='in'>
 			<input type='text' id='userRedactor' name='userRedactor' placeholder='Usuario' value=''></input>
-			<input type='text' id='passRedactor' name='passRedactor' placeholder='Contraseña' value=''></input>
+			<input type='password' id='passRedactor' name='passRedactor' placeholder='Contraseña' value=''></input>
 			<input type='submit' id='ingresarLoginRedactor' name='ingresarLoginRedactor' value='LogIn'></input><!--BOTON REDACTOR -->
 		</div>
 		<ul class='aclaracion'>
@@ -64,7 +64,7 @@
 		<a href='#' onClick='modalCloseAdministrador();'>x</a>
 		<div class='in'>
 			<input type='text' id='userAdministrador' name='userAdministrador' placeholder='Usuario' value=''></input>
-			<input type='text' id='passAdministrador' name='passAdministrador' placeholder='Contraseña' value=''></input>
+			<input type='password' id='passAdministrador' name='passAdministrador' placeholder='Contraseña' value=''></input>
 			<input type='submit' id='ingresarLoginAdministrador' name='ingresarLoginAdministrador' value='LogIn'></input><!--BOTON ADMINISTRADOR -->
 		</div>
 		<ul class='aclaracion'>

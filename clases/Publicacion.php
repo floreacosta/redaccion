@@ -501,6 +501,7 @@
 				";
 			
 		}
+		
 		public function datosDeNota($idNota){
 			if (ISSET($idNota)){
 				$bd = new BaseDatos();
@@ -508,8 +509,9 @@
 				$strSql = "
 					SELECT NO.titulo, NO.autor, NO.pieNota, NO.volanta, NO.copete, NO.texto, NO.latitud, 
 						   NO.longitud,INO.descripcion imagen,INO.detalleImagen
-					FROM (nota NO JOIN imagenNota INO ON NO.idNota=INO.idNota)
-					WHERE NO.idNota = ".$idNota."";
+					FROM (nota NO LEFT JOIN imagenNota INO ON NO.idNota=INO.idNota)
+								
+					WHERE NO.idNota = ".$idNota;
 
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
@@ -524,6 +526,17 @@
 					$datos['longitud'] = $comprada['longitud'];
 					$datos['pieNota'] = $comprada['pieNota'];
 					$datos['autor'] = $comprada['autor'];
+					$strSql = "
+							SELECT descripcion 
+							FROM videoNota
+							WHERE idNota = ".$idNota;
+				
+					$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+					if($comprada = mysqli_fetch_assoc($consulta)){
+						$datos['videoNota'] = $comprada['descripcion'];
+					}
+					
 					return $datos;
 				}
 			}
@@ -618,7 +631,7 @@
 			
 				if($comprada = mysqli_fetch_assoc($consulta)){
 					echo "<a class='ver' href='edicion.php?edicion=".$idEdicion."' id='comprar'>Ver</a>
-					";//escribir el direccionamiento a la pagina de lectura en onclick y ponerle la clase
+					";
 				}else{
 					$strSql = "
 							SELECT idPublicacion, fecha fechaEdicion

@@ -42,6 +42,15 @@
 							</div>
 						";
 						break;
+					case 4:
+						echo"
+							<div class='errorPosteo'>
+								<h2>Error</h2>
+								<h3>Error Inesperado al intentar cargar la pagina. Vuelva a intentarlo</h3>
+								<a href='index.php'>Volver al inicio</a>
+							</div>
+						";
+						break;
 				}
 						
 			}	

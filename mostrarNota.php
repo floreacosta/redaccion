@@ -58,7 +58,14 @@
 	
 		<section class='introduccion content'>
 			<div class='ubicacion'>
-				<p><a href='perfil_contenidista.php'>Volver a mi perfil</a> 
+				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a href='perfil_contenidista.php'>perfil de Usuario</a> <span class='separacion'>></span> <a class='here' href='mostrarNota.php'>Ver Nota</a> </p> 
+			</div>
+			
+			<div class='perfil'><a name="salida_graficos"></a>
+				<?php 
+					$usuario = new Usuarios();
+					$usuario->encabezadoPerfil();
+				?>
 			</div>
 			
 			<div class='nota'>
@@ -78,10 +85,13 @@
 					<?php echo $textoNota; ?>
 				</div>
 				
-				<figure class='videoNota'>
-					<video><iframe width="560" height="315" src="<?php echo $urlVideoNota; ?>" frameborder="0" allowfullscreen></iframe></video>
-				</figure>
-				
+				<?php
+					if (ISSET($urlVideoNota) && $urlVideoNota != ""){
+						echo "<figure class='videoNota'>
+							<iframe width='560' height='315' src='".$urlVideoNota."' frameborder='0' allowfullscreen></iframe>
+						</figure>";
+					}
+				?>
 				<figcaption><?php echo $pieNota;?></figcaption></br></br>
 				
 				<div class='ubicacionNota'>

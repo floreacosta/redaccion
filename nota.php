@@ -7,6 +7,10 @@
 		include_once('clases/Publicacion.php');
 		$publicacion = new Publicacion();
 	?>
+	
+	<script type='text/javascript' src='http://maps.googleapis.com/maps/api/js?key=AIzaSyDCgRMJBiPR1sOrUZzJFXo2WLl8iXx3-E8&sensor=true'></script>
+	<script type='text/javascript' src='js/google-map.js'></script>
+	
 	<body>
 		<?php
 			include_once('include/header_body.php');
@@ -24,6 +28,7 @@
 			</div>
 			
 			<div class='nota'>
+			
 				<h3><?php echo $datos['volanta']; ?></h3>
 				<h1><?php echo $datos['titulo']; ?></h1>
 				<h2><?php echo $datos['copete']; ?></h2>
@@ -34,20 +39,29 @@
 				</figure>
 				
 				<span class='autor'>Por <i><?php echo $datos['autor']; ?></i></span>
+				
 				<div class='textoNota'>
 					<?php echo $datos['texto']; ?>
 				</div>
 				
-				<figure class='videoNota'>
-					<video></video>
-					<figcaption><?php echo $datos['pieNota']; ?></figcaption>
-				</figure>
+				<?php
+					if (ISSET($datos['videoNota']) && $datos['videoNota'] != ""){
+						echo "<figure class='videoNota'>
+							<iframe width='560' height='315' src='".$datos['videoNota']."?>'  allowfullscreen></iframe>
+						</figure>";
+					}
+				?>
+				<figcaption><?php echo $datos['pieNota']; ?></figcaption></br></br>
 				
 				<div class='ubicacionNota'>
-					<h3>Ubicación</h3>
-					<span>Latitud: <?php echo $datos['latitud'] ?> Longitud: <?php echo $datos['longitud'] ?></span>
-					<div class='googleMap'></div>
+					Ubicación de la nota: 
+					<div id='map_canvas' style='width:450px;height:300px;'></div>
+					<form>
+						<input id='lat' type='hidden' name='latitud' value="<?php echo $datos['latitud']; ?>" />
+						<input id='long' type='hidden' name='longitud' value="<?php echo $datos['longitud']; ?>"/>
+					</form>
 				</div>
+
 			</div>
 
 		</section>
