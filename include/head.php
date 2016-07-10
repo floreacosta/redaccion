@@ -13,7 +13,7 @@
 -		$usuario->login($_POST['userAdministrador'], $_POST['passAdministrador']);	
  	}
 	
-	//seguridad
+	seguridad
 	$variable = explode('/', $_SERVER['PHP_SELF'] );
 	if (ISSET($_SESSION['usuariolector']) && ISSET($_SESSION['idUsuario'])){
 		$usuario->consultarPermisoLector($_SESSION['idUsuario'],array_pop( $variable ));
@@ -42,5 +42,8 @@
 		<script src='js/query.js'></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src='js/graficos.js'></script>
+		<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="ckeditor/adapters/jquery.js"></script>
 		<link rel="stylesheet" href="css/style.css">
+
 </head>
