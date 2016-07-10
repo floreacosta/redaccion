@@ -200,13 +200,13 @@ if (isset($_GET["idSeccion"])){
 						<td>$latitudNota</td>
 						<td>$longitudNota</td>
 						<td class='btnAccion-td'>
-							<form action='modificarNota.php' method='post'>
+							<form action='modificar_nota.php' method='post'>
 								<input type='hidden' name='idNota' value='".$idNota."'/>
 								<input class='altaContenido' value='e' type='submit' id='modificar' style='background:transparent; border:0px;'/>
 							</form>
 						</td>
 						<td class='btnAccion-td'>
-							<form action='mostrarNota.php' method='post'>
+							<form action='mostrar_nota.php' method='post'>
 								<input type='hidden' name='idNota' value='".$idNota."'/>
 								<input class='altaContenido' value='E' type='submit' id='modificar' style='background:transparent; border:0px;'/>
 							</form>
@@ -220,7 +220,7 @@ if (isset($_GET["idSeccion"])){
 		</tablebody>
 		</table>";
 
-		echo "<form action='crearNota.php' method='post'>
+		echo "<form action='crear_nota.php' method='post'>
 					<input type='hidden' name='idEdicion' value='".$idEdicion."'/>
 					<input type='hidden' name='idSeccion' value='".$idSeccion."'/>
 					<input class='altaContenido' value='+' type='submit' style='background:white; border:0px;' />
