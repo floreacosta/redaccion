@@ -21,9 +21,15 @@ jQuery(document).ready(function(){
 function initialize() {
      
 	geocoder = new google.maps.Geocoder();
-
-	var latLng = new google.maps.LatLng(lat,lng);
 	
+	if(lat !=0 && lng !=0 ){
+        var latLng = new google.maps.LatLng(lat,lng);
+    }
+    else{
+        //Por defecto coloca el marcador en UNLAM
+        var latLng = new google.maps.LatLng(-34.6696864,-58.5650799);
+    }
+
 	//Define algunas opciones del mapa a crear
 	var myOptions = {
 		center: latLng,//centro del mapa
