@@ -13,7 +13,7 @@
 	
 		<section class='verSuscripcion introduccion content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a><span class='separacion'>></span><a href='perfil_lector.php'>Perfil</a><span class='separacion'>></span><a class='here' href='ver_suscripcion.php'>Ver Suscripción</a></p>
+				<p><a href='index.php'>Home</a><span class='separacion'>></span><a href='perfil_lector.php'>Perfil de usuario</a><span class='separacion'>></span><a class='here' href='ver_suscripcion.php'>Ver Suscripción</a></p>
 			</div>
 			<?php
 				if (ISSET($_GET['suscripcion']) && $_GET['suscripcion']){

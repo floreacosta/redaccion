@@ -24,7 +24,7 @@
 	
 		<section class='introduccion content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a href='edicion.php?edicion=<?php echo $_GET['edicion'] ?>'>Edición</a> <span class='separacion'>></span> <a class='here' href=''>Nota</a></p>
+				<p><a href='index.php'>Home</a> <span class='separacion'>></span> <a href='perfil_lector.php'>Perfil de usuario</a> <span class='separacion'>></span> <a href='edicion.php?edicion=<?php echo $_GET['edicion'] ?>'>Edición</a> <span class='separacion'>></span> <a class='here' href=''>Nota</a></p>
 			</div>
 			
 			<div class='nota'>

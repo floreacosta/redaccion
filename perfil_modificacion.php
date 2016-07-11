@@ -23,7 +23,6 @@
 				}else{
 					$datos =$usuario->limpiarDatos();
 				}
-				
 			}else{
 				$datos =$usuario->limpiarDatos();
 			}
@@ -31,13 +30,23 @@
 		
 		<section class='modificacionDatos content'>
 			<div class='ubicacion'>
-				<p><a href='index.php'>Home</a><span class='separacion'>></span><a class='here' href='perfil_lector.php'>Perfil de usuario</a>
+				<p><a href='index.php'>Home</a>
 				<?php
+					
 					if (ISSET($_GET['edit']) && ($_GET['edit'] == 1) && 
 						((ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuariolector'])) ||
 						  ISSET($_SESSION['idUsuario']) && ISSET($_SESSION['usuarioadministrativo']))){
+
+						if (ISSET($_SESSION['usuariolector'])){
+							echo "<span class='separacion'>></span><a class='here' href='perfil_lector.php'>Perfil de usuario</a>";
+						}else{
+							echo "<span class='separacion'>></span><a class='here' href='perfil_contenidista.php'>Perfil de usuario</a>";
+						}
 						echo"<span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Modificacion de usuario</a></p>";
 					}else{
+						if(isset($_POST['registro_admin'])){
+							echo "<span class='separacion'>></span><a class='here' href='perfil_administrador.php'>Perfil de usuario</a>";
+						}
 						echo"<span class='separacion'>></span><a class='here' href='perfil_modificacion.php'>Alta de usuario</a></p>";
 					}
 				?>

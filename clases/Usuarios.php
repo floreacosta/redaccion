@@ -27,6 +27,10 @@
 						<div class='datosPerfil'>
 							<h2>Bienvenido/a</h2>
 							<h1>".$resultado['nombre']." ".$resultado['apellido']." <a class='iconModificar' title='Modificar datos de perfil' href='perfil_modificacion.php?edit=1'>r</a></h1>
+							<div class='datosPerfil'>
+								<form action='index.php' enctype='' method='POST'>
+								<input type='submit' id='cerrarSesion' name='cerrarSesion' value='Cerrar Sesion'></input>	
+							</div>
 						</div>
 					";
 				}
@@ -166,13 +170,13 @@
 			if (ISSET($idUsuario)){
 				$bd = new BaseDatos();
 				$strSql = "
-					SELECT UA.usuario,UA.apellido,UA.nombre,UA.documento,UA.fechaNacimiento,UA.mail,UA.telefono,UA.calle,UA.numero, UA.imagenPerfil,
+					SELECT UA.usuario,UA.idTipoUsuario,UA.apellido,UA.nombre,UA.documento,UA.fechaNacimiento,UA.mail,UA.telefono,UA.calle,UA.numero, UA.imagenPerfil,
 						   PA.idPais, PA.nombre pais, PR.idProvincia, PR.nombre provincia, LO.idLocalidad, LO.nombre localidad
-					FROM (((usuarioAdministrativo UA JOIN Pais PA ON UA.idPais=PA.idPais)
-										  JOIN Provincia PR ON UA.idProvincia = PR.idProvincia)
-										  JOIN Localidad LO ON UA.idLocalidad= LO.idLocalidad)
-					WHERE UA.idUsuarioAdmin = ".$idUsuario." 
-				";
+					FROM usuarioAdministrativo UA INNER JOIN Pais PA ON UA.idPais=PA.idPais
+										  INNER JOIN Provincia PR ON UA.idProvincia = PR.idProvincia
+										  INNER JOIN Localidad LO ON UA.idLocalidad= LO.idLocalidad
+					WHERE UA.idUsuarioAdmin = ".$idUsuario;
+				
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 			
 				if($resultado = mysqli_fetch_assoc($consulta)){
@@ -193,6 +197,7 @@
 					$datos["localidad"] = $resultado['localidad'];
 					$datos["calle"] = $resultado['calle'];
 					$datos["numero"] = $resultado['numero'];
+					$datos["tipoUsuario"] = $resultado['idTipoUsuario'];
 					return $datos;
 				}
 			}
