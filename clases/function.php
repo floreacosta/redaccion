@@ -32,11 +32,11 @@
 					$tipo = $usuario->consultarTipoUsuarioAdministrativo($_SESSION['idUsuario']);
 					if ($tipo == 1){ 
 						echo "
-							<a title='Ver Perfil' href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
+							<a title='Ver Perfil' href='perfil_contenidista.php'><p>".$_SESSION['usuarioadministrativo']." <span class='verPerfil'>E</span></p></a>
 						";
 					}else if ($tipo == 2){
 						echo "
-							<a title='Ver Perfil' href='perfil_administrador.php'><p>".$_SESSION['usuarioadministrativo']."</p></a>
+							<a title='Ver Perfil' href='perfil_administrador.php'><p>".$_SESSION['usuarioadministrativo']." <span class='verPerfil'>E</span></p></a>
 						";
 					}
 				}
@@ -48,7 +48,6 @@
  			</form>
  		";
 	}
-	//usar funcion de CERRAR SESION (en clase Usuarios)
 	
 	function imprimirLogeo(){
 		if(ISSET($_SESSION['usuariolector']) || ISSET($_SESSION['usuarioadministrativo'])){
