@@ -142,7 +142,7 @@ function buscaCompra(idEdicion) {
             if (req.readyState == 4) {
                 // only if "OK"
                 if (req.status == 200) {
-                    document.getElementById('compraArealizar').innerHTML =req.responseText ;
+                    document.getElementById('compraBox').innerHTML =req.responseText ;
                 } else {
                     alert("There was a problem while using XMLHTTP:\n" + req.statusText);
                 }
