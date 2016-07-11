@@ -3,6 +3,7 @@
 	include_once('clases/function.php');
 	include_once('clases/BaseDatos.php');
 	include_once('clases/Usuarios.php');
+	include_once('clases/Clima.php');
 	$usuario = new Usuarios();
 	
 	if(ISSET($_POST['ingresarLoginLector'])){
