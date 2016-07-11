@@ -586,7 +586,7 @@ div.precioPublicacion {
 	font-family: 'modern_pictogramsnormal';
 	font-size: 1.3em;
 	padding-left: .25em;
-	color: red;
+	color: #656565;
 }
 
 section.perfil{
@@ -624,6 +624,7 @@ img.fotoPerfil {
     border-radius: 4em;
     float: left;
     margin-right: 1em;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .datosPerfil {
@@ -721,6 +722,7 @@ a.verEdicionComprada {
     background: #d50000;
 	padding: .25em;
 	margin-top: 1em;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .comprasUsuario figure>p.numCompra, .suscripcionUsuario figure>p.numCompra {
@@ -729,6 +731,14 @@ a.verEdicionComprada {
 /*FIN PERFIL USUARIO*/
 
 /*PERFIL CONTENIDISTA*/
+.tablasABM{
+	color: #656565;
+}
+
+.tablasABM h2, .tablasABM h3 {
+    color: #00c853;
+}
+
 .tablasABM div {
     margin: 2em 0em;
     background: white;
@@ -737,6 +747,18 @@ a.verEdicionComprada {
     display: inline-block;
     width: 100%;
 	clear: both;
+}
+
+div.paginado {
+    background: #c2c2c2;
+    margin: 0;
+    margin-top: 1em;
+    font-size: .8em;
+    width: 5%;
+    min-width: 3.5em;
+    text-align: center;
+    padding: .5em;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .tablasABM table {
@@ -896,45 +918,54 @@ td>button:hover {
     background: white;
     padding: 1em;
 	color: #656565;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .verGraficos {
     margin-top: 1em;
-    background: #00c853;
+    background: #e5273d;
     border: 0;
     color: white;
     padding: .5em;
     width: 100%;
     font-size: 1.1em;
 	cursor: pointer;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .graficosInputs {
-    margin-top: 1em;
-    background: #00c853;
+    margin-top: .25em;
+    background: #f2f2f2;
     border: 0;
-    color: white;
+    color: #656565;
     padding: .5em;
     width: 98%;
     font-size: 1.1em;
-	cursor: pointer;
+    cursor: pointer;
 }
-.graficos_compras_izq{
- width: 48%;
- float: left;
- position: relative;
- width: 50%;
- font-size: 1.1em;
- cursor: pointer;
 
+.graficos_compras_izq{
+	 width: 48%;
+	 float: left;
+	 position: relative;
+	 width: 50%;
+	 font-size: 1.1em;
+	 cursor: pointer;
 }
+
 .graficos_compras_der{
- width: 50%;
- float: left;
- position: relative;
- width: 48%;
- font-size: 1.1em;
- cursor: pointer;
+	 width: 50%;
+	 float: left;
+	 position: relative;
+	 width: 48%;
+	 font-size: 1.1em;
+	 cursor: pointer;
+}
+
+.graficos_compras_izq>h3, .graficos_compras_der>h3 {
+    font-weight: 100;
+    font-size: .9em;
+    margin-top: 1em;
 }
 
 .verGraficos:hover{
@@ -943,6 +974,9 @@ td>button:hover {
 
 button.altaUsuarioDesdeAdmin {
     color: #e08200;
+    background: none;
+    border: 0;
+    font-size: 1.5em;
 }
 
 button.altaUsuarioDesdeAdmin:hover{
@@ -971,16 +1005,22 @@ button.altaUsuarioDesdeAdmin span{
 	border-radius: .5em;
 	width: 60%;
 	cursor: pointer;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .generarListados input[type='submit']{
-	background: #00c853;
+	background: #e5273d;
 	padding: 1em;
 	width: 30%;
 	color: white;
 	border: 0;
 	margin-left: 1%;
-	border-radius: .5em;	
+	border-radius: .5em;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.generarListados {
+    min-height: 13em !important;
 }
 /*Fin PERFIL ADMINISTRADOR*/
 
