@@ -9,7 +9,8 @@
 		if (ISSET($_SESSION['usuariolector'])){
 			if(ISSET($_POST['enviarCompra'])){
 				$publicacion->comprarEdicion($_POST['numEdicion']);
-				header('Location: perfil_lector.php');
+				$linkMp = $_POST['linkMercadoPago'];
+				header("Location: ".$linkMp);
 			}else if(ISSET($_GET['enviarSuscripcion'])){
 				$publicacion->comprarSuscripcion($_GET['suscripcionesDisponibles'],$_GET['periodoSuscripcion']);
 				header('Location: perfil_lector.php');
@@ -64,7 +65,7 @@
 				?>
 
 				<div class='precio'>
-					<h3 id='importe'></h3>
+					<h3 id='importe'>$0</h3>
 				</div>
 				<input type='submit' id='enviarSuscripcion' name='enviarSuscripcion' value='Suscribirme'></input><!--BOTON COMPRAR -->
 			</form>
@@ -86,5 +87,9 @@
 		<?php 
 		include_once('include/footer.php');
 		?>
+		
+		<script type="text/javascript">
+			(function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
+		</script>
 	</body>
 </html>

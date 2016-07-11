@@ -61,6 +61,7 @@ div.login form {
 	position: relative;
 	top: calc(50% - 10em);
     display: inline-block;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 div.login img {
@@ -118,15 +119,15 @@ div.login>form>a {
     cursor: pointer;
 }
 
-form.lector a{
+form.lector a, form.lector li{
     color: #00c853;
 }
 
-form.redactor a{
+form.redactor a, form.redactor li{
     color: #e08200;
 }
 
-form.administrador a{
+form.administrador a, form.administrador li{
     color: #e5273d;
 }
 
@@ -142,17 +143,26 @@ div.in input {
     border: 0;
 }
 
-input#ingresarLogin {
+input#ingresarLoginLector, input#ingresarLoginRedactor, input#ingresarLoginAdministrador, input#enviarCompra{
     cursor: pointer;
     color: white;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
-form.lector input#ingresarLogin{
+form.lector input#ingresarLoginLector{
 	background-color: #00c853;
 }
 
-form.redactor input#ingresarLogin{
+form.redactor input#ingresarLoginRedactor{
 	background-color: #e08200;
+}
+
+form.administrador input#ingresarLoginAdministrador{
+	background-color: #e5273d;
+}
+
+form.modalCompra input#enviarCompra{
+	background-color: #e5273d;
 }
 
 ul.aclaracion {
@@ -251,6 +261,7 @@ header {
 	
 	li.login {
 		background: white;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 	}
 
 	li.buscar {
@@ -272,6 +283,7 @@ header {
 			font-weight: bold;
 			width: 100%;
 			cursor: pointer;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 		}
 
 		li.login>span{
@@ -305,6 +317,7 @@ header {
 		
 		li.buscar form input#search {
 			width: 80%;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 		}
 
 		li.buscar form input#btnSearch {
@@ -337,6 +350,7 @@ header {
 	display: inline-block;
 	margin: 1%;
 	float: left;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .content{
@@ -357,6 +371,7 @@ img.perfil {
     float: left;
     margin-right: 1em;
     border-radius: 3em;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 input#cerrarSesion {
@@ -367,6 +382,7 @@ input#cerrarSesion {
     color: white;
     padding: .5em;
     border-radius: .5em;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 input#cerrarSesion:hover{
@@ -461,6 +477,7 @@ li.login p {
 
 .publicacionRandom div.imgPublicacion img {
     width: 100%;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 	/*CLIMA*/
@@ -541,6 +558,7 @@ div.precioPublicacion {
 	color: white;
 	border: 0;
 	cursor: pointer;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .comprar:hover, .ver:hover{
@@ -812,6 +830,7 @@ td>button:hover {
 	padding: 1em;
 	border-radius: 1em;
 	border: 0;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .formularioUsuario select, .suscripciones select{
