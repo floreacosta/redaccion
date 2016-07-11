@@ -55,7 +55,7 @@
 				$strSql = "SELECT US.nombre, US.apellido, US.".$campoId.", US.imagenPerfil
 						   FROM $tablaUsuario US
 						   WHERE usuario = '".$this->usuario."' AND clave = '".$pass."' AND idEstado = 1";
-				echo $strSql;
+				
 				$consulta = mysqli_query($bd->getEnlace(), $strSql);
 				
 				if($resultado = mysqli_fetch_assoc($consulta)){
@@ -64,7 +64,7 @@
 					$_SESSION['Perfil'] = $resultado['imagenPerfil'] ;
 					header('Location: index.php');
 				}else{
-					//header('Location: mensaje.php?mensaje=1');
+					header('Location: mensaje.php?mensaje=1');
 				}
 			}	
 		}//fin public function login();
