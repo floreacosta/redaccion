@@ -24,9 +24,12 @@
 					<a href='nota.php?edicion=".$idEdicion."&nota=".$fila['idNota']."'>
 						<h3>".$fila['volanta']."</h3>
 						<h1>".$fila['titulo']."</h1>
+					</a><br>
+					<a href='notaPDF.php?edicion=".$idEdicion."&nota=".$fila['idNota']."'>
+						exportar a Pdf
 					</a>
 				</figure>
-				</a>
+				
 			";
 		}while($fila = mysqli_fetch_assoc($resultado));
 	}
