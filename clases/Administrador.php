@@ -23,7 +23,6 @@
 				$rol = $administrativo['rol'];
 				$usuario = $administrativo['usuario'];
 				$mail = $administrativo['mail'];
-				$clave = $administrativo['clave'];
 				$id_estado = $administrativo['id_estado'];
 				$estado = $administrativo['estado'];
 				
@@ -34,10 +33,39 @@
 						<td>$rol</td>
 						<td>$usuario</td>
 						<td>$mail</td>
-						<td>$clave</td>
 						<td id='estado_$id_administrativo'>$estado</td>
-<td class='btnAccion-td'><button type='submit' title='Dar de baja usuario' id='modifEstado' name='modifEstado' class='modifEstado' onClick='ABMCambiarEstado($id_administrativo,$id_estado)'>w</button></td>		
+<td class='btnAccion-td'><button type='submit' title='Dar de baja usuario' id='modifEstado' name='modifEstado' class='modifEstado' onClick='ABMCambiarEstado($id_administrativo,$id_estado)'>[</button></td>		
 <td class='btnAccion-td'><button type='submit' title='Eliminar usuario' id='eliminarUsuario' name='eliminarUsuario' class='eliminarUsuario' onClick='ABMEliminarUsuario($id_administrativo,$baja)'>X</button></td>
+					</tr>";
+			}
+		}
+		
+		public function listarUsuariosLectores(){
+			$bd = new BaseDatos();
+			$alta = 1;
+			$modificacion = 2;
+			$baja = 3;
+			$strSql = "
+				SELECT UL.idUsuariolector as id_lector, UL.nombre, UL.apellido, UL.usuario, UL.mail
+				FROM usuariolector UL 
+				ORDER BY UL.idUsuarioLector";
+			
+			$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+			while($administrativo = mysqli_fetch_assoc($consulta)){
+				$id_lector = $administrativo['id_lector'];
+				$nombre = $administrativo['nombre'];
+				$apellido = $administrativo['apellido'];
+				$usuario = $administrativo['usuario'];
+				$mail = $administrativo['mail'];
+				
+				echo "<tr>
+						<td>$id_lector</td>
+						<td>$nombre</td>
+						<td>$apellido</td>
+						<td>$usuario</td>
+						<td>$mail</td>	
+<td class='btnAccion-td'><button type='submit' title='Eliminar usuario' id='eliminarUsuario' name='eliminarUsuario' class='eliminarUsuario' onClick='ABMEliminarLector($id_lector,$baja)'>X</button></td>
 					</tr>";
 			}
 		}
@@ -89,7 +117,7 @@
 					<td>$descripcion</td>
 					<td id='public_activo_$idPublicacion'>$activo</td>
 					<td class='btnAccion-td'><button type='submit' title='Ver ediciones' id='verEdiciones' name='verEdiciones' class='verEdiciones' onClick='ABMMostrarEdiciones($idPublicacion)'>E</button></td>			
-		<td class='btnAccion-td'><button type='submit' title='Dar de baja publicacion (con sus ediciones correspondientes)' name='bajaPublicacion'  class='bajaPublicacion'  onClick='ABMDesactivarPublicacion($idPublicacion,$activo)'>w</button></td>
+		<td class='btnAccion-td'><button type='submit' title='Dar de baja publicacion (con sus ediciones correspondientes)' name='bajaPublicacion'  class='bajaPublicacion'  onClick='ABMDesactivarPublicacion($idPublicacion,$activo)'>[</button></td>
 				</tr>";
 			}
 			
