@@ -46,5 +46,5 @@
 	$dompdf = new DOMPDF();
 	$dompdf->load_html($html);
 	$dompdf->render();
-	$dompdf->stream("sample.pdf");
+	$dompdf->stream($datos['titulo'].".pdf");
 ?>
