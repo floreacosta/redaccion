@@ -53,7 +53,12 @@
 						?>
 					</div>
 				</div>
-				<div class='clima'></div>
+				<div class='clima'>
+					<?php
+						$clima = new Clima();
+						$clima->mostrarClima();						
+					?>
+				</div>
 			</div>
 		</section>
 		<section class='suscripciones publicacion content'>
