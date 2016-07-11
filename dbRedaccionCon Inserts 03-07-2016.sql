@@ -1,128 +1,237 @@
-DROP DATABASE IF EXISTS dbRedaccion;
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 11-07-2016 a las 03:05:26
+-- Versión del servidor: 10.1.10-MariaDB
+-- Versión de PHP: 5.6.15
 
-CREATE DATABASE dbRedaccion DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci ;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-USE dbRedaccion;
 
-CREATE TABLE accion(
-	idAccion int UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-INSERT INTO accion (descripcion) VALUES
-('Creacion'),
-('Modificación'),
-('Eliminación'),
-('Agregación'),
-('Activacion');
+--
+-- Base de datos: `dbredaccion`
+--
 
-CREATE TABLE bitacoraEdicion(
-	idBitacora INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUsuarioAdmin INT UNSIGNED,
-    idEdicion INT UNSIGNED,
-    fecha DATE,
-    idAccion INT UNSIGNED,
-    cambio VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO bitacoraEdicion (idUsuarioAdmin,idEdicion,fecha,idAccion,cambio) VALUES
-(1,1,'2017-06*10',0,'Creacion de una nueva edicion'),
-(1,1,'2017-06-12',3,'Agregado de nota'),
-(1,1,'2017-06-12',1,'Nota Activada'),
-(2,1,'2017-06-12',4,'Edicion Activada');
+--
+-- Estructura de tabla para la tabla `accion`
+--
 
-CREATE TABLE bitacoraNota(
-	idBitacoraNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUsuarioAdmin INT UNSIGNED,
-    idNota INT UNSIGNED,
-    fecha DATE,
-    idAccion INT UNSIGNED	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+CREATE TABLE `accion` (
+  `idAccion` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO bitacoraNota ( idUsuarioAdmin, idNota, fecha, idAccion) VALUES
-( 1, 1, '2016-05-30', 1),
-( 1, 2, '2016-05-30', 1),
-( 1, 2, '2016-05-29', 1);
+--
+-- Volcado de datos para la tabla `accion`
+--
 
-CREATE TABLE bitacoraPublicacion(
-	idBitacoraPublicacion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUsuarioAdmin INT UNSIGNED,
-    idPublicacion INT UNSIGNED,
-  	FECHA DATE,
-    idAccion INT UNSIGNED,
-    cambio VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+INSERT INTO `accion` (`idAccion`, `descripcion`) VALUES
+(1, 'Creacion'),
+(2, 'Modificación'),
+(3, 'Eliminación'),
+(4, 'Agregación'),
+(5, 'Activacion');
 
-INSERT INTO bitacoraPublicacion ( idUsuarioAdmin, idPublicacion, FECHA, idAccion, cambio) VALUES
-( 2, 1, '2016-05-27', 2, 'Se elimino la publicación por ');
+-- --------------------------------------------------------
 
-CREATE TABLE compras(
-	idCompra INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUsuarioLector INT UNSIGNED,
-    idEdicion INT UNSIGNED,
-    fecha DATE
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+--
+-- Estructura de tabla para la tabla `bitacoraedicion`
+--
 
-INSERT INTO compras ( idUsuarioLector, idEdicion, fecha) VALUES
-( 1, 1, '2016-05-30'),
-( 1, 2, '2016-05-28');
+CREATE TABLE `bitacoraedicion` (
+  `idBitacora` int(10) UNSIGNED NOT NULL,
+  `idUsuarioAdmin` int(10) UNSIGNED DEFAULT NULL,
+  `idEdicion` int(10) UNSIGNED DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `idAccion` int(10) UNSIGNED DEFAULT NULL,
+  `cambio` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE edicion(
-	idEdicion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idPublicacion INT UNSIGNED,
-    tituloEdicion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    imagenTapaEdicion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    fecha DATE,
-    precio DECIMAL(10,2),
-	activo INT UNSIGNED NULL DEFAULT 1
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+--
+-- Volcado de datos para la tabla `bitacoraedicion`
+--
 
-INSERT INTO edicion ( idPublicacion, tituloEdicion, imagenTapaEdicion, fecha, precio) VALUES
-(1, 'Ilustradores reconocidos', '9010_ilustradoresReconocidos.png', '2016-05-29', '40.00'),
-(2, 'The body issue', 'competitor_theBodyIssue.png', '2016-05-29', '27.00'),
-(3, 'Deck', 'deck_deck.png', '2016-05-25', '15.00'),
-(4, 'Bastile, World Exclusive Interview', 'diy_bastile.png', '2016-05-29', '40.00'),
-(5, 'Edición 52', 'dyd_disenioydecoracion.png', '2016-05-29', '35.00'),
-(6, 'Señor futbol', 'elgrafico_seniorFutbol.png', '2016-05-29', '27.00'),
-(7, 'La revolución de mayo', 'genios_laRevolucionDeMayo.png', '2016-05-25', '15.00'),
-(8, 'El look de los Martín Fierro', 'gente_elLookDeLosMartinFierro.png', '2016-05-29', '27.00'),
-(9, 'Ronnie Wood y su mujer Sally', 'holaArgentina_ronnieWood.png', '2016-05-29', '27.00'),
-(10, 'Edición 10', 'invasiva_invasiva.png', '2016-05-29', '27.00'),
-(11, 'Fantasías animadas', 'lacosa_fantasiasAnimadas.png', '2016-05-29', '27.00'),
-(12, 'Ganar espacio', 'living_ganarEspacio.png', '2016-05-29', '27.00'),
-(13, 'La chica del momento', 'paparazzi_losSecretosDeLaChicaDelMomento.png', '2016-05-29', '27.00'),
-(14, 'The next wave of responsive design', 'webdesigner_theNextWaver.png', '2016-05-29', '27.00'),
-(15, 'Health Fundation', 'healthFundation_annualReport15.png', '2016-05-29', '35.00');
+INSERT INTO `bitacoraedicion` (`idBitacora`, `idUsuarioAdmin`, `idEdicion`, `fecha`, `idAccion`, `cambio`) VALUES
+(1, 1, 1, '2017-06-10', 0, 'Creacion de una nueva edicion'),
+(2, 1, 1, '2017-06-12', 3, 'Agregado de nota'),
+(3, 1, 1, '2017-06-12', 1, 'Nota Activada'),
+(4, 2, 1, '2017-06-12', 4, 'Edicion Activada');
 
-CREATE TABLE estado(
-	idEstado INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO estado (idEstado, descripcion) VALUES
+--
+-- Estructura de tabla para la tabla `bitacoranota`
+--
+
+CREATE TABLE `bitacoranota` (
+  `idBitacoraNota` int(10) UNSIGNED NOT NULL,
+  `idUsuarioAdmin` int(10) UNSIGNED DEFAULT NULL,
+  `idNota` int(10) UNSIGNED DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `idAccion` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `bitacoranota`
+--
+
+INSERT INTO `bitacoranota` (`idBitacoraNota`, `idUsuarioAdmin`, `idNota`, `fecha`, `idAccion`) VALUES
+(1, 1, 1, '2016-05-30', 1),
+(2, 1, 2, '2016-05-30', 1),
+(3, 1, 2, '2016-05-29', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bitacorapublicacion`
+--
+
+CREATE TABLE `bitacorapublicacion` (
+  `idBitacoraPublicacion` int(10) UNSIGNED NOT NULL,
+  `idUsuarioAdmin` int(10) UNSIGNED DEFAULT NULL,
+  `idPublicacion` int(10) UNSIGNED DEFAULT NULL,
+  `FECHA` date DEFAULT NULL,
+  `idAccion` int(10) UNSIGNED DEFAULT NULL,
+  `cambio` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `bitacorapublicacion`
+--
+
+INSERT INTO `bitacorapublicacion` (`idBitacoraPublicacion`, `idUsuarioAdmin`, `idPublicacion`, `FECHA`, `idAccion`, `cambio`) VALUES
+(1, 2, 1, '2016-05-27', 2, 'Se elimino la publicación por ');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `compras`
+--
+
+CREATE TABLE `compras` (
+  `idCompra` int(10) UNSIGNED NOT NULL,
+  `idUsuarioLector` int(10) UNSIGNED DEFAULT NULL,
+  `idEdicion` int(10) UNSIGNED DEFAULT NULL,
+  `fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`idCompra`, `idUsuarioLector`, `idEdicion`, `fecha`) VALUES
+(1, 1, 1, '2016-05-30'),
+(2, 1, 2, '2016-05-28'),
+(3, 1, 12, '2016-07-04'),
+(4, 1, 6, '2016-07-11'),
+(5, 1, 4, '2016-07-11');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `edicion`
+--
+
+CREATE TABLE `edicion` (
+  `idEdicion` int(10) UNSIGNED NOT NULL,
+  `idPublicacion` int(10) UNSIGNED DEFAULT NULL,
+  `tituloEdicion` varchar(50) DEFAULT NULL,
+  `imagenTapaEdicion` varchar(50) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `precio` decimal(10,2) DEFAULT NULL,
+  `activo` int(10) UNSIGNED DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `edicion`
+--
+
+INSERT INTO `edicion` (`idEdicion`, `idPublicacion`, `tituloEdicion`, `imagenTapaEdicion`, `fecha`, `precio`, `activo`) VALUES
+(1, 1, 'Ilustradores reconocidos', '9010_ilustradoresReconocidos.png', '2016-05-29', '40.00', 1),
+(2, 2, 'The body issue', 'competitor_theBodyIssue.png', '2016-05-29', '27.00', 1),
+(3, 3, 'Deck', 'deck_deck.png', '2016-05-25', '15.00', 1),
+(4, 4, 'Bastile, World Exclusive Interview', 'diy_bastile.png', '2016-05-29', '40.00', 1),
+(5, 5, 'Edición 52', 'dyd_disenioydecoracion.png', '2016-05-29', '35.00', 1),
+(6, 6, 'Señor futbol', 'elgrafico_seniorFutbol.png', '2016-05-29', '27.00', 1),
+(7, 7, 'La revolución de mayo', 'genios_laRevolucionDeMayo.png', '2016-05-25', '15.00', 1),
+(8, 8, 'El look de los Martín Fierro', 'gente_elLookDeLosMartinFierro.png', '2016-05-29', '27.00', 1),
+(9, 9, 'Ronnie Wood y su mujer Sally', 'holaArgentina_ronnieWood.png', '2016-05-29', '27.00', 1),
+(10, 10, 'Edición 10', 'invasiva_invasiva.png', '2016-05-29', '27.00', 1),
+(11, 11, 'Fantasías animadas', 'lacosa_fantasiasAnimadas.png', '2016-05-29', '27.00', 1),
+(12, 12, 'Ganar espacio', 'living_ganarEspacio.png', '2016-05-29', '27.00', 1),
+(13, 13, 'La chica del momento', 'paparazzi_losSecretosDeLaChicaDelMomento.png', '2016-05-29', '27.00', 1),
+(14, 14, 'The next wave of responsive design', 'webdesigner_theNextWaver.png', '2016-05-29', '27.00', 1),
+(15, 15, 'Health Fundation', 'healthFundation_annualReport15.png', '2016-05-29', '35.00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `idEstado` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`idEstado`, `descripcion`) VALUES
 (1, 'Activo'),
 (2, 'Inactivo');
 
-CREATE TABLE imagenNota(
-	idImagenNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idNota INT UNSIGNED NOT NULL,
-    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-	detalleImagen varchar(255) CHARACTER SET 'utf8' NULL DEFAULT ''
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO imagenNota ( idNota, descripcion, detalleImagen) VALUES
-( 1, 'nota1.jpg', 'detalle de prueba'),
-( 2, 'nota2.jpg', 'detalle de prueba'),
-( 3, 'nota3.jpg', 'detalle de prueba'),
-( 4, 'nota4.jpg', 'detalle de prueba');
+--
+-- Estructura de tabla para la tabla `imagennota`
+--
 
-CREATE TABLE localidad(
-    idLocalidad INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT ,
-    idProvincia INT UNSIGNED,
-    nombre VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+CREATE TABLE `imagennota` (
+  `idImagenNota` int(10) UNSIGNED NOT NULL,
+  `idNota` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(50) DEFAULT NULL,
+  `detalleImagen` varchar(255) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
+--
+-- Volcado de datos para la tabla `imagennota`
+--
+
+INSERT INTO `imagennota` (`idImagenNota`, `idNota`, `descripcion`, `detalleImagen`) VALUES
+(1, 1, 'nota1.jpg', 'detalle de prueba'),
+(2, 2, 'nota2.jpg', 'detalle de prueba'),
+(3, 3, 'nota3.jpg', 'detalle de prueba'),
+(4, 4, 'nota4.jpg', 'detalle de prueba');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `localidad`
+--
+
+CREATE TABLE `localidad` (
+  `idLocalidad` int(10) UNSIGNED NOT NULL,
+  `idProvincia` int(10) UNSIGNED DEFAULT NULL,
+  `nombre` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `localidad`
+--
+
+INSERT INTO `localidad` (`idLocalidad`, `idProvincia`, `nombre`) VALUES
 (1, 1, '25 de Mayo'),
 (2, 1, '3 de febrero'),
 (3, 1, 'A. Alsina'),
@@ -171,7 +280,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (46, 1, 'Don Torcuato'),
 (47, 1, 'Ensenada'),
 (48, 1, 'Escobar'),
-(49, 1, 'Exaltación de la Cruz'),
+(49, 1, 'Exaltación de la Cru'),
 (50, 1, 'Florentino Ameghino'),
 (51, 1, 'Garín'),
 (52, 1, 'Gral. Alvarado'),
@@ -250,7 +359,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (125, 1, 'San Antonio de Padua'),
 (126, 1, 'San Bernardo'),
 (127, 1, 'San Cayetano'),
-(128, 1, 'San Clemente del Tuyú'),
+(128, 1, 'San Clemente del Tuy'),
 (129, 1, 'San Nicolás'),
 (130, 1, 'San Pedro'),
 (131, 1, 'San Vicente'),
@@ -271,11 +380,11 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (146, 2, 'Acassuso'),
 (147, 2, 'Adrogué'),
 (148, 2, 'Aldo Bonzi'),
-(149, 2, 'Área Reserva Cinturón Ecológico'),
+(149, 2, 'Área Reserva Cinturó'),
 (150, 2, 'Avellaneda'),
 (151, 2, 'Banfield'),
 (152, 2, 'Barrio Parque'),
-(153, 2, 'Barrio Santa Teresita'),
+(153, 2, 'Barrio Santa Teresit'),
 (154, 2, 'Beccar'),
 (155, 2, 'Bella Vista'),
 (156, 2, 'Berazategui'),
@@ -311,8 +420,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (186, 2, 'González Catán'),
 (187, 2, 'Gral. Lamadrid'),
 (188, 2, 'Grand Bourg'),
-(189, 2, 'Gregorio de Laferrere'),
-(190, 2, 'Guillermo Enrique Hudson'),
+(189, 2, 'Gregorio de Laferrer'),
+(190, 2, 'Guillermo Enrique Hu'),
 (191, 2, 'Haedo'),
 (192, 2, 'Hurlingham'),
 (193, 2, 'Ing. Sourdeaux'),
@@ -391,7 +500,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (266, 2, 'Villa Fiorito'),
 (267, 2, 'Villa Guillermina'),
 (268, 2, 'Villa Insuperable'),
-(269, 2, 'Villa José León Suárez'),
+(269, 2, 'Villa José León Suár'),
 (270, 2, 'Villa La Florida'),
 (271, 2, 'Villa Luzuriaga'),
 (272, 2, 'Villa Martelli'),
@@ -482,7 +591,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (357, 4, 'Recreo'),
 (358, 4, 'S.F.V de 4'),
 (359, 4, 'San Fernando'),
-(360, 4, 'San Fernando del Valle'),
+(360, 4, 'San Fernando del Val'),
 (361, 4, 'San José'),
 (362, 4, 'Santa María'),
 (363, 4, 'Santa Rosa'),
@@ -545,7 +654,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (420, 5, 'Pampa del Infierno'),
 (421, 5, 'Pdcia. de La Plaza'),
 (422, 5, 'Pdcia. Roca'),
-(423, 5, 'Pdcia. Roque Sáenz Peña'),
+(423, 5, 'Pdcia. Roque Sáenz P'),
 (424, 5, 'Pto. Bermejo'),
 (425, 5, 'Pto. Eva Perón'),
 (426, 5, 'Puero Tirol'),
@@ -619,7 +728,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (494, 7, 'Alpa Corral'),
 (495, 7, 'Alta Gracia'),
 (496, 7, 'Alto Alegre'),
-(497, 7, 'Alto de Los Quebrachos'),
+(497, 7, 'Alto de Los Quebrach'),
 (498, 7, 'Altos de Chipion'),
 (499, 7, 'Amboy'),
 (500, 7, 'Ambul'),
@@ -666,7 +775,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (541, 7, 'Capilla del Carmen'),
 (542, 7, 'Capilla del Monte'),
 (543, 7, 'Capital'),
-(544, 7, 'Capitan Gral B. O´Higgins'),
+(544, 7, 'Capitan Gral B. O´Hi'),
 (545, 7, 'Carnerillo'),
 (546, 7, 'Carrilobo'),
 (547, 7, 'Casa Grande'),
@@ -694,7 +803,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (569, 7, 'Col. Caroya'),
 (570, 7, 'Col. Italiana'),
 (571, 7, 'Col. Iturraspe'),
-(572, 7, 'Col. Las Cuatro Esquinas'),
+(572, 7, 'Col. Las Cuatro Esqu'),
 (573, 7, 'Col. Las Pichanas'),
 (574, 7, 'Col. Marina'),
 (575, 7, 'Col. Prosperidad'),
@@ -739,8 +848,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (614, 7, 'Embalse'),
 (615, 7, 'Esquina'),
 (616, 7, 'Estación Gral. Paz'),
-(617, 7, 'Estación Juárez Celman'),
-(618, 7, 'Estancia de Guadalupe'),
+(617, 7, 'Estación Juárez Celm'),
+(618, 7, 'Estancia de Guadalup'),
 (619, 7, 'Estancia Vieja'),
 (620, 7, 'Etruria'),
 (621, 7, 'Eufrasio Loza'),
@@ -918,7 +1027,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (793, 7, 'Río Segundo'),
 (794, 7, 'Río Tercero'),
 (795, 7, 'Rosales'),
-(796, 7, 'Rosario del Saladillo'),
+(796, 7, 'Rosario del Saladill'),
 (797, 7, 'Sacanta'),
 (798, 7, 'Sagrada Familia'),
 (799, 7, 'Saira'),
@@ -928,7 +1037,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (803, 7, 'Salsipuedes'),
 (804, 7, 'Sampacho'),
 (805, 7, 'San Agustín'),
-(806, 7, 'San Antonio de Arredondo'),
+(806, 7, 'San Antonio de Arred'),
 (807, 7, 'San Antonio de Litín'),
 (808, 7, 'San Basilio'),
 (809, 7, 'San Carlos Minas'),
@@ -939,8 +1048,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (814, 7, 'San Javier'),
 (815, 7, 'San Jerónimo'),
 (816, 7, 'San Joaquín'),
-(817, 7, 'San José de La Dormida'),
-(818, 7, 'San José de Las Salinas'),
+(817, 7, 'San José de La Dormi'),
+(818, 7, 'San José de Las Sali'),
 (819, 7, 'San Lorenzo'),
 (820, 7, 'San Marcos Sierras'),
 (821, 7, 'San Marcos Sud'),
@@ -964,8 +1073,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (839, 7, 'Silvio Pellico'),
 (840, 7, 'Simbolar'),
 (841, 7, 'Sinsacate'),
-(842, 7, 'Sta. Rosa de Calamuchita'),
-(843, 7, 'Sta. Rosa de Río Primero'),
+(842, 7, 'Sta. Rosa de Calamuc'),
+(843, 7, 'Sta. Rosa de Río Pri'),
 (844, 7, 'Suco'),
 (845, 7, 'Tala Cañada'),
 (846, 7, 'Tala Huasi'),
@@ -995,9 +1104,9 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (870, 7, 'Villa Candelaria N.'),
 (871, 7, 'Villa Carlos Paz'),
 (872, 7, 'Villa Cerro Azul'),
-(873, 7, 'Villa Ciudad de América'),
-(874, 7, 'Villa Ciudad Pque Los Reartes'),
-(875, 7, 'Villa Concepción del Tío'),
+(873, 7, 'Villa Ciudad de Amér'),
+(874, 7, 'Villa Ciudad Pque Lo'),
+(875, 7, 'Villa Concepción del'),
 (876, 7, 'Villa Cura Brochero'),
 (877, 7, 'Villa de Las Rosas'),
 (878, 7, 'Villa de María'),
@@ -1021,7 +1130,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (896, 7, 'Villa Los Patos'),
 (897, 7, 'Villa María'),
 (898, 7, 'Villa Nueva'),
-(899, 7, 'Villa Pque. Santa Ana'),
+(899, 7, 'Villa Pque. Santa An'),
 (900, 7, 'Villa Pque. Siquiman'),
 (901, 7, 'Villa Quillinzo'),
 (902, 7, 'Villa Rossi'),
@@ -1029,8 +1138,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (904, 7, 'Villa San Esteban'),
 (905, 7, 'Villa San Isidro'),
 (906, 7, 'Villa 21'),
-(907, 7, 'Villa Sarmiento (G.R)'),
-(908, 7, 'Villa Sarmiento (S.A)'),
+(907, 7, 'Villa Sarmiento (G.R'),
+(908, 7, 'Villa Sarmiento (S.A'),
 (909, 7, 'Villa Tulumba'),
 (910, 7, 'Villa Valeria'),
 (911, 7, 'Villa Yacanto'),
@@ -1114,8 +1223,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (989, 9, 'Aldea Ma. Luisa'),
 (990, 9, 'Aldea Protestante'),
 (991, 9, 'Aldea Salto'),
-(992, 9, 'Aldea San Antonio (G)'),
-(993, 9, 'Aldea San Antonio (P)'),
+(992, 9, 'Aldea San Antonio (G'),
+(993, 9, 'Aldea San Antonio (P'),
 (994, 9, 'Aldea 19'),
 (995, 9, 'Aldea San Miguel'),
 (996, 9, 'Aldea San Rafael'),
@@ -1166,7 +1275,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1041, 9, 'Col. Tunas'),
 (1042, 9, 'Col. Viraró'),
 (1043, 9, 'Colón'),
-(1044, 9, 'Concepción del Uruguay'),
+(1044, 9, 'Concepción del Urugu'),
 (1045, 9, 'Concordia'),
 (1046, 9, 'Conscripto Bernardi'),
 (1047, 9, 'Costa Grande'),
@@ -1189,8 +1298,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1064, 9, 'Distrito Sauce'),
 (1065, 9, 'Distrito Tala'),
 (1066, 9, 'Distrito Talitas'),
-(1067, 9, 'Don Cristóbal 1ª Sección'),
-(1068, 9, 'Don Cristóbal 2ª Sección'),
+(1067, 9, 'Don Cristóbal 1ª Sec'),
+(1068, 9, 'Don Cristóbal 2ª Sec'),
 (1069, 9, 'Durazno'),
 (1070, 9, 'El Cimarrón'),
 (1071, 9, 'El Gramillal'),
@@ -1263,7 +1372,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1138, 9, 'Las Mulitas'),
 (1139, 9, 'Las Toscas'),
 (1140, 9, 'Laurencena'),
-(1141, 9, 'Libertador San Martín'),
+(1141, 9, 'Libertador San Martí'),
 (1142, 9, 'Loma Limpia'),
 (1143, 9, 'Los Ceibos'),
 (1144, 9, 'Los Charruas'),
@@ -1300,14 +1409,14 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1175, 9, 'Perdices'),
 (1176, 9, 'Picada Berón'),
 (1177, 9, 'Piedras Blancas'),
-(1178, 9, 'Primer Distrito Cuchilla'),
+(1178, 9, 'Primer Distrito Cuch'),
 (1179, 9, 'Primero de Mayo'),
 (1180, 9, 'Pronunciamiento'),
 (1181, 9, 'Pto. Algarrobo'),
 (1182, 9, 'Pto. Ibicuy'),
 (1183, 9, 'Pueblo Brugo'),
 (1184, 9, 'Pueblo Cazes'),
-(1185, 9, 'Pueblo Gral. Belgrano'),
+(1185, 9, 'Pueblo Gral. Belgran'),
 (1186, 9, 'Pueblo Liebig'),
 (1187, 9, 'Puerto Yeruá'),
 (1188, 9, 'Punta del Monte'),
@@ -1326,7 +1435,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1201, 9, 'San Gustavo'),
 (1202, 9, 'San Jaime'),
 (1203, 9, 'San José'),
-(1204, 9, 'San José de Feliciano'),
+(1204, 9, 'San José de Felician'),
 (1205, 9, 'San Justo'),
 (1206, 9, 'San Marcial'),
 (1207, 9, 'San Pedro'),
@@ -1359,7 +1468,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1234, 9, 'Villa Domínguez'),
 (1235, 9, 'Villa Elisa'),
 (1236, 9, 'Villa Fontana'),
-(1237, 9, 'Villa Gdor. Etchevehere'),
+(1237, 9, 'Villa Gdor. Etcheveh'),
 (1238, 9, 'Villa Mantero'),
 (1239, 9, 'Villa Paranacito'),
 (1240, 9, 'Villa Urquiza'),
@@ -1376,8 +1485,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1251, 10, 'Estanislao Del Campo'),
 (1252, 10, '10'),
 (1253, 10, 'Fortín Lugones'),
-(1254, 10, 'Gral. Lucio V. Mansilla'),
-(1255, 10, 'Gral. Manuel Belgrano'),
+(1254, 10, 'Gral. Lucio V. Mansi'),
+(1255, 10, 'Gral. Manuel Belgran'),
 (1256, 10, 'Gral. Mosconi'),
 (1257, 10, 'Gran Guardia'),
 (1258, 10, 'Herradura'),
@@ -1430,7 +1539,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1305, 11, 'La Mendieta'),
 (1306, 11, 'La Quiaca'),
 (1307, 11, 'Ledesma'),
-(1308, 11, 'Libertador Gral. San Martin'),
+(1308, 11, 'Libertador Gral. San'),
 (1309, 11, 'Maimara'),
 (1310, 11, 'Mina Pirquitas'),
 (1311, 11, 'Monterrico'),
@@ -1445,7 +1554,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1320, 11, 'Purmamarca'),
 (1321, 11, 'Rinconada'),
 (1322, 11, 'Rodeitos'),
-(1323, 11, 'Rosario de Río Grande'),
+(1323, 11, 'Rosario de Río Grand'),
 (1324, 11, 'San Antonio'),
 (1325, 11, 'San Francisco'),
 (1326, 11, 'San Pedro'),
@@ -1483,7 +1592,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1358, 12, 'Col. Barón'),
 (1359, 12, 'Col. Santa María'),
 (1360, 12, 'Conhelo'),
-(1361, 12, 'Coronel Hilario Lagos'),
+(1361, 12, 'Coronel Hilario Lago'),
 (1362, 12, 'Cuchillo-Có'),
 (1363, 12, 'Doblas'),
 (1364, 12, 'Dorila'),
@@ -1533,7 +1642,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1408, 12, 'Sta. Teresa'),
 (1409, 12, 'Telén'),
 (1410, 12, 'Toay'),
-(1411, 12, 'Tomas M. de Anchorena'),
+(1411, 12, 'Tomas M. de Anchoren'),
 (1412, 12, 'Trenel'),
 (1413, 12, 'Unanue'),
 (1414, 12, 'Uriburu'),
@@ -1557,7 +1666,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1432, 13, 'Gral. San Martín'),
 (1433, 13, 'Independencia'),
 (1434, 13, 'Rosario Penaloza'),
-(1435, 13, 'San Blas de Los Sauces'),
+(1435, 13, 'San Blas de Los Sauc'),
 (1436, 13, 'Sanagasta'),
 (1437, 13, 'Vinchina'),
 (1438, 14, 'Capital'),
@@ -1607,7 +1716,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1482, 15, 'Col. Polana'),
 (1483, 15, 'Col. Victoria'),
 (1484, 15, 'Col. Wanda'),
-(1485, 15, 'Concepción De La Sierra'),
+(1485, 15, 'Concepción De La Sie'),
 (1486, 15, 'Corpus'),
 (1487, 15, 'Dos Arroyos'),
 (1488, 15, 'Dos de Mayo'),
@@ -1701,8 +1810,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1576, 16, 'Quili Malal'),
 (1577, 16, 'Ramón Castro'),
 (1578, 16, 'Rincón de Los Sauces'),
-(1579, 16, 'San Martín de Los Andes'),
-(1580, 16, 'San Patricio del Chañar'),
+(1579, 16, 'San Martín de Los An'),
+(1580, 16, 'San Patricio del Cha'),
 (1581, 16, 'Santo Tomás'),
 (1582, 16, 'Sauzal Bonito'),
 (1583, 16, 'Senillosa'),
@@ -1711,7 +1820,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1586, 16, 'Varvarco'),
 (1587, 16, 'Villa Curí Leuvu'),
 (1588, 16, 'Villa del Nahueve'),
-(1589, 16, 'Villa del Puente Picún Leuvú'),
+(1589, 16, 'Villa del Puente Pic'),
 (1590, 16, 'Villa El Chocón'),
 (1591, 16, 'Villa La Angostura'),
 (1592, 16, 'Villa Pehuenia'),
@@ -1837,9 +1946,9 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1712, 18, 'Pichanal'),
 (1713, 18, 'Prof. S. Mazza'),
 (1714, 18, 'Río Piedras'),
-(1715, 18, 'Rivadavia Banda Norte'),
+(1715, 18, 'Rivadavia Banda Nort'),
 (1716, 18, 'Rivadavia Banda Sur'),
-(1717, 18, 'Rosario de La Frontera'),
+(1717, 18, 'Rosario de La Fronte'),
 (1718, 18, 'Rosario de Lerma'),
 (1719, 18, 'Saclantás'),
 (1720, 18, '18'),
@@ -1928,7 +2037,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1803, 20, 'San Gerónimo'),
 (1804, 20, 'San Martín'),
 (1805, 20, 'San Pablo'),
-(1806, 20, 'Santa Rosa de Conlara'),
+(1806, 20, 'Santa Rosa de Conlar'),
 (1807, 20, 'Talita'),
 (1808, 20, 'Tilisarao'),
 (1809, 20, 'Unión'),
@@ -1942,7 +2051,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1817, 21, 'Calafate'),
 (1818, 21, 'Caleta Olivia'),
 (1819, 21, 'Cañadón Seco'),
-(1820, 21, 'Comandante Piedrabuena'),
+(1820, 21, 'Comandante Piedrabue'),
 (1821, 21, 'El Calafate'),
 (1822, 21, 'El Chaltén'),
 (1823, 21, 'Gdor. Gregores'),
@@ -1960,7 +2069,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1835, 21, 'Río Gallegos'),
 (1836, 21, 'Río Turbio'),
 (1837, 21, 'Tres Lagos'),
-(1838, 21, 'Veintiocho De Noviembre'),
+(1838, 21, 'Veintiocho De Noviem'),
 (1839, 22, 'Aarón Castellanos'),
 (1840, 22, 'Acebal'),
 (1841, 22, 'Aguará Grande'),
@@ -2071,7 +2180,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1946, 22, 'Elortondo'),
 (1947, 22, 'Emilia'),
 (1948, 22, 'Empalme San Carlos'),
-(1949, 22, 'Empalme Villa Constitucion'),
+(1949, 22, 'Empalme Villa Consti'),
 (1950, 22, 'Esmeralda'),
 (1951, 22, 'Esperanza'),
 (1952, 22, 'Estación Alvear'),
@@ -2104,7 +2213,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (1979, 22, 'Gral. Gelly'),
 (1980, 22, 'Gral. Lagos'),
 (1981, 22, 'Granadero Baigorria'),
-(1982, 22, 'Gregoria Perez De Denis'),
+(1982, 22, 'Gregoria Perez De De'),
 (1983, 22, 'Grutly'),
 (1984, 22, 'Guadalupe N.'),
 (1985, 22, 'Gödeken'),
@@ -2195,8 +2304,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2070, 22, 'Oliveros'),
 (2071, 22, 'Palacios'),
 (2072, 22, 'Pavón'),
-(2073, 22, 'Pavón Arriba');
-INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
+(2073, 22, 'Pavón Arriba'),
 (2074, 22, 'Pedro Gómez Cello'),
 (2075, 22, 'Pérez'),
 (2076, 22, 'Peyrano'),
@@ -2211,7 +2319,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2085, 22, 'Pte. Roca'),
 (2086, 22, 'Pueblo Andino'),
 (2087, 22, 'Pueblo Esther'),
-(2088, 22, 'Pueblo Gral. San Martín'),
+(2088, 22, 'Pueblo Gral. San Mar'),
 (2089, 22, 'Pueblo Irigoyen'),
 (2090, 22, 'Pueblo Marini'),
 (2091, 22, 'Pueblo Muñoz'),
@@ -2223,7 +2331,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2097, 22, 'Ramona'),
 (2098, 22, 'Reconquista'),
 (2099, 22, 'Recreo'),
-(2100, 22, 'Ricardone'),
+(2100, 22, 'Ricardone');
+INSERT INTO `localidad` (`idLocalidad`, `idProvincia`, `nombre`) VALUES
 (2101, 22, 'Rivadavia'),
 (2102, 22, 'Roldán'),
 (2103, 22, 'Romang'),
@@ -2235,7 +2344,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2109, 22, 'Saladero M. Cabal'),
 (2110, 22, 'Salto Grande'),
 (2111, 22, 'San Agustín'),
-(2112, 22, 'San Antonio de Obligado'),
+(2112, 22, 'San Antonio de Oblig'),
 (2113, 22, 'San Bernardo (N.J.)'),
 (2114, 22, 'San Bernardo (S.J.)'),
 (2115, 22, 'San Carlos Centro'),
@@ -2251,16 +2360,16 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2125, 22, 'San Gregorio'),
 (2126, 22, 'San Guillermo'),
 (2127, 22, 'San Javier'),
-(2128, 22, 'San Jerónimo del Sauce'),
+(2128, 22, 'San Jerónimo del Sau'),
 (2129, 22, 'San Jerónimo N.'),
 (2130, 22, 'San Jerónimo S.'),
 (2131, 22, 'San Jorge'),
-(2132, 22, 'San José de La Esquina'),
+(2132, 22, 'San José de La Esqui'),
 (2133, 22, 'San José del Rincón'),
 (2134, 22, 'San Justo'),
 (2135, 22, 'San Lorenzo'),
 (2136, 22, 'San Mariano'),
-(2137, 22, 'San Martín de Las Escobas'),
+(2137, 22, 'San Martín de Las Es'),
 (2138, 22, 'San Martín N.'),
 (2139, 22, 'San Vicente'),
 (2140, 22, 'Sancti Spititu'),
@@ -2277,8 +2386,8 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2151, 22, 'Soldini'),
 (2152, 22, 'Soledad'),
 (2153, 22, 'Soutomayor'),
-(2154, 22, 'Sta. Clara de Buena Vista'),
-(2155, 22, 'Sta. Clara de Saguier'),
+(2154, 22, 'Sta. Clara de Buena '),
+(2155, 22, 'Sta. Clara de Saguie'),
 (2156, 22, 'Sta. Isabel'),
 (2157, 22, 'Sta. Margarita'),
 (2158, 22, 'Sta. Maria Centro'),
@@ -2335,7 +2444,7 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2209, 23, 'Clodomira'),
 (2210, 23, 'Col. Alpina'),
 (2211, 23, 'Col. Dora'),
-(2212, 23, 'Col. El Simbolar Robles'),
+(2212, 23, 'Col. El Simbolar Rob'),
 (2213, 23, 'El Bobadal'),
 (2214, 23, 'El Charco'),
 (2215, 23, 'El Mojón'),
@@ -2368,13 +2477,13 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2242, 23, 'Nueva Esperanza'),
 (2243, 23, 'Nueva Francia'),
 (2244, 23, 'Palo Negro'),
-(2245, 23, 'Pampa de Los Guanacos'),
+(2245, 23, 'Pampa de Los Guanaco'),
 (2246, 23, 'Pinto'),
 (2247, 23, 'Pozo Hondo'),
 (2248, 23, 'Quimilí'),
 (2249, 23, 'Real Sayana'),
 (2250, 23, 'Sachayoj'),
-(2251, 23, 'San Pedro de Guasayán'),
+(2251, 23, 'San Pedro de Guasayá'),
 (2252, 23, 'Selva'),
 (2253, 23, 'Sol de Julio'),
 (2254, 23, 'Sumampa'),
@@ -2507,31 +2616,51 @@ INSERT INTO localidad (idLocalidad, idProvincia, nombre) VALUES
 (2381, 25, 'Yerba Buena'),
 (2382, 25, 'Yerba Buena (S)');
 
-CREATE TABLE nota(
-	idNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idSeccionPorEdicion INT UNSIGNED,
-    titulo VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    volanta TEXT,
-    copete TEXT,
-    texto TEXT,
-	autor VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT "anónimo",
-    pieNota VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT "",
-    latitud VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    longitud VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO nota ( idSeccionPorEdicion, titulo, volanta, copete, texto,pieNota, latitud, longitud) VALUES
-( 1, 'Titulo 1', 'volanta 1', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>','Pie de nota de prueba','41-23-12.2', '2-10-26.5'),
-( 2, 'Titulo 2', 'volanta 2', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>','Pie de nota de prueba', '41-23-12.2', '2-10-26.5'),
-( 3, 'Titulo 3', 'volanta 3', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>','Pie de nota de prueba', '41-23-12.2', '2-10-26.5'),
-( 4, 'Titulo 4', 'volanta 4', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>','Pie de nota de prueba', '41-23-12.2', '2-10-26.5');
+--
+-- Estructura de tabla para la tabla `nota`
+--
 
-CREATE TABLE pais(
-	idPais INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+CREATE TABLE `nota` (
+  `idNota` int(10) UNSIGNED NOT NULL,
+  `idSeccionPorEdicion` int(10) UNSIGNED DEFAULT NULL,
+  `titulo` varchar(50) DEFAULT NULL,
+  `volanta` text,
+  `copete` text,
+  `texto` text,
+  `autor` varchar(50) DEFAULT 'anónimo',
+  `pieNota` varchar(50) DEFAULT '',
+  `latitud` varchar(20) DEFAULT NULL,
+  `longitud` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO pais (idPais, nombre) VALUES
+--
+-- Volcado de datos para la tabla `nota`
+--
+
+INSERT INTO `nota` (`idNota`, `idSeccionPorEdicion`, `titulo`, `volanta`, `copete`, `texto`, `autor`, `pieNota`, `latitud`, `longitud`) VALUES
+(1, 1, 'Titulo 1', 'volanta 1', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\r\n\r\n<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\r\n\r\n<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\r\n\r\n<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\r\n\r\n<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p>\r\n\r\n<p>&nbsp;</p>\r\n', 'anónimo', 'Pie de nota de prueba', '-34.6772565', '-58.5605051'),
+(2, 2, 'Titulo 2', 'volanta 2', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>', 'anónimo', 'Pie de nota de prueba', '-34.677020899999995', '-58.537253500000006'),
+(3, 3, 'Titulo 3', 'volanta 3', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>', 'anónimo', 'Pie de nota de prueba', '-34.677020899999995', '-58.537253500000006'),
+(4, 4, 'Titulo 4', 'volanta 4', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dapibus sapien, id cursus lacus. Nunc mollis nunc dolor, a vehicula nibh placerat commodo. Maecenas facilisis, nisl suscipit ornare aliquam, sem nibh mattis diam, et venenatis nunc nulla ut turpis. Etiam id ultricies dui, quis tincidunt leo. Phasellus velit massa, semper vitae tempus in, malesuada eu ante. Duis aliquam lectus id ante finibus, non rhoncus erat laoreet. Nullam scelerisque lorem non consequat cursus. In ut leo sit amet urna venenatis sodales. Proin accumsan tempor semper. Etiam rutrum massa eu elit suscipit, vitae molestie risus porta. Donec venenatis placerat accumsan. Nam tempor lorem sed massa porttitor fringilla. Aenean hendrerit mattis luctus. Nunc justo nisi, sollicitudin eu commodo molestie, bibendum sit amet nunc.</p>\n					<p>Nulla posuere lorem quis mi viverra consequat. Nunc quis varius sapien. Pellentesque imperdiet dignissim nisl, sed dapibus metus. Pellentesque a felis et nunc tincidunt volutpat. Ut vitae fringilla ipsum, vel efficitur velit. Integer et dapibus urna. Etiam purus nulla, fermentum ultricies porttitor in, maximus sed neque. Sed dignissim massa ut justo sodales, eget facilisis nulla lacinia. Ut lorem eros, viverra ac leo sit amet, efficitur convallis velit. Nam a dignissim metus. Proin vel vestibulum dolor. Pellentesque leo ligula, fermentum eu massa sed, mollis accumsan mauris. Donec vulputate magna vitae purus molestie efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis arcu at egestas iaculis. Aliquam varius ex quis nibh auctor maximus.</p>\n					<p>Aenean at laoreet felis, non lobortis lectus. In mollis quis lectus sit amet lobortis. Sed facilisis justo vitae maximus tempus. Donec pharetra magna dolor, ut ornare massa tempor mollis. Aliquam non porttitor massa. Donec elementum tortor tincidunt nisl facilisis sollicitudin. Aenean vehicula consequat dui quis finibus. Nam varius, risus eu posuere lacinia, erat sapien interdum diam, in consequat est nulla ut risus.</p>\n					<p>Nullam odio dui, finibus maximus sollicitudin ut, efficitur et augue. In nibh lectus, placerat eget pharetra in, vulputate et elit. Fusce lacinia augue vitae nunc efficitur vestibulum. Phasellus lobortis odio eros, bibendum interdum felis dapibus rutrum. Etiam semper semper libero. Etiam auctor sed risus ut porta. Integer id orci vitae nunc hendrerit aliquam ac sit amet dui. Sed sodales dictum dictum. Pellentesque accumsan lectus sed leo ultrices lacinia. Suspendisse neque elit, viverra ut tortor posuere, convallis euismod dolor. Sed eget mollis massa, eu tempus nulla. Aliquam pharetra pharetra magna, at ullamcorper leo varius id. Nullam iaculis viverra feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sagittis ac velit in feugiat. Maecenas in porta libero, in varius quam.</p>\n					<p>Ut a imperdiet justo, eu finibus magna. Duis quis nulla semper, dignissim felis dictum, euismod ante. Integer auctor molestie erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum pharetra tellus imperdiet semper. Quisque id ultrices nibh, quis malesuada tortor. Nullam egestas risus non ornare efficitur. Vestibulum at semper orci.</p></p>', 'anónimo', 'Pie de nota de prueba', '-34.677020899999995', '-58.537253500000006');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pais`
+--
+
+CREATE TABLE `pais` (
+  `idPais` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `pais`
+--
+
+INSERT INTO `pais` (`idPais`, `nombre`) VALUES
 (1, 'Australia'),
 (2, 'Austria'),
 (3, 'Azerbaiyán'),
@@ -2550,7 +2679,7 @@ INSERT INTO pais (idPais, nombre) VALUES
 (16, 'Haiti'),
 (17, 'Guadalupe'),
 (18, 'Alemania'),
-(19, 'Países Bajos, Holanda'),
+(19, 'Países Bajos, Holand'),
 (20, 'Grecia'),
 (21, 'Georgia'),
 (22, 'Dinamarca'),
@@ -2589,7 +2718,7 @@ INSERT INTO pais (idPais, nombre) VALUES
 (55, 'Estados Unidos'),
 (56, 'Tadjikistan'),
 (57, 'Turkmenistan'),
-(58, 'Islas Turcas y Caicos'),
+(58, 'Islas Turcas y Caico'),
 (59, 'Turquía'),
 (60, 'Uganda'),
 (61, 'Uzbekistán'),
@@ -2624,7 +2753,7 @@ INSERT INTO pais (idPais, nombre) VALUES
 (90, 'Filipinas'),
 (91, 'Arabia Saudita'),
 (92, 'Tailandia'),
-(93, 'Emiratos árabes Unidos'),
+(93, 'Emiratos árabes Unid'),
 (94, 'Groenlandia'),
 (95, 'Venezuela'),
 (96, 'Zimbabwe'),
@@ -2679,7 +2808,7 @@ INSERT INTO pais (idPais, nombre) VALUES
 (149, 'Bangladesh'),
 (151, 'Benín'),
 (152, 'Bután'),
-(154, 'Islas Virgenes Británicas'),
+(154, 'Islas Virgenes Britá'),
 (155, 'Brunéi'),
 (156, 'Burkina Faso'),
 (157, 'Burundi'),
@@ -2724,10 +2853,10 @@ INSERT INTO pais (idPais, nombre) VALUES
 (216, 'Qatar'),
 (217, 'Ruanda'),
 (218, 'Santa Elena'),
-(219, 'San Cristobal y Nevis'),
+(219, 'San Cristobal y Nevi'),
 (220, 'Santa Lucía'),
 (221, 'San Pedro y Miquelón'),
-(222, 'San Vincente y Granadinas'),
+(222, 'San Vincente y Grana'),
 (223, 'Samoa'),
 (224, 'San Marino'),
 (225, 'San Tomé y Príncipe'),
@@ -2747,122 +2876,187 @@ INSERT INTO pais (idPais, nombre) VALUES
 (243, 'Yemen'),
 (246, 'Puerto Rico');
 
-CREATE TABLE permisoUsuario(
-	idPermisoUsuario INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idTipoUsuarioAdmin INT UNSIGNED,
-    idSeccionSistema INT UNSIGNED	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO permisoUsuario ( idTipoUsuarioAdmin, idSeccionSistema) VALUES
-( 1, 2),
-( 2, 1),
-( 1, 6),
-( 1, 8),
-( 2, 8),
-( 2, 9),
-( 1, 10),
-( 2, 10),
-( 2, 11),
-( 1, 12),
-( 2, 12),
-( 2, 14),
-( 2, 15);
+--
+-- Estructura de tabla para la tabla `permisousuario`
+--
 
-CREATE TABLE provincia(
-	idProvincia INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idPais INT UNSIGNED,
-    nombre VARCHAR(20)CHARACTER SET 'utf8' NULL DEFAULT NULL
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+CREATE TABLE `permisousuario` (
+  `idPermisoUsuario` int(10) UNSIGNED NOT NULL,
+  `idTipoUsuarioAdmin` int(10) UNSIGNED DEFAULT NULL,
+  `idSeccionSistema` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO provincia ( idPais, nombre) VALUES
-(5, 'Buenos Aires'),
-(5, 'Buenos Aires-GBA'),
-(5, 'Capital Federal'),
-(5, 'Catamarca'),
-(5, 'Chaco'),
-(5, 'Chubut'),
-(5, 'Córdoba'),
-(5, 'Corrientes'),
-(5, 'Entre Ríos'),
-(5, 'Formosa'),
-(5, 'Jujuy'),
-(5, 'La Pampa'),
-(5, 'La Rioja'),
-(5, 'Mendoza'),
-(5, 'Misiones'),
-(5, 'Neuquén'),
-(5, 'Río Negro'),
-(5, 'Salta'),
-(5, 'San Juan'),
-(5, 'San Luis'),
-(5, 'Santa Cruz'),
-(5, 'Santa Fe'),
-(5, 'Santiago del Estero'),
-(5, 'Tierra del Fuego'),
-(5, 'Tucumán');
+--
+-- Volcado de datos para la tabla `permisousuario`
+--
 
-CREATE TABLE publicacion(
-	idPublicacion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    descripcion VARCHAR(100)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    idTipoPublicacion INT UNSIGNED,
-    cantidadEmisionPorMes INT,
-	activo INT UNSIGNED NULL DEFAULT 1
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+INSERT INTO `permisousuario` (`idPermisoUsuario`, `idTipoUsuarioAdmin`, `idSeccionSistema`) VALUES
+(1, 1, 2),
+(2, 2, 1),
+(3, 1, 6),
+(4, 1, 8),
+(5, 2, 8),
+(6, 2, 9),
+(7, 1, 10),
+(8, 2, 10),
+(9, 2, 11),
+(10, 1, 12),
+(11, 2, 12),
+(12, 2, 14),
+(13, 2, 15),
+(14, 1, 16),
+(15, 2, 16),
+(16, 1, 17),
+(17, 1, 18),
+(18, 1, 19);
 
-INSERT INTO publicacion ( nombre, descripcion, idTipoPublicacion, cantidadEmisionPorMes) VALUES
-( '90+10', 'En 90+10 contamos historias de personas e ideas creativas, con una mirada interdisciplinaria sobre l', 1, 6),
-( 'Competitor', 'Competidores de distintas disciplinas, interés general.', 1, 4),
-( 'Deck', 'Arquitectura, diseño y decoración.', 1, 2),
-( 'Diy', 'Diseño contemporáneo y arquitectura.', 1, 6),
-( 'D&D', 'Diseño y decoración.', 1, 6),
-( 'El gráfico', 'Todo en deportes.', 2, 30),
-( 'Genios', 'Juegos y entretenimiento infantil, más toda la información colegial.', 1, 4),
-( 'Gente', 'Interés general y farándula argentina.', 1, 1),
-( '¡Hola!', 'Interés general y farándula argentina.', 1, 4),
-( 'Invasiva', 'Diseño contemporáneo y arte.', 1, 1),
-( 'La cosa', 'Cine argentino y mundial, todas las novedades y estrenos.', 1, 2),
-( 'Living', 'Diseño y decó.', 1, 8),
-( 'Paparazzi', 'Farándula argentina y todos los chimentos.', 1, 30),
-( 'Web designer', 'Novedades tecnológicas.', 1, 2),
-( 'Annual Report 15', 'Revista de interes social', 1, 1);
+-- --------------------------------------------------------
 
-CREATE TABLE seccion(
-	idSeccion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+--
+-- Estructura de tabla para la tabla `provincia`
+--
 
-INSERT INTO seccion ( nombre, descripcion) VALUES
-( 'Deportes', 'Todo sobre el mundo del deporte'),
-( 'Actualidad', 'Lo último de este 2016'),
-( 'Música', 'Las bandas de siempre y las de ahora!'),
-( 'Ocio', 'Una sección para los más grandes (y chicos!)'),
-( 'Politica', 'La actualidad de como se maneja tu país');
+CREATE TABLE `provincia` (
+  `idProvincia` int(10) UNSIGNED NOT NULL,
+  `idPais` int(10) UNSIGNED DEFAULT NULL,
+  `nombre` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE seccionPorEdicion(
-	idSeccionPorEdicion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idEdicion INT UNSIGNED,
-    idSeccion INT UNSIGNED	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+--
+-- Volcado de datos para la tabla `provincia`
+--
 
-INSERT INTO seccionPorEdicion ( idEdicion, idSeccion) VALUES
-( 1, 1),
-( 1, 2),
-( 1, 5),
-( 2, 4),
-( 2, 1),
-( 3, 2),
-( 4, 3),
-( 4, 5);
+INSERT INTO `provincia` (`idProvincia`, `idPais`, `nombre`) VALUES
+(1, 5, 'Buenos Aires'),
+(2, 5, 'Buenos Aires-GBA'),
+(3, 5, 'Capital Federal'),
+(4, 5, 'Catamarca'),
+(5, 5, 'Chaco'),
+(6, 5, 'Chubut'),
+(7, 5, 'Córdoba'),
+(8, 5, 'Corrientes'),
+(9, 5, 'Entre Ríos'),
+(10, 5, 'Formosa'),
+(11, 5, 'Jujuy'),
+(12, 5, 'La Pampa'),
+(13, 5, 'La Rioja'),
+(14, 5, 'Mendoza'),
+(15, 5, 'Misiones'),
+(16, 5, 'Neuquén'),
+(17, 5, 'Río Negro'),
+(18, 5, 'Salta'),
+(19, 5, 'San Juan'),
+(20, 5, 'San Luis'),
+(21, 5, 'Santa Cruz'),
+(22, 5, 'Santa Fe'),
+(23, 5, 'Santiago del Estero'),
+(24, 5, 'Tierra del Fuego'),
+(25, 5, 'Tucumán');
 
-CREATE TABLE seccionSistema(
-	idSeccionSistema INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO seccionSistema (idSeccionSistema, nombre, descripcion) VALUES
+--
+-- Estructura de tabla para la tabla `publicacion`
+--
+
+CREATE TABLE `publicacion` (
+  `idPublicacion` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(30) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `idTipoPublicacion` int(10) UNSIGNED DEFAULT NULL,
+  `cantidadEmisionPorMes` int(11) DEFAULT NULL,
+  `activo` int(10) UNSIGNED DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `publicacion`
+--
+
+INSERT INTO `publicacion` (`idPublicacion`, `nombre`, `descripcion`, `idTipoPublicacion`, `cantidadEmisionPorMes`, `activo`) VALUES
+(1, '90+10', 'En 90+10 contamos historias de personas e ideas creativas, con una mirada interdisciplinaria sobre l', 1, 6, 1),
+(2, 'Competitor', 'Competidores de distintas disciplinas, interés general.', 1, 4, 1),
+(3, 'Deck', 'Arquitectura, diseño y decoración.', 1, 2, 1),
+(4, 'Diy', 'Diseño contemporáneo y arquitectura.', 1, 6, 1),
+(5, 'D&D', 'Diseño y decoración.', 1, 6, 1),
+(6, 'El gráfico', 'Todo en deportes.', 2, 30, 1),
+(7, 'Genios', 'Juegos y entretenimiento infantil, más toda la información colegial.', 1, 4, 1),
+(8, 'Gente', 'Interés general y farándula argentina.', 1, 1, 1),
+(9, '¡Hola!', 'Interés general y farándula argentina.', 1, 4, 1),
+(10, 'Invasiva', 'Diseño contemporáneo y arte.', 1, 1, 1),
+(11, 'La cosa', 'Cine argentino y mundial, todas las novedades y estrenos.', 1, 2, 1),
+(12, 'Living', 'Diseño y decó.', 1, 8, 1),
+(13, 'Paparazzi', 'Farándula argentina y todos los chimentos.', 1, 30, 1),
+(14, 'Web designer', 'Novedades tecnológicas.', 1, 2, 1),
+(15, 'Annual Report 15', 'Revista de interes social', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `seccion`
+--
+
+CREATE TABLE `seccion` (
+  `idSeccion` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(30) DEFAULT NULL,
+  `descripcion` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `seccion`
+--
+
+INSERT INTO `seccion` (`idSeccion`, `nombre`, `descripcion`) VALUES
+(1, 'Deportes', 'Todo sobre el mundo del deporte'),
+(2, 'Actualidad', 'Lo último de este 2016'),
+(3, 'Música', 'Las bandas de siempre y las de ahora!'),
+(4, 'Ocio', 'Una sección para los más grandes (y chicos!)'),
+(5, 'Politica', 'La actualidad de como se maneja tu país');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `seccionporedicion`
+--
+
+CREATE TABLE `seccionporedicion` (
+  `idSeccionPorEdicion` int(10) UNSIGNED NOT NULL,
+  `idEdicion` int(10) UNSIGNED DEFAULT NULL,
+  `idSeccion` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `seccionporedicion`
+--
+
+INSERT INTO `seccionporedicion` (`idSeccionPorEdicion`, `idEdicion`, `idSeccion`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 5),
+(4, 2, 4),
+(5, 2, 1),
+(6, 3, 2),
+(7, 4, 3),
+(8, 4, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `seccionsistema`
+--
+
+CREATE TABLE `seccionsistema` (
+  `idSeccionSistema` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `descripcion` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `seccionsistema`
+--
+
+INSERT INTO `seccionsistema` (`idSeccionSistema`, `nombre`, `descripcion`) VALUES
 (1, 'perfil_administrador.php', 'perfil administrador'),
 (2, 'perfil_contenidista.php', 'Perfil del Contenidista'),
 (3, 'perfil_lector.php', 'Perfil del lector'),
@@ -2877,129 +3071,504 @@ INSERT INTO seccionSistema (idSeccionSistema, nombre, descripcion) VALUES
 (12, 'error.php', 'error'),
 (13, 'suscripcion.php', 'suscripcion'),
 (14, 'ver_graficos_compras.php', 'ver graficos compras'),
-(15, 'ver_graficos_suscripciones.php', 'ver graficos suscripciones');
+(15, 'ver_graficos_suscripciones.php', 'ver graficos suscripciones'),
+(16, 'confirmarEdicionContenidista.php', 'Confirmar La Edicion del Contenidista'),
+(17, 'crear_nota.php', 'Crear nota nueva'),
+(18, 'mostrar_nota.php', 'mostrar la nota creada'),
+(19, 'modificar_nota.php', 'editar la nota creada');
 
-CREATE TABLE suscripcion(
-	idSuscripcion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUsuarioLector INT UNSIGNED,
-    idTiempoSuscripcion INT UNSIGNED,
-    idPublicacion INT UNSIGNED,
-    fecha DATE,
-    precio DECIMAL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO suscripcion (idUsuarioLector, idTiempoSuscripcion, idPublicacion, fecha, precio) VALUES
-( 1, 4, 1, '2016-05-30', '210.00'),
-( 2, 2, 2, '2016-05-30', '100.00');
+--
+-- Estructura de tabla para la tabla `suscripcion`
+--
 
-CREATE TABLE tiempoLaboral(
-	idTiempoLaboral INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUsuarioAdmin INT UNSIGNED,
-    fechaIngreso DATE,
-    fechaEgreso DATE	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+CREATE TABLE `suscripcion` (
+  `idSuscripcion` int(10) UNSIGNED NOT NULL,
+  `idUsuarioLector` int(10) UNSIGNED DEFAULT NULL,
+  `idTiempoSuscripcion` int(10) UNSIGNED DEFAULT NULL,
+  `idPublicacion` int(10) UNSIGNED DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `precio` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO tiempoLaboral (idUsuarioAdmin, fechaIngreso, fechaEgreso) VALUES
-( 2, '2016-05-28', '2016-05-30'),
-( 1, '2016-05-26', '2016-05-29'),
-( 2, '2016-05-27', '2016-05-30');
+--
+-- Volcado de datos para la tabla `suscripcion`
+--
 
-CREATE TABLE tiempoSuscripcion(
-	idTiempoSuscripcion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    tiempoEnMeses INT,
-    porcentajeDescuento INT	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+INSERT INTO `suscripcion` (`idSuscripcion`, `idUsuarioLector`, `idTiempoSuscripcion`, `idPublicacion`, `fecha`, `precio`) VALUES
+(1, 1, 4, 1, '2016-04-30', '210'),
+(2, 2, 2, 2, '2016-04-30', '100'),
+(3, 1, 9, 8, '2016-07-04', '165'),
+(4, 1, 11, 7, '2016-07-11', '102'),
+(5, 1, 12, 9, '2016-07-11', '194'),
+(6, 1, 3, 2, '2016-07-11', '73');
 
-INSERT INTO tiempoSuscripcion ( tiempoEnMeses, porcentajeDescuento) VALUES
-( 1, 0),
-( 2, 5),
-( 3, 10),
-( 4, 15),
-( 5, 18),
-( 6, 22),
-( 7, 25),
-( 8, 28),
-( 9, 32),
-( 10, 35),
-( 11, 38),
-( 12, 40);
+-- --------------------------------------------------------
 
-CREATE TABLE tipoPublicacion(
-	idTipoPublicacion INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+--
+-- Estructura de tabla para la tabla `tiempolaboral`
+--
 
-INSERT INTO tipoPublicacion (idTipoPublicacion, descripcion) VALUES
+CREATE TABLE `tiempolaboral` (
+  `idTiempoLaboral` int(10) UNSIGNED NOT NULL,
+  `idUsuarioAdmin` int(10) UNSIGNED DEFAULT NULL,
+  `fechaIngreso` date DEFAULT NULL,
+  `fechaEgreso` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tiempolaboral`
+--
+
+INSERT INTO `tiempolaboral` (`idTiempoLaboral`, `idUsuarioAdmin`, `fechaIngreso`, `fechaEgreso`) VALUES
+(1, 2, '2016-05-28', '2016-05-30'),
+(2, 1, '2016-05-26', '2016-05-29'),
+(3, 2, '2016-05-27', '2016-05-30');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tiemposuscripcion`
+--
+
+CREATE TABLE `tiemposuscripcion` (
+  `idTiempoSuscripcion` int(10) UNSIGNED NOT NULL,
+  `tiempoEnMeses` int(11) DEFAULT NULL,
+  `porcentajeDescuento` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tiemposuscripcion`
+--
+
+INSERT INTO `tiemposuscripcion` (`idTiempoSuscripcion`, `tiempoEnMeses`, `porcentajeDescuento`) VALUES
+(1, 1, 0),
+(2, 2, 5),
+(3, 3, 10),
+(4, 4, 15),
+(5, 5, 18),
+(6, 6, 22),
+(7, 7, 25),
+(8, 8, 28),
+(9, 9, 32),
+(10, 10, 35),
+(11, 11, 38),
+(12, 12, 40);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipopublicacion`
+--
+
+CREATE TABLE `tipopublicacion` (
+  `idTipoPublicacion` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipopublicacion`
+--
+
+INSERT INTO `tipopublicacion` (`idTipoPublicacion`, `descripcion`) VALUES
 (1, 'Revista'),
 (2, 'Diario');
 
-CREATE TABLE tipoUsuarioAdministrativo(
-	idTipoUsuarioAdmin INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    descripcion VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO tipoUsuarioAdministrativo (idTipoUsuarioAdmin, nombre, descripcion) VALUES
+--
+-- Estructura de tabla para la tabla `tipousuarioadministrativo`
+--
+
+CREATE TABLE `tipousuarioadministrativo` (
+  `idTipoUsuarioAdmin` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(30) DEFAULT NULL,
+  `descripcion` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipousuarioadministrativo`
+--
+
+INSERT INTO `tipousuarioadministrativo` (`idTipoUsuarioAdmin`, `nombre`, `descripcion`) VALUES
 (1, 'Contenidista', 'Creador y editor de contenido'),
 (2, 'Administrador', 'Control de la página');
 
-CREATE TABLE usuarioLector(
-	idUsuarioLector INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    apellido VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    documento NVARCHAR(8),
-    fechaNacimiento DATE,
-    calle VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    numero INT,
-    telefono VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    mail VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    idLocalidad INT UNSIGNED,
-    idProvincia INT UNSIGNED,
-    idPais INT UNSIGNED,
-    idEstado INT UNSIGNED,
-    usuario VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    clave VARCHAR(100)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    imagenPerfil varchar(30)CHARACTER SET 'utf8' NULL DEFAULT 'Default.png'	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO usuarioLector (idUsuarioLector, apellido, nombre, documento, fechaNacimiento, calle, numero, telefono, mail, idLocalidad, idProvincia, idPais, idEstado, usuario, clave, imagenPerfil) VALUES
-(1, 'Garcia', 'Carlos', '32545875', '1970-11-07', 'Zañartú', 412, '46531234', 'charly_garcia@hotmail.com', 1, 1, 5, 1, 'carlosalberto22', 'e10adc3949ba59abbe56e057f20f883e', 'carlosalberto22.jpg'),
-(2, 'Calamaro', 'Andrés', '24565123', '1978-05-21', 'Carabobo', 5123, '46946312', 'elsalmon22@hotmail.com', 1, 1, 5, 2, 'ac_rock', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
-(3, 'Páez', 'Rodolfo', '35462455', '1981-08-13', 'Santo Dumont', 332, '44412409', 'rodolfo_paez@hotmail.com', 3, 1, 5, 2, 'rodolfo13', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
-(11, 'saldivar', 'fernanda', '36188861', '1999-12-08', 'virreyes', 56605, '20639234', 'fernandomatiasm@hotmail.com', 3, 1, 5, 1, 'fernanda', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
+--
+-- Estructura de tabla para la tabla `usuarioadministrativo`
+--
+
+CREATE TABLE `usuarioadministrativo` (
+  `idUsuarioAdmin` int(10) UNSIGNED NOT NULL,
+  `idTipoUsuario` int(10) UNSIGNED DEFAULT NULL,
+  `apellido` varchar(30) DEFAULT NULL,
+  `nombre` varchar(30) DEFAULT NULL,
+  `documento` varchar(8) DEFAULT NULL,
+  `fechaNacimiento` date DEFAULT NULL,
+  `calle` varchar(30) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `telefono` varchar(30) DEFAULT NULL,
+  `mail` varchar(30) DEFAULT NULL,
+  `idLocalidad` int(10) UNSIGNED DEFAULT NULL,
+  `idProvincia` int(10) UNSIGNED DEFAULT NULL,
+  `idPais` int(10) UNSIGNED DEFAULT NULL,
+  `idEstado` int(10) UNSIGNED DEFAULT NULL,
+  `usuario` varchar(30) DEFAULT NULL,
+  `clave` varchar(100) DEFAULT NULL,
+  `imagenPerfil` varchar(30) DEFAULT 'Default.png'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuarioadministrativo`
+--
+
+INSERT INTO `usuarioadministrativo` (`idUsuarioAdmin`, `idTipoUsuario`, `apellido`, `nombre`, `documento`, `fechaNacimiento`, `calle`, `numero`, `telefono`, `mail`, `idLocalidad`, `idProvincia`, `idPais`, `idEstado`, `usuario`, `clave`, `imagenPerfil`) VALUES
+(1, 1, 'Rojo', 'Marcos', '12345678', '1975-12-09', 'Entre Rios', 1040, '46531234', 'marquitos_rojo@hotmail.com', 1, 1, 5, 1, 'marcosrojo14', 'e10adc3949ba59abbe56e057f20f883e', 'DefaultAdmin.png'),
+(2, 2, 'Rozental', 'Nacho', '98765432', '1984-06-22', 'Pueyrredon', 331, '46946312', 'nacho_rozental@gmail.com', 1, 1, 5, 1, 'nacho_roz', 'e10adc3949ba59abbe56e057f20f883e', 'DefaultAdmin.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuariolector`
+--
+
+CREATE TABLE `usuariolector` (
+  `idUsuarioLector` int(10) UNSIGNED NOT NULL,
+  `apellido` varchar(30) DEFAULT NULL,
+  `nombre` varchar(30) DEFAULT NULL,
+  `documento` varchar(8) DEFAULT NULL,
+  `fechaNacimiento` date DEFAULT NULL,
+  `calle` varchar(30) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `telefono` varchar(30) DEFAULT NULL,
+  `mail` varchar(30) DEFAULT NULL,
+  `idLocalidad` int(10) UNSIGNED DEFAULT NULL,
+  `idProvincia` int(10) UNSIGNED DEFAULT NULL,
+  `idPais` int(10) UNSIGNED DEFAULT NULL,
+  `idEstado` int(10) UNSIGNED DEFAULT NULL,
+  `usuario` varchar(30) DEFAULT NULL,
+  `clave` varchar(100) DEFAULT NULL,
+  `imagenPerfil` varchar(30) DEFAULT 'Default.png'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuariolector`
+--
+
+INSERT INTO `usuariolector` (`idUsuarioLector`, `apellido`, `nombre`, `documento`, `fechaNacimiento`, `calle`, `numero`, `telefono`, `mail`, `idLocalidad`, `idProvincia`, `idPais`, `idEstado`, `usuario`, `clave`, `imagenPerfil`) VALUES
+(1, 'Garcia', 'Carlos', '32545875', '1970-11-07', 'Zañartú', 412, '46531234', 'charly_garcia@hotmail.com', 241, 2, 5, 1, 'carlosalberto22', 'e10adc3949ba59abbe56e057f20f883e', 'carlosalberto22.jpg'),
+(2, 'Calamaro', 'Andrés', '24565123', '1978-05-21', 'Carabobo', 5123, '46946312', 'elsalmon22@hotmail.com', 1, 1, 5, 1, 'ac_rock', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
+(7, 'muñoz', 'fernando', '30743985', '1983-12-19', 'virreyes', 5660, '2202425765', 'fernandomatiasm@hotmail.com', 1, 5, 1, 2, 'Matufe', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
+(11, 'saldivars', 'fernandas', '36188861', '1999-12-08', 'virreyess', 56605, '20639234', 'fernandomatiasm@hotmail.coms', 3, 1, 5, 1, 'fernanda2', 'e10adc3949ba59abbe56e057f20f883e', 'Default.png'),
 (12, 'Torcazzo', 'Gabriel', '32166594', '1986-04-16', 'peribebuy', 1365, '1558898102', 'yoni_melacomo@hotmail.com', 2, 1, 5, 1, 'Yony', 'e10adc3949ba59abbe56e057f20f883e', 'Yony.jpg');
 
-CREATE TABLE usuarioAdministrativo(
-	idUsuarioAdmin INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idTipoUsuario INT UNSIGNED,
-    apellido VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    nombre VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    documento NVARCHAR(8),
-    fechaNacimiento DATE,
-    calle VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    numero INT,
-    telefono VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    mail VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    idLocalidad INT UNSIGNED,
-    idProvincia INT UNSIGNED,
-    idPais INT UNSIGNED,
-    idEstado INT UNSIGNED,
-    usuario VARCHAR(30)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    clave VARCHAR(100)CHARACTER SET 'utf8' NULL DEFAULT NULL,
-    imagenPerfil varchar(30)CHARACTER SET 'utf8' NULL DEFAULT 'Default.png'	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+-- --------------------------------------------------------
 
-INSERT INTO usuarioAdministrativo (idUsuarioAdmin, idTipoUsuario, apellido, nombre, documento, fechaNacimiento, calle, numero, telefono, mail, idLocalidad, idProvincia, idPais, idEstado, usuario, clave, imagenPerfil) VALUES
-(1,1, 'Rojo', 'Marcos', '12345678', '1975-12-09', 'Entre Rios', 1040, '46531234', 'marquitos_rojo@hotmail.com', 1, 1, 5, 1, 'marcosrojo14', 'e10adc3949ba59abbe56e057f20f883e', 'DefaultAdmin.png'),
-(2,2, 'Rozental', 'Nacho', '98765432', '1984-06-22', 'Pueyrredon', 331, '46946312', 'nacho_rozental@gmail.com', 1, 1, 5, 2, 'nacho_roz', 'e10adc3949ba59abbe56e057f20f883e', 'DefaultAdmin.png');
+--
+-- Estructura de tabla para la tabla `videonota`
+--
 
-CREATE TABLE videoNota(
-	idVideoNota INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idNota INT UNSIGNED NOT NULL,
-    descripcion VARCHAR(50)CHARACTER SET 'utf8' NULL DEFAULT NULL	
-)CHARACTER SET = utf8 , COLLATE = utf8_general_ci;
+CREATE TABLE `videonota` (
+  `idVideoNota` int(10) UNSIGNED NOT NULL,
+  `idNota` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO videoNota (idVideoNota, idNota, descripcion) VALUES
+--
+-- Volcado de datos para la tabla `videonota`
+--
+
+INSERT INTO `videonota` (`idVideoNota`, `idNota`, `descripcion`) VALUES
 (1, 1, 'https://www.youtube.com/embed/85MppyLJHz0?loop=1'),
 (2, 3, 'https://www.youtube.com/embed/85MppyLJHz0?loop=1'),
 (3, 4, 'https://www.youtube.com/embed/85MppyLJHz0?loop=1');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `accion`
+--
+ALTER TABLE `accion`
+  ADD PRIMARY KEY (`idAccion`);
+
+--
+-- Indices de la tabla `bitacoraedicion`
+--
+ALTER TABLE `bitacoraedicion`
+  ADD PRIMARY KEY (`idBitacora`);
+
+--
+-- Indices de la tabla `bitacoranota`
+--
+ALTER TABLE `bitacoranota`
+  ADD PRIMARY KEY (`idBitacoraNota`);
+
+--
+-- Indices de la tabla `bitacorapublicacion`
+--
+ALTER TABLE `bitacorapublicacion`
+  ADD PRIMARY KEY (`idBitacoraPublicacion`);
+
+--
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`idCompra`);
+
+--
+-- Indices de la tabla `edicion`
+--
+ALTER TABLE `edicion`
+  ADD PRIMARY KEY (`idEdicion`);
+
+--
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`idEstado`);
+
+--
+-- Indices de la tabla `imagennota`
+--
+ALTER TABLE `imagennota`
+  ADD PRIMARY KEY (`idImagenNota`);
+
+--
+-- Indices de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  ADD PRIMARY KEY (`idLocalidad`);
+
+--
+-- Indices de la tabla `nota`
+--
+ALTER TABLE `nota`
+  ADD PRIMARY KEY (`idNota`);
+
+--
+-- Indices de la tabla `pais`
+--
+ALTER TABLE `pais`
+  ADD PRIMARY KEY (`idPais`);
+
+--
+-- Indices de la tabla `permisousuario`
+--
+ALTER TABLE `permisousuario`
+  ADD PRIMARY KEY (`idPermisoUsuario`);
+
+--
+-- Indices de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  ADD PRIMARY KEY (`idProvincia`);
+
+--
+-- Indices de la tabla `publicacion`
+--
+ALTER TABLE `publicacion`
+  ADD PRIMARY KEY (`idPublicacion`);
+
+--
+-- Indices de la tabla `seccion`
+--
+ALTER TABLE `seccion`
+  ADD PRIMARY KEY (`idSeccion`);
+
+--
+-- Indices de la tabla `seccionporedicion`
+--
+ALTER TABLE `seccionporedicion`
+  ADD PRIMARY KEY (`idSeccionPorEdicion`);
+
+--
+-- Indices de la tabla `seccionsistema`
+--
+ALTER TABLE `seccionsistema`
+  ADD PRIMARY KEY (`idSeccionSistema`);
+
+--
+-- Indices de la tabla `suscripcion`
+--
+ALTER TABLE `suscripcion`
+  ADD PRIMARY KEY (`idSuscripcion`);
+
+--
+-- Indices de la tabla `tiempolaboral`
+--
+ALTER TABLE `tiempolaboral`
+  ADD PRIMARY KEY (`idTiempoLaboral`);
+
+--
+-- Indices de la tabla `tiemposuscripcion`
+--
+ALTER TABLE `tiemposuscripcion`
+  ADD PRIMARY KEY (`idTiempoSuscripcion`);
+
+--
+-- Indices de la tabla `tipopublicacion`
+--
+ALTER TABLE `tipopublicacion`
+  ADD PRIMARY KEY (`idTipoPublicacion`);
+
+--
+-- Indices de la tabla `tipousuarioadministrativo`
+--
+ALTER TABLE `tipousuarioadministrativo`
+  ADD PRIMARY KEY (`idTipoUsuarioAdmin`);
+
+--
+-- Indices de la tabla `usuarioadministrativo`
+--
+ALTER TABLE `usuarioadministrativo`
+  ADD PRIMARY KEY (`idUsuarioAdmin`);
+
+--
+-- Indices de la tabla `usuariolector`
+--
+ALTER TABLE `usuariolector`
+  ADD PRIMARY KEY (`idUsuarioLector`);
+
+--
+-- Indices de la tabla `videonota`
+--
+ALTER TABLE `videonota`
+  ADD PRIMARY KEY (`idVideoNota`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `accion`
+--
+ALTER TABLE `accion`
+  MODIFY `idAccion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `bitacoraedicion`
+--
+ALTER TABLE `bitacoraedicion`
+  MODIFY `idBitacora` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `bitacoranota`
+--
+ALTER TABLE `bitacoranota`
+  MODIFY `idBitacoraNota` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `bitacorapublicacion`
+--
+ALTER TABLE `bitacorapublicacion`
+  MODIFY `idBitacoraPublicacion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `idCompra` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `edicion`
+--
+ALTER TABLE `edicion`
+  MODIFY `idEdicion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT de la tabla `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `idEstado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `imagennota`
+--
+ALTER TABLE `imagennota`
+  MODIFY `idImagenNota` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  MODIFY `idLocalidad` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2383;
+--
+-- AUTO_INCREMENT de la tabla `nota`
+--
+ALTER TABLE `nota`
+  MODIFY `idNota` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `idPais` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+--
+-- AUTO_INCREMENT de la tabla `permisousuario`
+--
+ALTER TABLE `permisousuario`
+  MODIFY `idPermisoUsuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  MODIFY `idProvincia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT de la tabla `publicacion`
+--
+ALTER TABLE `publicacion`
+  MODIFY `idPublicacion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT de la tabla `seccion`
+--
+ALTER TABLE `seccion`
+  MODIFY `idSeccion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `seccionporedicion`
+--
+ALTER TABLE `seccionporedicion`
+  MODIFY `idSeccionPorEdicion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `seccionsistema`
+--
+ALTER TABLE `seccionsistema`
+  MODIFY `idSeccionSistema` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT de la tabla `suscripcion`
+--
+ALTER TABLE `suscripcion`
+  MODIFY `idSuscripcion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `tiempolaboral`
+--
+ALTER TABLE `tiempolaboral`
+  MODIFY `idTiempoLaboral` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `tiemposuscripcion`
+--
+ALTER TABLE `tiemposuscripcion`
+  MODIFY `idTiempoSuscripcion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `tipopublicacion`
+--
+ALTER TABLE `tipopublicacion`
+  MODIFY `idTipoPublicacion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tipousuarioadministrativo`
+--
+ALTER TABLE `tipousuarioadministrativo`
+  MODIFY `idTipoUsuarioAdmin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `usuarioadministrativo`
+--
+ALTER TABLE `usuarioadministrativo`
+  MODIFY `idUsuarioAdmin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `usuariolector`
+--
+ALTER TABLE `usuariolector`
+  MODIFY `idUsuarioLector` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `videonota`
+--
+ALTER TABLE `videonota`
+  MODIFY `idVideoNota` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
