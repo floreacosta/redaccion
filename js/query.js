@@ -577,6 +577,26 @@ function ABMEliminarUsuario(id_administrativo,baja) {
 		}
 }
 
+function ABMEliminarLector(id_lector,baja) {
+    var strURL="ABM_usuarios.php?id_lector="+id_lector+"&funcion="+baja;
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                // only if "OK"
+
+                if (req.status == 200) {
+                    document.getElementById('lectoresRecargados').innerHTML =req.responseText ;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+        }
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+}
+
 function ABMCambiarEstado(id_administrativo,id_estado) {
     var strURL="ABM_usuarios.php?id_administrativo="+id_administrativo+"&id_estado="+id_estado;
     var req = getXMLHTTP();

@@ -21,6 +21,22 @@ $bd = new BaseDatos();
 			}
 		}
 		
+	if(isset($_GET['id_lector']) && isset($_GET['funcion']))
+		{	
+			if($_GET['funcion'] == 3){
+			$id_lector = $_GET['id_lector'];
+
+			$strSql = 
+					"DELETE FROM usuariolector
+					WHERE idUsuariolector = $id_lector";
+
+			$consulta = mysqli_query($bd->getEnlace(), $strSql);
+			
+			$admin=new Administrador();
+			$admin->listarUsuariosLectores();
+			}
+		}
+		
 ////////////////////////////////////////			
 ////////////////////CAMBIAR ESTADO//////
 	if(isset($_GET['id_administrativo']) && isset($_GET['id_estado']))

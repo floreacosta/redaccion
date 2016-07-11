@@ -5,6 +5,7 @@
     <?php
 		include_once('clases/Publicacion.php');
 		include_once('clases/Administrador.php');
+		include_once('include/head.php');
 		include_once('ver_graficos.php');
 	?>
 	<body>
@@ -90,10 +91,10 @@
 					</table>
 				</div>
 				
-				<div id='ediciones' class='edicionABM'>			
+				<div id='ediciones' class='edicionABM' ><a name="ediciones_disponibles"></a>			
 				</div>
 		</section>
-
+		
 		<section id='usuarios_administrativos' class='modifEmpleadosAdmin tablasABM content'>
 				<h2>Listado de empleados</h2>
 				<div id="publis_abm" class='publicacionABM'>
@@ -107,7 +108,6 @@
 								<th>Rol</th>
 								<th>Nombre de usuario</th>
 								<th>Mail</th>
-								<th>Contraseña</th>
 								<th class='estadoUsuario'>Estado</th>
 								<th class='btnAccion' data-field="price"></th>
 								<th class='btnAccion' data-field="price"></th>
@@ -121,11 +121,35 @@
 						</tbody>
 					</table>
 					<form method='POST' action='perfil_modificacion.php'>
-					<button  type='submit' class='altaUsuarioDesdeAdmin' name='registro_admin'>Alta de nuevo empleado <span>+</span></button>
+					<button  type='submit' class='altaUsuarioDesdeAdmin' name='registro_admin'><span>+</span></button>
 					</form>
 				</div>
 		</section>
 
+		<section id='usuarios_lectores' class='modifLectoresAdmin tablasABM content'>
+				<h2>Listado de lectores</h2>
+				<div id="publis_abm" class='publicacionABM'>
+					<h4>Empleados (Contenidistas y Administradores)</h4>
+					<table>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Nombre de usuario</th>
+								<th>Mail</th>
+								<th class='btnAccion' data-field="price"></th>
+							</tr>
+						</thead>
+						<tbody id="lectoresRecargados">
+						<?php
+							$admin=new Administrador();
+							$admin->listarUsuariosLectores();
+						?>
+						</tbody>
+					</table>
+				</div>
+		</section>
 		<?php include_once('include/footer.php'); ?>
 	</body>
 </html>
